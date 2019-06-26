@@ -97,11 +97,11 @@
 		0D7F8A7F22C2331400F0A280 /* iArrive */ = {
 			isa = PBXGroup;
 			children = (
-				0D7F8A8022C2331400F0A280 /* AppDelegate.swift */,
 				0D7F8A8222C2331400F0A280 /* ViewController.swift */,
 				0D7F8A8422C2331400F0A280 /* Main.storyboard */,
 				0D7F8A8722C2331800F0A280 /* Assets.xcassets */,
 				0D7F8A8922C2331800F0A280 /* LaunchScreen.storyboard */,
+				0D7F8A8022C2331400F0A280 /* AppDelegate.swift */,
 				0D7F8A8C22C2331800F0A280 /* Info.plist */,
 			);
 			path = iArrive;
