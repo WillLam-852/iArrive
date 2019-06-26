@@ -10,21 +10,23 @@ import UIKit
 
 class B_LoginViewController: UIViewController {
 
+    @IBOutlet weak var userNameTextField: FloatLabelTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    
 
-    /*
-    // MARK: - Navigation
+    override func viewDidAppear(_ animated: Bool) {
+        userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+//        userNameTextField.borderStyle = .roundedRect
+        userNameTextField.layer.borderColor = UIColor.white.cgColor
+        userNameTextField.layer.borderWidth = 2.0
+        userNameTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
+        userNameTextField.leftViewMode = .always
+        
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
 
 }

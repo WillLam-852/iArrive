@@ -13,6 +13,9 @@
         <array key="Montserrat-Bold.otf">
             <string>Montserrat-Bold</string>
         </array>
+        <array key="NotoSans-Regular.ttf">
+            <string>NotoSans-Regular</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Loading View Controller-->
@@ -58,25 +61,69 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <segue destination="7cn-WA-HRt" kind="presentation" identifier="toLoginViewControllerSegue" animates="NO" id="PHC-GH-x1F"/>
+                        <segue destination="7cn-WA-HRt" kind="presentation" identifier="toLoginViewControllerSegue" modalTransitionStyle="crossDissolve" id="PHC-GH-x1F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="opM-DD-3qq">
             <objects>
-                <viewController id="7cn-WA-HRt" sceneMemberID="viewController">
+                <viewController id="7cn-WA-HRt" customClass="B_LoginViewController" customModule="iArrive" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hqx-pD-7M0">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="rhh-2v-KUf">
+                                <rect key="frame" x="319" y="130" width="130" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="O0a-BD-9e8"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iArrive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92W-vv-Ge4">
+                                <rect key="frame" x="322" y="279" width="124" height="44"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="User Name" textAlignment="natural" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="ejU-cm-6R0" customClass="FloatLabelTextField" customModule="iArrive" customModuleProvider="target">
+                                <rect key="frame" x="224" y="480" width="320" height="64"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="userNameTextField:" destination="17m-L3-GNa" eventType="editingDidEnd" id="LPA-6l-8xX"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" red="0.21960784310000001" green="0.78823529410000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="rhh-2v-KUf" firstAttribute="centerX" secondItem="Hqx-pD-7M0" secondAttribute="centerX" id="82d-S7-asu"/>
+                            <constraint firstItem="92W-vv-Ge4" firstAttribute="centerX" secondItem="ejU-cm-6R0" secondAttribute="centerX" id="EEs-S7-98n"/>
+                            <constraint firstItem="ejU-cm-6R0" firstAttribute="leading" secondItem="cWM-nG-raW" secondAttribute="leading" constant="224" id="K6N-KB-3du"/>
+                            <constraint firstItem="rhh-2v-KUf" firstAttribute="centerX" secondItem="92W-vv-Ge4" secondAttribute="centerX" id="KbQ-eM-g1r"/>
+                            <constraint firstItem="rhh-2v-KUf" firstAttribute="top" secondItem="cWM-nG-raW" secondAttribute="top" constant="110" id="aI2-ju-Ewz"/>
+                            <constraint firstItem="rhh-2v-KUf" firstAttribute="leading" secondItem="cWM-nG-raW" secondAttribute="leading" constant="319" id="maf-aq-lYW"/>
+                            <constraint firstItem="92W-vv-Ge4" firstAttribute="top" secondItem="rhh-2v-KUf" secondAttribute="bottom" constant="21" id="oqL-W7-hJh"/>
+                            <constraint firstItem="cWM-nG-raW" firstAttribute="bottom" secondItem="ejU-cm-6R0" secondAttribute="bottom" constant="480" id="sAI-Lp-xJb"/>
+                            <constraint firstItem="ejU-cm-6R0" firstAttribute="centerY" secondItem="Hqx-pD-7M0" secondAttribute="centerY" id="ttN-ak-YAr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="cWM-nG-raW"/>
                     </view>
                     <navigationItem key="navigationItem" id="AC7-aX-ICO"/>
+                    <connections>
+                        <outlet property="userNameTextField" destination="ejU-cm-6R0" id="fFq-U0-EJM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dea-6j-3fq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="17m-L3-GNa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="634" y="867"/>
         </scene>

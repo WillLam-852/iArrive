@@ -20,7 +20,7 @@ class A_LoadingViewController: UIViewController {
         // Do any additional setup after loading the view.
         addBackgroundGradientColors()
         
-        let timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timeToMoveOn), userInfo: nil, repeats: false)
+        _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timeToMoveOn), userInfo: nil, repeats: false)
     }
     
     @objc func timeToMoveOn() {
