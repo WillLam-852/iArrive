@@ -9,23 +9,33 @@
 import UIKit
 
 class A_LoadingViewController: UIViewController {
+    
+    // MARK: Properties
+    
+    let colors = backgroundGradientColors()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        refresh()
+        addBackgroundGradientColors()
+        
+        let timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timeToMoveOn), userInfo: nil, repeats: false)
+    }
+    
+    @objc func timeToMoveOn() {
+        self.performSegue(withIdentifier: "toLoginViewControllerSegue", sender: self)
     }
     
     
-    let colors = backgroundGradientColors()
+    // MARK: Functions
     
-    func refresh() {
+    func addBackgroundGradientColors() {
         view.backgroundColor = UIColor.clear
         let backgroundLayer = colors.gl
         backgroundLayer.frame = view.frame
         view.layer.insertSublayer(backgroundLayer, at: 0)
     }
-
 
 }
 
