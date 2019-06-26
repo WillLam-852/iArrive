@@ -57,9 +57,28 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <segue destination="7cn-WA-HRt" kind="presentation" identifier="toLoginViewControllerSegue" animates="NO" id="PHC-GH-x1F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="opM-DD-3qq">
+            <objects>
+                <viewController id="7cn-WA-HRt" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hqx-pD-7M0">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.21960784310000001" green="0.78823529410000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="cWM-nG-raW"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AC7-aX-ICO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dea-6j-3fq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="634" y="867"/>
         </scene>
     </scenes>
     <resources>
