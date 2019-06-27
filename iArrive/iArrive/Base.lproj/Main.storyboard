@@ -502,7 +502,7 @@ Terms of Service and Privacy Policy</string>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment>
-                                        <string key="content">By Logging in, you agree to the iArrive
+                                        <string key="content">By registering, you agree to the iArrive
 Terms of Service and Privacy Policy</string>
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -567,15 +567,153 @@ Terms of Service and Privacy Policy</string>
                         <outlet property="jobTitleTextField" destination="Loh-8s-O4U" id="RJz-Gb-hi0"/>
                         <outlet property="lastNameTextField" destination="b7i-eD-6RR" id="rX9-qQ-dBT"/>
                         <outlet property="nextButton" destination="cfp-12-HRd" id="OBs-wH-dix"/>
+                        <segue destination="RnR-os-9Zo" kind="show" identifier="RegistertoCameraSegue" id="Re3-gM-lJf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqS-lb-Gz8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1082.8125" y="1609.5703125"/>
         </scene>
+        <!--Camera Register View Controller-->
+        <scene sceneID="7Ii-qw-hr2">
+            <objects>
+                <viewController id="RnR-os-9Zo" customClass="C1_CameraRegisterViewController" customModule="iArrive" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sjn-J8-bhs">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUL-mr-9wx">
+                                <rect key="frame" x="69" y="930" width="122" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="YOo-8M-oa5"/>
+                                    <constraint firstAttribute="width" constant="122" id="v5G-kE-azc"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="viz-LH-McA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
+                                <state key="normal" title="Back" image="Back_3">
+                                    <color key="titleColor" red="0.1803921568627451" green="0.2627450980392157" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedBackButton:" destination="90Q-YI-hWI" eventType="touchUpInside" id="fha-z2-Ic6"/>
+                                    <action selector="pressedBackButton:" destination="RnR-os-9Zo" eventType="touchUpInside" id="g5o-TH-5Or"/>
+                                    <action selector="pressedCancelButton:" destination="n89-Kq-gXM" eventType="touchUpInside" id="Set-JA-VRw"/>
+                                    <action selector="pressedLogoutButton:" destination="kc3-S3-wjp" eventType="touchUpInside" id="R8k-2G-djQ"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfI-wt-wDo">
+                                <rect key="frame" x="0.0" y="442" width="768" height="446"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zlf-LK-tQ1">
+                                        <rect key="frame" x="19" y="25" width="723" height="398"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="D1h-iW-e7D">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="moN-fO-avZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please take 20-40 photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLw-0b-oke">
+                                <rect key="frame" x="148" y="37" width="473" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="asi-69-TFD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/ at least 20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDe-XG-akl">
+                                <rect key="frame" x="401.5" y="112" width="133.5" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="e23-aj-a9O"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLJ-qL-eRM">
+                                <rect key="frame" x="317" y="88" width="81" height="66"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="81" id="ULz-bK-SR2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="48"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wgo-Sw-XGR">
+                                <rect key="frame" x="349" y="936" width="70" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="takePhotoButton:" destination="RnR-os-9Zo" eventType="touchUpInside" id="hrn-ei-PyX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDt-zA-pJs">
+                                <rect key="frame" x="577" y="930" width="122" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="122" id="0JB-Ux-FYQ"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Fui-K8-UW4"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="zPK-MC-WxE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
+                                <state key="normal" title="Confirm" image="Confirm">
+                                    <color key="titleColor" red="0.18039215689999999" green="0.26274509800000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="PressedConfirmButton:" destination="RnR-os-9Zo" eventType="touchUpInside" id="TDM-tO-f9t"/>
+                                    <action selector="pressedBackButton:" destination="90Q-YI-hWI" eventType="touchUpInside" id="TYL-CY-eTp"/>
+                                    <action selector="pressedBackButton:" destination="RnR-os-9Zo" eventType="touchUpInside" id="YWY-tF-2oB"/>
+                                    <action selector="pressedCancelButton:" destination="n89-Kq-gXM" eventType="touchUpInside" id="6WV-XR-SrO"/>
+                                    <action selector="pressedLogoutButton:" destination="kc3-S3-wjp" eventType="touchUpInside" id="j49-Lu-ls6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DLw-0b-oke" firstAttribute="leading" secondItem="Ukg-hb-iXU" secondAttribute="leading" constant="148" id="3zJ-6a-wN0"/>
+                            <constraint firstItem="Wgo-Sw-XGR" firstAttribute="leading" secondItem="MUL-mr-9wx" secondAttribute="trailing" constant="158" id="99H-fe-Jur"/>
+                            <constraint firstItem="Ukg-hb-iXU" firstAttribute="bottom" secondItem="hDt-zA-pJs" secondAttribute="bottom" constant="44" id="9kV-z4-EAZ"/>
+                            <constraint firstItem="JLJ-qL-eRM" firstAttribute="top" secondItem="DLw-0b-oke" secondAttribute="bottom" constant="8" id="GY1-kG-Oah"/>
+                            <constraint firstItem="Ukg-hb-iXU" firstAttribute="trailing" secondItem="DLw-0b-oke" secondAttribute="trailing" constant="147" id="KD3-Bl-1T6"/>
+                            <constraint firstItem="jDe-XG-akl" firstAttribute="leading" secondItem="JLJ-qL-eRM" secondAttribute="trailing" constant="3.5" id="LJz-sh-Uo5"/>
+                            <constraint firstItem="Ukg-hb-iXU" firstAttribute="trailing" secondItem="jDe-XG-akl" secondAttribute="trailing" constant="233" id="cEs-5M-0kW"/>
+                            <constraint firstItem="MUL-mr-9wx" firstAttribute="leading" secondItem="Ukg-hb-iXU" secondAttribute="leading" constant="69" id="ced-jo-VFe"/>
+                            <constraint firstItem="Ukg-hb-iXU" firstAttribute="bottom" secondItem="Wgo-Sw-XGR" secondAttribute="bottom" constant="49" id="fcj-k0-t2b"/>
+                            <constraint firstItem="DLw-0b-oke" firstAttribute="top" secondItem="Ukg-hb-iXU" secondAttribute="top" constant="17" id="huw-2g-2CG"/>
+                            <constraint firstItem="Ukg-hb-iXU" firstAttribute="trailing" secondItem="Wgo-Sw-XGR" secondAttribute="trailing" constant="349" id="nxR-nw-giW"/>
+                            <constraint firstItem="Ukg-hb-iXU" firstAttribute="trailing" secondItem="hDt-zA-pJs" secondAttribute="trailing" constant="69" id="tjU-Ks-3eG"/>
+                            <constraint firstItem="jDe-XG-akl" firstAttribute="top" secondItem="DLw-0b-oke" secondAttribute="bottom" constant="32" id="ulB-F2-MCC"/>
+                            <constraint firstItem="Wgo-Sw-XGR" firstAttribute="top" secondItem="yfI-wt-wDo" secondAttribute="bottom" constant="37" id="yr7-eX-Hqv"/>
+                            <constraint firstItem="Ukg-hb-iXU" firstAttribute="bottom" secondItem="MUL-mr-9wx" secondAttribute="bottom" constant="44" id="zQV-aJ-UGV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ukg-hb-iXU"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="hDt-zA-pJs" id="Fza-ka-gOJ"/>
+                        <outlet property="noOfPhotosLabel" destination="JLJ-qL-eRM" id="y6o-n8-zFN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zgq-d6-cnx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="90Q-YI-hWI" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1933.59375" y="1609.5703125"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Back_2" width="16" height="16"/>
+        <image name="Back_3" width="16" height="16"/>
+        <image name="Confirm" width="16" height="16"/>
         <image name="Large_Logo" width="136" height="29"/>
         <image name="Logo" width="65" height="69"/>
         <image name="Logout" width="16" height="16"/>
