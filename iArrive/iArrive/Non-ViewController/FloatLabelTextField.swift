@@ -82,18 +82,18 @@ class FloatLabelTextField: UITextField, UITextFieldDelegate {
 		super.layoutSubviews()
 		setTitlePositionForTextAlignment()
 		let isResp = isFirstResponder
-		if let txt = text , !txt.isEmpty && isResp {
+		if let txt = text , !txt.isEmpty || isResp {
 			title.textColor = titleActiveTextColour
 		} else {
 			title.textColor = titleTextColour
 		}
 		// Should we show or hide the title label?
-		if let txt = text , txt.isEmpty {
-			// Hide
-			hideTitle(isResp)
-		} else {
-			// Show
-			showTitle(isResp)
+		if let txt = text , !txt.isEmpty || isResp {
+            // Show
+            showTitle(isResp)
+        } else {
+            // Hide
+            hideTitle(isResp)
 		}
 	}
 	
