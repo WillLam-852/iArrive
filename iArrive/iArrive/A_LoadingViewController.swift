@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  A_LoadingViewController.swift
 //  iArrive
 //
 //  Created by Lam Wun Yin on 25/6/2019.
@@ -9,10 +9,6 @@
 import UIKit
 
 class A_LoadingViewController: UIViewController {
-    
-    // MARK: Properties
-    
-    let colors = backgroundGradientColors()
 
     
     override func viewDidLoad() {
@@ -28,14 +24,15 @@ class A_LoadingViewController: UIViewController {
     }
     
     
-    // MARK: Functions
+    // MARK: Private Methods
     
-    func addBackgroundGradientColors() {
+    private func addBackgroundGradientColors() {
         view.backgroundColor = UIColor.clear
-        let backgroundLayer = colors.gl
+        let backgroundLayer = backgroundGradientColors().gl
         backgroundLayer.frame = view.frame
         view.layer.insertSublayer(backgroundLayer, at: 0)
     }
+
 
 }
 
