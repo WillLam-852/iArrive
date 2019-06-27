@@ -25,20 +25,15 @@ class B_LoginViewController: UIViewController {
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         updatedLoginButtonState()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        userNameTextField.layer.borderColor = UIColor.white.cgColor
-        userNameTextField.layer.borderWidth = 2.0
-        userNameTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
-        userNameTextField.leftViewMode = .always
         
+        userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        passwordTextField.layer.borderColor = UIColor.white.cgColor
-        passwordTextField.layer.borderWidth = 2.0
-        passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
-        passwordTextField.leftViewMode = .always
+        for i in [userNameTextField, passwordTextField] {
+            i?.layer.borderColor = UIColor.white.cgColor
+            i?.layer.borderWidth = 2.0
+            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
+            i?.leftViewMode = .always
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
