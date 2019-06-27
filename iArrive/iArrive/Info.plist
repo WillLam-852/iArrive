@@ -45,6 +45,8 @@
 	<array>
 		<string>Montserrat-Bold.otf</string>
 		<string>NotoSans-Regular.ttf</string>
+		<string>NotoSans-Bold.ttf</string>
+		<string>NotoSans-Medium.ttf</string>
 	</array>
 </dict>
 </plist>

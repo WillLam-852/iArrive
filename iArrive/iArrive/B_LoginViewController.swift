@@ -8,25 +8,96 @@
 
 import UIKit
 
-class B_LoginViewController: UIViewController {
+class B_LoginViewController: UIViewController, UITextFieldDelegate {
+    
+    
+    // MARK: Properties
 
     @IBOutlet weak var userNameTextField: FloatLabelTextField!
+    @IBOutlet weak var passwordTextField: FloatLabelTextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var bottomBar: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        updatedLoginButtonState()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-//        userNameTextField.borderStyle = .roundedRect
         userNameTextField.layer.borderColor = UIColor.white.cgColor
         userNameTextField.layer.borderWidth = 2.0
         userNameTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
         userNameTextField.leftViewMode = .always
         
-
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        passwordTextField.layer.borderColor = UIColor.white.cgColor
+        passwordTextField.layer.borderWidth = 2.0
+        passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
+        passwordTextField.leftViewMode = .always
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
+    // MARK: UITextFieldDelegate
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        updatedLoginButtonState()
+    }
+    
+    
+    // MARK: Private Methods
+    
+    private func updatedLoginButtonState() {
+        let userNameText = userNameTextField.text ?? ""
+        let passwordText = passwordTextField.text ?? ""
+        loginButton.isEnabled = !userNameText.isEmpty && !passwordText.isEmpty
+        
+        if loginButton.isEnabled {
+            loginButton.backgroundColor = UIColor.white.withAlphaComponent(1)
+            loginButton.setTitleColor(hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        } else {
+            loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            loginButton.setTitleColor(hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
+        }
+    }
+    
+    
+    // MARK: Navigation
+    
+    @IBAction func pressedLoginButton(_ sender: Any) {
+        print("Login Pressed")
+    }
+    
+    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
     }
 
 }
+
