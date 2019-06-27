@@ -55,6 +55,7 @@
 		0DBBA91F22C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
 		0DBBA92022C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
 		0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */; };
+		0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */; };
 		0DFC90F722C34EF700B7A7B0 /* staffMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFC90F622C34EF700B7A7B0 /* staffMember.swift */; };
 		0DFC90F922C350C900B7A7B0 /* globalVariablesFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */; };
 /* End PBXBuildFile section */
@@ -129,6 +130,7 @@
 		0DBBA8F222C36B5D00607511 /* NotoSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-MediumItalic.ttf"; sourceTree = "<group>"; };
 		0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
 		0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B_LoginViewController.swift; sourceTree = "<group>"; };
+		0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C_RegisterViewController.swift; sourceTree = "<group>"; };
 		0DFC90F622C34EF700B7A7B0 /* staffMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = staffMember.swift; sourceTree = "<group>"; };
 		0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globalVariablesFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +187,7 @@
 				0D7F8A8222C2331400F0A280 /* A_LoadingViewController.swift */,
 				0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */,
 				0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */,
+				0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */,
 				0D7F8A8422C2331400F0A280 /* Main.storyboard */,
 				0D7F8A8722C2331800F0A280 /* Assets.xcassets */,
 				0D7F8A8922C2331800F0A280 /* LaunchScreen.storyboard */,
@@ -440,6 +443,7 @@
 				0DFC90F722C34EF700B7A7B0 /* staffMember.swift in Sources */,
 				0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */,
 				0D5B56EB22C49D7300376BFD /* B_SignInViewController.swift in Sources */,
+				0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
