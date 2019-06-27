@@ -84,7 +84,7 @@ class C_RegisterViewController: UIViewController {
     }
     
     @IBAction func pressedNextButton(_ sender: UIButton) {
-        print("Pressed Next Button")
+        performSegue(withIdentifier: "RegistertoCameraSegue", sender: self)
     }
     
   
