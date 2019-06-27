@@ -8,11 +8,10 @@
 
 import UIKit
 
-class B_LoginViewController: UIViewController, UITextFieldDelegate {
-    
+class B_LoginViewController: UIViewController {
     
     // MARK: Properties
-
+    
     @IBOutlet weak var userNameTextField: FloatLabelTextField!
     @IBOutlet weak var passwordTextField: FloatLabelTextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -21,12 +20,13 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         updatedLoginButtonState()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         userNameTextField.layer.borderColor = UIColor.white.cgColor
@@ -46,7 +46,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // MARK: UITextFieldDelegate
+    // MARK: Text Field Functions
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         updatedLoginButtonState()
@@ -62,42 +62,35 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
         
         if loginButton.isEnabled {
             loginButton.backgroundColor = UIColor.white.withAlphaComponent(1)
-            loginButton.setTitleColor(hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+            loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
         } else {
             loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-            loginButton.setTitleColor(hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
+            loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
         }
+    }
+    
+    private func addBackgroundGradientColors() {
+        view.backgroundColor = UIColor.clear
+        let backgroundLayer = backgroundGradientColors().gl
+        backgroundLayer.frame = view.frame
+        view.layer.insertSublayer(backgroundLayer, at: 0)
     }
     
     
     // MARK: Navigation
     
     @IBAction func pressedLoginButton(_ sender: Any) {
-        print("Login Pressed")
+        if (userNameTextField.text == "user" && passwordTextField.text == "pw") {
+            userNameTextField.text = ""
+            passwordTextField.text = ""
+            performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
+        } else {
+            let alert = UIAlertController(title: "Wrong username / password", message: "Please input valid username and password", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
-    
-    func hexStringToUIColor (hex:String) -> UIColor {
-        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        
-        if (cString.hasPrefix("#")) {
-            cString.remove(at: cString.startIndex)
-        }
-        
-        if ((cString.count) != 6) {
-            return UIColor.gray
-        }
-        
-        var rgbValue:UInt32 = 0
-        Scanner(string: cString).scanHexInt32(&rgbValue)
-        
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
-    }
-
+  
 }
 
