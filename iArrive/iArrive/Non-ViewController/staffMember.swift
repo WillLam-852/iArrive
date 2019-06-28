@@ -19,10 +19,7 @@ class staffMember {
     
     // MARK: Initialization
     
-    init?(firstName: String, lastName: String, jobTitle: String) {
-        guard (!firstName.isEmpty && !lastName.isEmpty && !jobTitle.isEmpty) else {
-            return nil
-        }
+    init(firstName: String, lastName: String, jobTitle: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.jobTitle = jobTitle

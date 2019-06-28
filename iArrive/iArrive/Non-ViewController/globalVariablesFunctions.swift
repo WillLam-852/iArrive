@@ -11,8 +11,12 @@ import UIKit
 
 // MARK: Global Variables
 
-var organization = "AppTech"    // Owned company
+var organization = "AppTech"    // Campany Name
 var isLogin = false     // True for logged in, False otherwise
+var currentRegisteringFirstName = ""
+var currentRegisteringLastName = ""
+var currentRegisteringJobTitle = ""
+var staffNameList = [staffMember] ()
 
 
 // MARK: Global Classes

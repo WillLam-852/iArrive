@@ -23,6 +23,10 @@ class C_RegisterViewController: UIViewController {
 
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        
+        firstNameTextField.text = currentRegisteringFirstName
+        lastNameTextField.text = currentRegisteringLastName
+        jobTitleTextField.text = currentRegisteringJobTitle
         firstNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         lastNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         jobTitleTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -47,6 +51,9 @@ class C_RegisterViewController: UIViewController {
     // MARK: Text Field Functions
     
     @objc func textFieldDidChange(_ textField: UITextField) {
+        currentRegisteringFirstName = firstNameTextField.text ?? ""
+        currentRegisteringLastName = lastNameTextField.text ?? ""
+        currentRegisteringJobTitle = jobTitleTextField.text ?? ""
         updatedNextButtonState()
     }
     
@@ -80,6 +87,9 @@ class C_RegisterViewController: UIViewController {
     // MARK: Navigation
     
     @IBAction func pressedCancelButton(_ sender: Any) {
+        currentRegisteringFirstName = ""
+        currentRegisteringLastName = ""
+        currentRegisteringJobTitle = ""
         dismiss(animated: true, completion: nil)
     }
     

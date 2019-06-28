@@ -27,13 +27,7 @@ class B_SignInViewController: UIViewController {
         registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
     }
     
-    
-    // MARK: Actions
-    @IBAction func pressedLogoutButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
+
     // MARK: Private Methods
     
     private func addBackgroundGradientColors() {
@@ -43,4 +37,17 @@ class B_SignInViewController: UIViewController {
         view.layer.insertSublayer(backgroundLayer, at: 0)
     }
 
+    
+    // MARK: Navigations
+    
+    @IBAction func pressedCheckInOutButton(_ sender: UIButton) {
+        print(staffNameList.count)
+    }
+    
+    @IBAction func pressedLogoutButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
 }
