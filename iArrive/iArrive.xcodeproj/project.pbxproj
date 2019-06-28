@@ -60,7 +60,6 @@
 		0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */; };
 		0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */; };
 		0DCF0F9222C4B7E4003CE196 /* C1_CameraRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */; };
-		0DCF0F9422C4CC23003CE196 /* photoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F9322C4CC23003CE196 /* photoCollectionView.swift */; };
 		0DCF0F9622C4D3C5003CE196 /* photoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */; };
 		0DFC90F722C34EF700B7A7B0 /* staffMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFC90F622C34EF700B7A7B0 /* staffMember.swift */; };
 		0DFC90F922C350C900B7A7B0 /* globalVariablesFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */; };
@@ -141,7 +140,6 @@
 		0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B_LoginViewController.swift; sourceTree = "<group>"; };
 		0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C_RegisterViewController.swift; sourceTree = "<group>"; };
 		0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C1_CameraRegisterViewController.swift; sourceTree = "<group>"; };
-		0DCF0F9322C4CC23003CE196 /* photoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoCollectionView.swift; sourceTree = "<group>"; };
 		0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoCollectionViewCell.swift; sourceTree = "<group>"; };
 		0DFC90F622C34EF700B7A7B0 /* staffMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = staffMember.swift; sourceTree = "<group>"; };
 		0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globalVariablesFunctions.swift; sourceTree = "<group>"; };
@@ -289,7 +287,6 @@
 				0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */,
 				0DFC90F622C34EF700B7A7B0 /* staffMember.swift */,
 				0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */,
-				0DCF0F9322C4CC23003CE196 /* photoCollectionView.swift */,
 				0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */,
 			);
 			path = "Non-ViewController";
@@ -473,7 +470,6 @@
 				0DFC90F722C34EF700B7A7B0 /* staffMember.swift in Sources */,
 				0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */,
 				0D5B56EB22C49D7300376BFD /* B_SignInViewController.swift in Sources */,
-				0DCF0F9422C4CC23003CE196 /* photoCollectionView.swift in Sources */,
 				0DCF0F9222C4B7E4003CE196 /* C1_CameraRegisterViewController.swift in Sources */,
 				0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */,
 			);
