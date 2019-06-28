@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D5B56EB22C49D7300376BFD /* B_SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */; };
+		0D67BCF022C60BBA0035D181 /* B3_SelectCorrectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */; };
 		0D7F8A8122C2331400F0A280 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8022C2331400F0A280 /* AppDelegate.swift */; };
 		0D7F8A8322C2331400F0A280 /* A_LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8222C2331400F0A280 /* A_LoadingViewController.swift */; };
 		0D7F8A8622C2331400F0A280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8422C2331400F0A280 /* Main.storyboard */; };
@@ -84,6 +85,7 @@
 
 /* Begin PBXFileReference section */
 		0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B_SignInViewController.swift; sourceTree = "<group>"; };
+		0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B3_SelectCorrectViewController.swift; sourceTree = "<group>"; };
 		0D7F8A7D22C2331400F0A280 /* iArrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iArrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D7F8A8022C2331400F0A280 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D7F8A8222C2331400F0A280 /* A_LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_LoadingViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				0D7F8A8222C2331400F0A280 /* A_LoadingViewController.swift */,
 				0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */,
 				0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */,
+				0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */,
 				0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */,
 				0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */,
 				0D7F8A8422C2331400F0A280 /* Main.storyboard */,
@@ -464,6 +467,7 @@
 			files = (
 				0DCF0F9622C4D3C5003CE196 /* photoCollectionViewCell.swift in Sources */,
 				0DFC90F922C350C900B7A7B0 /* globalVariablesFunctions.swift in Sources */,
+				0D67BCF022C60BBA0035D181 /* B3_SelectCorrectViewController.swift in Sources */,
 				0D7F8A8322C2331400F0A280 /* A_LoadingViewController.swift in Sources */,
 				0DBBA91E22C378BC00607511 /* FloatLabelTextField.swift in Sources */,
 				0D7F8A8122C2331400F0A280 /* AppDelegate.swift in Sources */,
