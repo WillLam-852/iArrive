@@ -54,9 +54,8 @@ class C1_CameraRegisterViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func PressedConfirmButton(_ sender: UIButton) {
-        print("Print Confirm")
+    @IBAction func pressedConfirmButton(_ sender: UIButton) {
+        print("Pressed Confirm")
     }
-    
     
 }

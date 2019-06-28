@@ -15,12 +15,6 @@ class A_LoadingViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         addBackgroundGradientColors()
-        
-        _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timeToMoveOn), userInfo: nil, repeats: false)
-    }
-    
-    @objc func timeToMoveOn() {
-        self.performSegue(withIdentifier: "toLoginViewControllerSegue", sender: self)
     }
     
     
