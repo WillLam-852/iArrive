@@ -20,6 +20,10 @@ class B_LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isLoadSampleStaff {
+            publicFunctions().loadSampleStaff()
+        }
+        
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)

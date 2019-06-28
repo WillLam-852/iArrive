@@ -41,7 +41,7 @@ class B_SignInViewController: UIViewController {
     // MARK: Navigations
     
     @IBAction func pressedCheckInOutButton(_ sender: UIButton) {
-        print(staffNameList.count)
+//        print(staffNameList.count)
     }
     
     @IBAction func pressedLogoutButton(_ sender: Any) {

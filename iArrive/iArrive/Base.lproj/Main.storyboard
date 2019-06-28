@@ -396,17 +396,59 @@ Terms of Service and Privacy Policy</string>
                                     <action selector="pressedLoginButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="JSD-pG-fP5"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="suq-jb-Db6">
+                                <rect key="frame" x="83" y="196.5" width="602" height="620.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="selectStaffTableCell" rowHeight="98" id="vG9-sr-ho1" customClass="selectStaffTableViewCell" customModule="iArrive" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="602" height="98"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vG9-sr-ho1" id="Ph7-kX-GWM">
+                                            <rect key="frame" x="0.0" y="0.0" width="602" height="97.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r93-C8-U6L">
+                                                    <rect key="frame" x="39" y="16" width="133" height="33"/>
+                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jobTitleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1NH-qs-mbu">
+                                                    <rect key="frame" x="39" y="52" width="133" height="32"/>
+                                                    <fontDescription key="fontDescription" name="NotoSans-Light" family="Noto Sans" pointSize="23"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="r93-C8-U6L" firstAttribute="top" secondItem="Ph7-kX-GWM" secondAttribute="topMargin" constant="5" id="1Q3-0c-7ks"/>
+                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="leading" secondItem="Ph7-kX-GWM" secondAttribute="leadingMargin" constant="24" id="Kfz-do-rbo"/>
+                                                <constraint firstItem="r93-C8-U6L" firstAttribute="leading" secondItem="Ph7-kX-GWM" secondAttribute="leadingMargin" constant="24" id="vDl-p7-nh5"/>
+                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="top" secondItem="r93-C8-U6L" secondAttribute="bottom" constant="3" id="vkq-vl-aPF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="jobTitleLabel" destination="1NH-qs-mbu" id="SmS-Lm-vPF"/>
+                                            <outlet property="nameLabel" destination="r93-C8-U6L" id="NYA-Ft-ol8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="suq-jb-Db6" firstAttribute="leading" secondItem="b4A-vF-8D7" secondAttribute="leading" constant="83" id="D4R-HT-vRF"/>
                             <constraint firstItem="F6E-Sx-HVt" firstAttribute="top" secondItem="Edr-IX-oUZ" secondAttribute="bottom" id="J1D-Zw-guP"/>
                             <constraint firstItem="b4A-vF-8D7" firstAttribute="trailing" secondItem="qa6-Pa-Tx7" secondAttribute="trailing" constant="224" id="T0A-32-U6R"/>
+                            <constraint firstItem="qa6-Pa-Tx7" firstAttribute="top" secondItem="suq-jb-Db6" secondAttribute="bottom" constant="96" id="USU-cX-Gvh"/>
+                            <constraint firstItem="suq-jb-Db6" firstAttribute="top" secondItem="F6E-Sx-HVt" secondAttribute="bottom" constant="80" id="VqE-Nx-dgB"/>
                             <constraint firstItem="F6E-Sx-HVt" firstAttribute="leading" secondItem="b4A-vF-8D7" secondAttribute="leading" constant="267" id="W5w-vj-cP7"/>
                             <constraint firstItem="b4A-vF-8D7" firstAttribute="bottom" secondItem="el2-Od-Rjs" secondAttribute="bottom" constant="68" id="YvN-WC-H26"/>
                             <constraint firstItem="el2-Od-Rjs" firstAttribute="leading" secondItem="b4A-vF-8D7" secondAttribute="leading" constant="76" id="hMS-mB-cSk"/>
                             <constraint firstItem="b4A-vF-8D7" firstAttribute="bottom" secondItem="qa6-Pa-Tx7" secondAttribute="bottom" constant="55" id="hfH-jP-WxH"/>
                             <constraint firstItem="Edr-IX-oUZ" firstAttribute="leading" secondItem="b4A-vF-8D7" secondAttribute="leading" constant="317" id="kgP-KC-O56"/>
                             <constraint firstItem="b4A-vF-8D7" firstAttribute="trailing" secondItem="F6E-Sx-HVt" secondAttribute="trailing" constant="267" id="lV1-EQ-1rK"/>
+                            <constraint firstItem="b4A-vF-8D7" firstAttribute="trailing" secondItem="suq-jb-Db6" secondAttribute="trailing" constant="83" id="rMK-XQ-pKO"/>
                             <constraint firstItem="b4A-vF-8D7" firstAttribute="trailing" secondItem="Edr-IX-oUZ" secondAttribute="trailing" constant="317" id="ukU-ZA-kun"/>
                             <constraint firstItem="b4A-vF-8D7" firstAttribute="bottom" secondItem="Edr-IX-oUZ" secondAttribute="bottom" constant="935" id="v3p-eB-5tv"/>
                         </constraints>
@@ -414,11 +456,12 @@ Terms of Service and Privacy Policy</string>
                     </view>
                     <connections>
                         <outlet property="confirmButton" destination="qa6-Pa-Tx7" id="N3Y-KP-1NI"/>
+                        <outlet property="selectStaffTableView" destination="suq-jb-Db6" id="W1e-56-NZp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moT-Ss-RDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1914" y="806"/>
+            <point key="canvasLocation" x="1913.28125" y="805.6640625"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="LKO-ha-Cg8">
