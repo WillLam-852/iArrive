@@ -17,6 +17,7 @@ var currentRegisteringFirstName = ""
 var currentRegisteringLastName = ""
 var currentRegisteringJobTitle = ""
 var staffNameList = [staffMember] ()
+var isLoadSampleStaff = true
 
 
 // MARK: Global Classes
@@ -61,6 +62,17 @@ class publicFunctions {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
+    }
+    
+    // Function for sample staff list
+    func loadSampleStaff() {
+        staffNameList.removeAll()
+        staffNameList.append(staffMember.init(firstName: "Jacky", lastName: "Wong", jobTitle: "Software Engineer"))
+        staffNameList.append(staffMember.init(firstName: "Samuel", lastName: "Lee", jobTitle: "Web Designer"))
+        staffNameList.append(staffMember.init(firstName: "Jowie", lastName: "Wong", jobTitle: "General UI Designer"))
+        staffNameList.append(staffMember.init(firstName: "Kit Wai", lastName: "Fong", jobTitle: "Software Engineer"))
+        staffNameList.append(staffMember.init(firstName: "Chloe", lastName: "Wong", jobTitle: "Project Manager"))
+        staffNameList.append(staffMember.init(firstName: "Tin Yan", lastName: "Li", jobTitle: "Software Engineer"))
     }
 }
 

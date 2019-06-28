@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D241FF022C617E60039E7EE /* selectStaffTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */; };
 		0D5B56EB22C49D7300376BFD /* B_SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */; };
 		0D67BCF022C60BBA0035D181 /* B3_SelectCorrectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */; };
 		0D7F8A8122C2331400F0A280 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8022C2331400F0A280 /* AppDelegate.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectStaffTableViewCell.swift; sourceTree = "<group>"; };
 		0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B_SignInViewController.swift; sourceTree = "<group>"; };
 		0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B3_SelectCorrectViewController.swift; sourceTree = "<group>"; };
 		0D7F8A7D22C2331400F0A280 /* iArrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iArrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +293,7 @@
 				0DFC90F622C34EF700B7A7B0 /* staffMember.swift */,
 				0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */,
 				0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */,
+				0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */,
 			);
 			path = "Non-ViewController";
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				0D7F8A8122C2331400F0A280 /* AppDelegate.swift in Sources */,
 				0DFC90F722C34EF700B7A7B0 /* staffMember.swift in Sources */,
 				0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */,
+				0D241FF022C617E60039E7EE /* selectStaffTableViewCell.swift in Sources */,
 				0D5B56EB22C49D7300376BFD /* B_SignInViewController.swift in Sources */,
 				0DCF0F9222C4B7E4003CE196 /* C1_CameraRegisterViewController.swift in Sources */,
 				0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */,

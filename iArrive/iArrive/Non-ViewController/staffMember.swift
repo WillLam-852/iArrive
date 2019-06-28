@@ -25,3 +25,4 @@ class staffMember {
         self.jobTitle = jobTitle
     }
 }
+
