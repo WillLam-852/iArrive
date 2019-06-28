@@ -15,8 +15,6 @@ var organization = "AppTech"    // Owned company
 var isLogin = false     // True for logged in, False otherwise
 
 
-
-
 // MARK: Global Classes
 
 class backgroundGradientColors {
