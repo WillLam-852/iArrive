@@ -8,13 +8,18 @@
 
 import UIKit
 
-class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
 
     // MARK: Properties
     
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var selectStaffTableView: UITableView!
+    @IBOutlet weak var staffSearchBar: UISearchBar!
+    var filteredStaffNameList = [staffMember] ()
+    var searchActive = false
+    let staffSearchController = UISearchController(searchResultsController: nil)
+    var staff = staffMember.init(firstName: "", lastName: "", jobTitle: "", isCheckedIn: false)
     
 
     override func viewDidLoad() {
@@ -23,9 +28,10 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
 //        if isLoadSampleStaff {
 //            publicFunctions().loadSampleStaff()
 //        }
-        
+
         staffNameList.sort(by: { $0.firstName < $1.firstName })
         
+        staffSearchBar.delegate = self
         selectStaffTableView.delegate = self
         selectStaffTableView.dataSource = self
         selectStaffTableView.allowsMultipleSelection = false
@@ -42,10 +48,21 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         confirmButton.isEnabled = false
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        if staffSearchBar.text == "" {
+            searchActive = false
+            selectStaffTableView.reloadData()
+        }
+    }
+    
 
     // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchActive {
+            return filteredStaffNameList.count
+        }
         return staffNameList.count
     }
     
@@ -54,11 +71,16 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? selectStaffTableViewCell else {
             fatalError("The dequeued cell is not an instance of selectStaffTableViewCell.")
         }
+        if searchActive {
+            staff = filteredStaffNameList[indexPath.row]
+        } else {
+            staff = staffNameList[indexPath.row]
+        }
         cell.selectionStyle = .none
         cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         
-        cell.nameLabel.text = staffNameList[indexPath.row].firstName + " " + staffNameList[indexPath.row].lastName
-        cell.jobTitleLabel.text = staffNameList[indexPath.row].jobTitle
+        cell.nameLabel.text = staff.firstName + " " + staff.lastName
+        cell.jobTitleLabel.text = staff.jobTitle
         cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
         cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
         
@@ -73,6 +95,12 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         
         let cell = tableView.cellForRow(at: indexPath) as! selectStaffTableViewCell
         
+        if searchActive {
+            staff = filteredStaffNameList[indexPath.row]
+        } else {
+            staff = staffNameList[indexPath.row]
+        }
+        
         if !cell.didSelectedRow {
             cell.selectionStyle = .none
             cell.contentView.backgroundColor = UIColor.white
@@ -83,14 +111,14 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             cell.layer.masksToBounds = false
             cell.layer.cornerRadius = 4.0
 
-            cell.nameLabel.text = staffNameList[indexPath.row].firstName + " " + staffNameList[indexPath.row].lastName
-            cell.jobTitleLabel.text = staffNameList[indexPath.row].jobTitle
+            cell.nameLabel.text = staff.firstName + " " + staff.lastName
+            cell.jobTitleLabel.text = staff.jobTitle
             cell.nameLabel.textColor = UIColor.black
             cell.jobTitleLabel.textColor = UIColor.black
             
-            currentCheckingInOutFirstName = staffNameList[indexPath.row].firstName
-            currentCheckingInOutLastName = staffNameList[indexPath.row].lastName
-            currentCheckingInOutJobTitle = staffNameList[indexPath.row].jobTitle
+            currentCheckingInOutFirstName = staff.firstName
+            currentCheckingInOutLastName = staff.lastName
+            currentCheckingInOutJobTitle = staff.jobTitle
             
             cell.didSelectedRow = true
             confirmButton.backgroundColor = UIColor.white
@@ -102,8 +130,8 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
             cell.layer.shadowOffset = .zero
             
-            cell.nameLabel.text = staffNameList[indexPath.row].firstName + " " + staffNameList[indexPath.row].lastName
-            cell.jobTitleLabel.text = staffNameList[indexPath.row].jobTitle
+            cell.nameLabel.text = staff.firstName + " " + staff.lastName
+            cell.jobTitleLabel.text = staff.jobTitle
             cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
             cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
             
@@ -120,18 +148,41 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
     
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
         let cell = tableView.cellForRow(at: indexPath) as! selectStaffTableViewCell
+        
+        if searchActive {
+            staff = filteredStaffNameList[indexPath.row]
+        } else {
+            staff = staffNameList[indexPath.row]
+        }
+        
         cell.selectionStyle = .none
         cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         cell.layer.shadowOffset = .zero
 
         cell.didSelectedRow = false
-        cell.nameLabel.text = staffNameList[indexPath.row].firstName + " " + staffNameList[indexPath.row].lastName
-        cell.jobTitleLabel.text = staffNameList[indexPath.row].jobTitle
+        cell.nameLabel.text = staff.firstName + " " + staff.lastName
+        cell.jobTitleLabel.text = staff.jobTitle
         cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
         cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
     }
-
+    
+    
+    // MARK: UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredStaffNameList = staffNameList.filter({(staff : staffMember) -> Bool in
+            return staff.firstName.lowercased().contains(searchText.lowercased()) || staff.lastName.lowercased().contains(searchText.lowercased()) || staff.jobTitle.lowercased().contains(searchText.lowercased())
+        })
+        if searchText == "" {
+            searchActive = false
+        } else {
+            searchActive = true
+        }
+        selectStaffTableView.reloadData()
+    }
+    
     
     // MARK: Navigation
 
