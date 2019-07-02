@@ -434,11 +434,19 @@ Terms of Service and Privacy Policy</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="wBY-vy-ao3">
+                                <rect key="frame" x="83" y="132.5" width="602" height="56"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="b4A-vF-8D7" firstAttribute="trailing" secondItem="wBY-vy-ao3" secondAttribute="trailing" constant="83" id="0wZ-vj-4NX"/>
                             <constraint firstItem="suq-jb-Db6" firstAttribute="leading" secondItem="b4A-vF-8D7" secondAttribute="leading" constant="83" id="D4R-HT-vRF"/>
+                            <constraint firstItem="wBY-vy-ao3" firstAttribute="leading" secondItem="b4A-vF-8D7" secondAttribute="leading" constant="83" id="HcH-ge-wXw"/>
                             <constraint firstItem="F6E-Sx-HVt" firstAttribute="top" secondItem="Edr-IX-oUZ" secondAttribute="bottom" id="J1D-Zw-guP"/>
+                            <constraint firstItem="wBY-vy-ao3" firstAttribute="top" secondItem="F6E-Sx-HVt" secondAttribute="bottom" constant="16" id="O4y-Nm-Ezn"/>
                             <constraint firstItem="b4A-vF-8D7" firstAttribute="trailing" secondItem="qa6-Pa-Tx7" secondAttribute="trailing" constant="224" id="T0A-32-U6R"/>
                             <constraint firstItem="qa6-Pa-Tx7" firstAttribute="top" secondItem="suq-jb-Db6" secondAttribute="bottom" constant="96" id="USU-cX-Gvh"/>
                             <constraint firstItem="suq-jb-Db6" firstAttribute="top" secondItem="F6E-Sx-HVt" secondAttribute="bottom" constant="80" id="VqE-Nx-dgB"/>
@@ -456,10 +464,20 @@ Terms of Service and Privacy Policy</string>
                     </view>
                     <connections>
                         <outlet property="confirmButton" destination="qa6-Pa-Tx7" id="N3Y-KP-1NI"/>
+                        <outlet property="searchDisplayController" destination="gal-Oe-TS3" id="Gz3-6H-wWB"/>
                         <outlet property="selectStaffTableView" destination="suq-jb-Db6" id="W1e-56-NZp"/>
+                        <outlet property="staffSearchBar" destination="wBY-vy-ao3" id="BVv-ny-3tE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moT-Ss-RDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="gal-Oe-TS3">
+                    <connections>
+                        <outlet property="delegate" destination="jjP-IL-4vz" id="jPo-Cj-Nyp"/>
+                        <outlet property="searchContentsController" destination="jjP-IL-4vz" id="41v-oL-utT"/>
+                        <outlet property="searchResultsDataSource" destination="jjP-IL-4vz" id="4m8-kx-eqh"/>
+                        <outlet property="searchResultsDelegate" destination="jjP-IL-4vz" id="u4x-eZ-TgH"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1913.28125" y="805.6640625"/>
         </scene>
