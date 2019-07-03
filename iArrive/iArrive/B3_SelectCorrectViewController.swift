@@ -13,6 +13,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
 
     // MARK: Properties
     
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var selectStaffTableView: UITableView!
     @IBOutlet weak var staffSearchBar: UISearchBar!
@@ -46,6 +47,15 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         confirmButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         confirmButton.titleLabel?.textColor = UIColor.black.withAlphaComponent(0.5)
         confirmButton.isEnabled = false
+        
+        confirmButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
+        confirmButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
+        confirmButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
+        confirmButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+        cancelButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
+        cancelButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
+        cancelButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -53,6 +63,49 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if staffSearchBar.text == "" {
             searchActive = false
             selectStaffTableView.reloadData()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
+    }
+    
+    
+    // MARK: Button Pressing Animation
+    
+    @objc func buttonPressing(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            confirmButton.layer.shadowOffset = .zero
+        } else {
+            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
+        }
+    }
+    
+    @objc func buttonPressedInside(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
+            confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+        } else {
+            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
+        }
+    }
+    
+    @objc func buttonDraggedInside(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            confirmButton.layer.shadowOffset = .zero
+        } else {
+            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
+        }
+    }
+    
+    @objc func buttonDraggedOutside(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
+            confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+        } else {
+            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
         }
     }
     

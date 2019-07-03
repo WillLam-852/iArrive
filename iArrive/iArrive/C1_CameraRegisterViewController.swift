@@ -15,6 +15,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     @IBOutlet weak var noOfPhotosLabel: UILabel!
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     
     // MARK: Local variables
@@ -41,16 +42,56 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         UIGraphicsEndImageContext()
         
         photoButton.setImage(newImage, for: .init())
-        
-        
         noOfPhotosLabel.text = String(noOfPhotos)
-        
-        
         
         confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
         confirmButton.semanticContentAttribute = UIApplication.shared
             .userInterfaceLayoutDirection == .rightToLeft ? .forceLeftToRight : .forceRightToLeft
         confirmButton.isEnabled = false
+        
+        confirmButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
+        confirmButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
+        confirmButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
+        confirmButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+        backButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
+        backButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
+        backButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+    }
+    
+    
+    // MARK: Button Pressing Animation
+    
+    @objc func buttonPressing(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
+        } else {
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
+        }
+    }
+    
+    @objc func buttonPressedInside(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        } else {
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        }
+    }
+    
+    @objc func buttonDraggedInside(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
+        } else {
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
+        }
+    }
+    
+    @objc func buttonDraggedOutside(_ sender: AnyObject?) {
+        if sender === confirmButton {
+            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        } else {
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        }
     }
     
     
