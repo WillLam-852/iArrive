@@ -10,4 +10,8 @@ import UIKit
 
 class photoCollectionViewCell: UICollectionViewCell {
     
+    // MARK: Properties
+    @IBOutlet weak var captureImageView: UIImageView!
+    var isPhotoTaken = false
+    
 }

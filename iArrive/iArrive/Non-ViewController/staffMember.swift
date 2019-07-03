@@ -15,14 +15,16 @@ class staffMember {
     var firstName: String
     var lastName: String
     var jobTitle: String
+    var isCheckedIn: Bool
     
     
     // MARK: Initialization
     
-    init(firstName: String, lastName: String, jobTitle: String) {
+    init(firstName: String, lastName: String, jobTitle: String, isCheckedIn: Bool) {
         self.firstName = firstName
         self.lastName = lastName
         self.jobTitle = jobTitle
+        self.isCheckedIn = isCheckedIn
     }
 }
 

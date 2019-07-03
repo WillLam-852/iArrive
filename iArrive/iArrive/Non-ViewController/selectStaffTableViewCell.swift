@@ -13,6 +13,7 @@ class selectStaffTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
+    var didSelectedRow = false
     
     
     override func awakeFromNib() {
