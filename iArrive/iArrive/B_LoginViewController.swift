@@ -27,7 +27,7 @@ class B_LoginViewController: UIViewController {
             publicFunctions().loadSampleStaff()
         }
         
-        showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40);
+        showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 35, left: 35, bottom: 35, right: 35);
         showPasswordButton.isHidden = true
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)

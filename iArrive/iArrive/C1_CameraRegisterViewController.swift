@@ -52,8 +52,6 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         noOfPhotosLabel.text = "0"
         
         confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
-        confirmButton.semanticContentAttribute = UIApplication.shared
-            .userInterfaceLayoutDirection == .rightToLeft ? .forceLeftToRight : .forceRightToLeft
         confirmButton.isEnabled = false
         
         confirmButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
@@ -123,7 +121,10 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         guard let imageData = photo.fileDataRepresentation()
             else { return }
 
-        imageArray[noOfPhotos] = UIImage(data: imageData)
+        for i in stride(from: 39, through: 1, by: -1) {
+            imageArray[i] = imageArray[i-1]
+        }
+        imageArray[0] = UIImage(data: imageData)
         noOfPhotos += 1
         photoSaved = true
         noOfPhotosLabel.text = String(noOfPhotos)
@@ -177,10 +178,8 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? photoCollectionViewCell else {
             fatalError("The dequeued cell is not an instance of selectStaffTableViewCell.")
         }
-//        cell.captureImageView.isHidden = false
         cell.captureImageView.image = imageArray[indexPath.item]
         if cell.captureImageView == nil {
-//            cell.captureImageView.isHidden = true
             cell.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#E9F0F5")
             cell.layer.borderColor = publicFunctions().hexStringToUIColor(hex: "#91D6F0").cgColor
             cell.layer.borderWidth = 2
