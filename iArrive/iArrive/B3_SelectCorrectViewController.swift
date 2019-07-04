@@ -38,6 +38,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         selectStaffTableView.allowsMultipleSelection = false
         selectStaffTableView.allowsMultipleSelectionDuringEditing = false
         
+<<<<<<< HEAD
         confirmButton.layer.cornerRadius = 4.0
         confirmButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
@@ -47,6 +48,14 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             blur: 4,
             spread: 0)
         confirmButton.layer.cornerRadius = 4.0
+=======
+        confirmButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        confirmButton.layer.shadowOffset = .zero
+        confirmButton.layer.shadowOpacity = 1.0
+        confirmButton.layer.shadowRadius = 0.0
+        confirmButton.layer.masksToBounds = false
+        confirmButton.layer.cornerRadius = 4.0
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         confirmButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         confirmButton.titleLabel?.textColor = UIColor.black.withAlphaComponent(0.5)
         confirmButton.isEnabled = false
@@ -160,6 +169,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if !cell.didSelectedRow {
             cell.selectionStyle = .none
             cell.contentView.backgroundColor = UIColor.white
+<<<<<<< HEAD
             cell.layer.applySketchShadow(
                 color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
                 alpha: 1.0,
@@ -167,6 +177,12 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
                 y: 3,
                 blur: 4,
                 spread: 0)
+=======
+            cell.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+            cell.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+            cell.layer.shadowOpacity = 1.0
+            cell.layer.shadowRadius = 0.0
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
             cell.layer.masksToBounds = false
             cell.layer.cornerRadius = 4.0
 

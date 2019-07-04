@@ -17,7 +17,10 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+<<<<<<< HEAD
     @IBOutlet weak var previewView: UIView!
+=======
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
     
     
     // MARK: Local variables
@@ -64,6 +67,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         backButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         backButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+<<<<<<< HEAD
         
         for _ in 0 ..< 40 {
             imageArray.append(UIImage.init())
@@ -129,6 +133,10 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         photoCollectionView?.reloadData()
     }
 
+=======
+    }
+    
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
     
     // MARK: Button Pressing Animation
     
