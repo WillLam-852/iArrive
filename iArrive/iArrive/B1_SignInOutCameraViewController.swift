@@ -22,7 +22,6 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     var captureSession: AVCaptureSession!
     var stillImageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    var image: UIImage?
     var frontCamera: AVCaptureDevice?
     
     
@@ -85,7 +84,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation()
             else { return }
-        image = UIImage(data: imageData)
+        currentCheckingInOutPhoto = UIImage(data: imageData)
     }
     
 

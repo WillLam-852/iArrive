@@ -20,6 +20,7 @@ var staffNameList = [staffMember] ()
 var currentCheckingInOutFirstName = ""
 var currentCheckingInOutLastName = ""
 var currentCheckingInOutJobTitle = ""
+var currentCheckingInOutPhoto: UIImage?
 var isLoadSampleStaff = true
 
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class B_LoginViewController: UIViewController {
+class B_LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
@@ -22,6 +22,9 @@ class B_LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userNameTextField.delegate = self
+        passwordTextField.delegate = self
         
         if isLoadSampleStaff {
             publicFunctions().loadSampleStaff()
@@ -102,6 +105,18 @@ class B_LoginViewController: UIViewController {
         } else {
             showPasswordButton.isHidden = false
         }
+    }
+    
+    
+    // MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField === userNameTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
     }
     
     
