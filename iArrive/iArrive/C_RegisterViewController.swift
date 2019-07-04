@@ -8,7 +8,7 @@
 
 import UIKit
 
-class C_RegisterViewController: UIViewController {
+class C_RegisterViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: Properties
     @IBOutlet weak var bottomBar: UILabel!
@@ -25,6 +25,9 @@ class C_RegisterViewController: UIViewController {
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        jobTitleTextField.delegate = self
         firstNameTextField.text = currentRegisteringFirstName
         lastNameTextField.text = currentRegisteringLastName
         jobTitleTextField.text = currentRegisteringJobTitle
@@ -75,6 +78,20 @@ class C_RegisterViewController: UIViewController {
         currentRegisteringLastName = lastNameTextField.text ?? ""
         currentRegisteringJobTitle = jobTitleTextField.text ?? ""
         updatedNextButtonState()
+    }
+    
+    
+    // MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField === firstNameTextField {
+            lastNameTextField.becomeFirstResponder()
+        } else if textField === lastNameTextField {
+            jobTitleTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
     }
     
     
