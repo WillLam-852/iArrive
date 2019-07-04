@@ -45,7 +45,6 @@ class B_SignInViewController: UIViewController {
         
         greetingLabel.attributedText = attributedString
         logoutButton.imageView?.contentMode = .scaleAspectFill
-<<<<<<< HEAD
         
         checkInOutButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
@@ -55,14 +54,6 @@ class B_SignInViewController: UIViewController {
             blur: 4,
             spread: 0)
         checkInOutButton.layer.cornerRadius = 4.0
-=======
-        checkInOutButton.layer.cornerRadius = 4.0
-        checkInOutButton.layer .shadowOffset = CGSize(width: 3.0, height: 3.0)
-        checkInOutButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        checkInOutButton.layer.shadowOpacity = 1.0
-        checkInOutButton.layer.shadowRadius = 0.0
-        checkInOutButton.layer.masksToBounds = false
->>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         registerButton.layer.cornerRadius = 4.0
         registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
         
@@ -96,11 +87,7 @@ class B_SignInViewController: UIViewController {
     
     @objc func buttonPressedInside(_ sender: AnyObject?) {
         if sender === logoutButton {
-<<<<<<< HEAD
             logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
-=======
-            logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1.0), for: .normal)
->>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         } else if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
@@ -122,11 +109,7 @@ class B_SignInViewController: UIViewController {
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
         if sender === logoutButton {
-<<<<<<< HEAD
             logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
-=======
-            logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1.0), for: .normal)
->>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         } else if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)

@@ -17,11 +17,8 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
-<<<<<<< HEAD
     @IBOutlet weak var previewView: UIView!
-=======
->>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
-    
+
     
     // MARK: Local variables
     var noOfPhotos = 0
@@ -52,7 +49,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         UIGraphicsEndImageContext()
         
         photoButton.setImage(newImage, for: .init())
-        noOfPhotosLabel.text = String(noOfPhotos)
+        noOfPhotosLabel.text = "0"
         
         confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
         confirmButton.semanticContentAttribute = UIApplication.shared
@@ -67,7 +64,6 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         backButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         backButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
-<<<<<<< HEAD
         
         for _ in 0 ..< 40 {
             imageArray.append(UIImage.init())
@@ -130,13 +126,10 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         imageArray[noOfPhotos] = UIImage(data: imageData)
         noOfPhotos += 1
         photoSaved = true
+        noOfPhotosLabel.text = String(noOfPhotos)
         photoCollectionView?.reloadData()
     }
 
-=======
-    }
-    
->>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
     
     // MARK: Button Pressing Animation
     
@@ -204,14 +197,17 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     
     @IBAction func takePhotoButton(_ sender: UIButton) {
         if noOfPhotos >= 40 {
-            let alert = UIAlertController(title: "Exceed Photo Number Limit", message: "Please press Confirm button to finish registration", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Exceed Photo Number Limit", message: """
+            Please press Confirm button
+            to finish registration
+            """, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
             self.present(alert, animated: true)
         } else {
             let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
             stillImageOutput.capturePhoto(with: settings, delegate: self)
             noOfPhotosLabel.text = String(noOfPhotos)
-            if noOfPhotos >= 20 && !confirmButton.isEnabled {
+            if noOfPhotos >= 19 && !confirmButton.isEnabled {
                 confirmButton.isEnabled = true
                 confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
             }
