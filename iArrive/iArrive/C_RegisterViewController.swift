@@ -44,10 +44,20 @@ class C_RegisterViewController: UIViewController {
         }
         
         nextButton.layer.cornerRadius = 4.0
+<<<<<<< HEAD
+        nextButton.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
+            alpha: 1.0,
+            x: 0,
+            y: 0,
+            blur: 4,
+            spread: 0)
+=======
         nextButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         nextButton.layer.shadowOffset = .zero
         nextButton.layer.shadowOpacity = 1.0
         nextButton.layer.shadowRadius = 0.0
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         nextButton.layer.masksToBounds = false
         
         cancelButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)

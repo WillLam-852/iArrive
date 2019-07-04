@@ -16,6 +16,9 @@ class B_LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: FloatLabelTextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var bottomBar: UILabel!
+    @IBOutlet weak var showPasswordButton: UIButton!
+    
+    var isShownPassword = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +27,32 @@ class B_LoginViewController: UIViewController {
             publicFunctions().loadSampleStaff()
         }
         
+        showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40);
+        showPasswordButton.isHidden = true
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+<<<<<<< HEAD
+        userNameTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
+        passwordTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
+        
+        loginButton.layer.cornerRadius = 4.0
+        loginButton.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
+            alpha: 1.0,
+            x: 0,
+            y: 0,
+            blur: 4,
+            spread: 0)
+=======
         loginButton.layer.cornerRadius = 4.0
         loginButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         loginButton.layer.shadowOffset = .zero
         loginButton.layer.shadowOpacity = 1.0
         loginButton.layer.shadowRadius = 0.0
         loginButton.layer.masksToBounds = false
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         loginButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
         loginButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
@@ -52,6 +71,30 @@ class B_LoginViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+        showPasswordButton.isHidden = true
+    }
+    
+    
+    // MARK: Button Pressing Animation
+    
+    @objc func buttonPressing(_ sender: AnyObject?) {
+        loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        loginButton.layer.shadowOffset = .zero
+    }
+    
+    @objc func buttonPressedInside(_ sender: AnyObject?) {
+        loginButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
+        loginButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+    }
+    
+    @objc func buttonDraggedInside(_ sender: AnyObject?) {
+        loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        loginButton.layer.shadowOffset = .zero
+    }
+    
+    @objc func buttonDraggedOutside(_ sender: AnyObject?) {
+        loginButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
+        loginButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
     }
     
     
@@ -84,6 +127,14 @@ class B_LoginViewController: UIViewController {
         updatedLoginButtonState()
     }
     
+    @objc func textFieldTap(_ textField: UITextField) {
+        if textField === userNameTextField {
+            showPasswordButton.isHidden = true
+        } else {
+            showPasswordButton.isHidden = false
+        }
+    }
+    
     
     // MARK: Private Methods
     
@@ -111,10 +162,25 @@ class B_LoginViewController: UIViewController {
     }
     
     
+    // MARK: Actions
+    @IBAction func pressedShowPasswordButton(_ sender: Any) {
+        if !isShownPassword {
+            passwordTextField.isSecureTextEntry = false
+            showPasswordButton.setImage(UIImage(named: "Unshow"), for: .normal)
+            isShownPassword = true
+        } else {
+            passwordTextField.isSecureTextEntry = true
+            showPasswordButton.setImage(UIImage(named: "Show"), for: .normal)
+            isShownPassword = false
+        }
+    }
+    
+    
     // MARK: Navigation
     
     @IBAction func pressedLoginButton(_ sender: Any) {
         if (userNameTextField.text == "user" && passwordTextField.text == "pw") {
+            organization = userNameTextField.text!
             userNameTextField.text = ""
             passwordTextField.text = ""
             performSegue(withIdentifier: "LogintoSignInSegue", sender: self)

@@ -12,7 +12,7 @@ class B_SignInViewController: UIViewController {
 
     // MARK: Properties
     @IBOutlet weak var bottomBar: UILabel!
-    @IBOutlet weak var organizationLabel: UILabel!
+    @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var checkInOutButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
@@ -23,14 +23,46 @@ class B_SignInViewController: UIViewController {
 
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
-        organizationLabel.text = organization + " !"
+        
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        var normalText = ""
+        
+        if (currentHour >= 6 && currentHour < 12) {
+            normalText = "Good morning "
+        } else if (currentHour >= 12 && currentHour < 18) {
+            normalText = "Good afternoon "
+        } else if (currentHour >= 18 && currentHour < 24) {
+            normalText = "Good evening "
+        } else {
+            normalText = "Good night "
+        }
+        let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
+        let boldText = organization + " !"
+        let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
+        
+        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs)
+        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs))
+        
+        greetingLabel.attributedText = attributedString
         logoutButton.imageView?.contentMode = .scaleAspectFill
+<<<<<<< HEAD
+        
+        checkInOutButton.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
+            alpha: 1.0,
+            x: 3,
+            y: 3,
+            blur: 4,
+            spread: 0)
+        checkInOutButton.layer.cornerRadius = 4.0
+=======
         checkInOutButton.layer.cornerRadius = 4.0
         checkInOutButton.layer .shadowOffset = CGSize(width: 3.0, height: 3.0)
         checkInOutButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         checkInOutButton.layer.shadowOpacity = 1.0
         checkInOutButton.layer.shadowRadius = 0.0
         checkInOutButton.layer.masksToBounds = false
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         registerButton.layer.cornerRadius = 4.0
         registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
         
@@ -64,7 +96,11 @@ class B_SignInViewController: UIViewController {
     
     @objc func buttonPressedInside(_ sender: AnyObject?) {
         if sender === logoutButton {
+<<<<<<< HEAD
+            logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+=======
             logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1.0), for: .normal)
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         } else if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
@@ -86,7 +122,11 @@ class B_SignInViewController: UIViewController {
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
         if sender === logoutButton {
+<<<<<<< HEAD
+            logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+=======
             logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1.0), for: .normal)
+>>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
         } else if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)

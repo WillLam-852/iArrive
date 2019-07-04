@@ -1,0 +1,815 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D241FF022C617E60039E7EE /* selectStaffTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */; };
+		0D5B56EB22C49D7300376BFD /* B_SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */; };
+		0D67BCF022C60BBA0035D181 /* B3_SelectCorrectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */; };
+		0D7F8A8122C2331400F0A280 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8022C2331400F0A280 /* AppDelegate.swift */; };
+		0D7F8A8322C2331400F0A280 /* A_LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8222C2331400F0A280 /* A_LoadingViewController.swift */; };
+		0D7F8A8622C2331400F0A280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8422C2331400F0A280 /* Main.storyboard */; };
+		0D7F8A8822C2331800F0A280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8722C2331800F0A280 /* Assets.xcassets */; };
+		0D7F8A8B22C2331800F0A280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D7F8A8922C2331800F0A280 /* LaunchScreen.storyboard */; };
+		0D7F8A9622C2331800F0A280 /* iArriveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F8A9522C2331800F0A280 /* iArriveTests.swift */; };
+		0D7F8AA122C2331900F0A280 /* iArriveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F8AA022C2331900F0A280 /* iArriveUITests.swift */; };
+		0DB08D3922C5C2CF0000B74B /* iArrive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB08D3622C5C2CE0000B74B /* iArrive@3x.png */; };
+		0DB08D3A22C5C2CF0000B74B /* iArrive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB08D3722C5C2CE0000B74B /* iArrive@2x.png */; };
+		0DB08D3B22C5C2CF0000B74B /* iArrive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB08D3822C5C2CF0000B74B /* iArrive.png */; };
+		0DBBA8F322C36B5D00607511 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8CF22C36B5800607511 /* Montserrat-Bold.otf */; };
+		0DBBA8F422C36B5D00607511 /* NotoSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D022C36B5800607511 /* NotoSans-Black.ttf */; };
+		0DBBA8F522C36B5D00607511 /* Montserrat-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D122C36B5800607511 /* Montserrat-ExtraBold.otf */; };
+		0DBBA8F622C36B5D00607511 /* Montserrat-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D222C36B5800607511 /* Montserrat-ExtraBoldItalic.otf */; };
+		0DBBA8F722C36B5D00607511 /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D322C36B5800607511 /* Montserrat-SemiBold.otf */; };
+		0DBBA8F822C36B5D00607511 /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D422C36B5800607511 /* NotoSans-BoldItalic.ttf */; };
+		0DBBA8F922C36B5D00607511 /* NotoSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D522C36B5900607511 /* NotoSans-Thin.ttf */; };
+		0DBBA8FA22C36B5D00607511 /* Montserrat-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D622C36B5900607511 /* Montserrat-Thin.otf */; };
+		0DBBA8FB22C36B5D00607511 /* Montserrat-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D722C36B5900607511 /* Montserrat-ThinItalic.otf */; };
+		0DBBA8FC22C36B5D00607511 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D822C36B5900607511 /* Montserrat-Medium.otf */; };
+		0DBBA8FD22C36B5D00607511 /* Montserrat-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8D922C36B5900607511 /* Montserrat-SemiBoldItalic.otf */; };
+		0DBBA8FE22C36B5D00607511 /* Montserrat-ExtraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8DA22C36B5900607511 /* Montserrat-ExtraLightItalic.otf */; };
+		0DBBA8FF22C36B5D00607511 /* NotoSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8DB22C36B5900607511 /* NotoSans-ExtraBold.ttf */; };
+		0DBBA90022C36B5D00607511 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8DC22C36B5A00607511 /* Montserrat-Light.otf */; };
+		0DBBA90122C36B5D00607511 /* NotoSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8DD22C36B5A00607511 /* NotoSans-LightItalic.ttf */; };
+		0DBBA90222C36B5D00607511 /* Montserrat-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8DE22C36B5A00607511 /* Montserrat-BoldItalic.otf */; };
+		0DBBA90322C36B5D00607511 /* Montserrat-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8DF22C36B5A00607511 /* Montserrat-MediumItalic.otf */; };
+		0DBBA90422C36B5D00607511 /* NotoSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E022C36B5A00607511 /* NotoSans-ExtraLight.ttf */; };
+		0DBBA90522C36B5D00607511 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E122C36B5A00607511 /* NotoSans-Bold.ttf */; };
+		0DBBA90622C36B5D00607511 /* NotoSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E222C36B5B00607511 /* NotoSans-Light.ttf */; };
+		0DBBA90722C36B5D00607511 /* NotoSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E322C36B5B00607511 /* NotoSans-ThinItalic.ttf */; };
+		0DBBA90822C36B5D00607511 /* Montserrat-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E422C36B5B00607511 /* Montserrat-Italic.otf */; };
+		0DBBA90922C36B5D00607511 /* NotoSans-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E522C36B5B00607511 /* NotoSans-BlackItalic.ttf */; };
+		0DBBA90A22C36B5D00607511 /* NotoSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E622C36B5B00607511 /* NotoSans-SemiBold.ttf */; };
+		0DBBA90B22C36B5D00607511 /* Montserrat-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E722C36B5B00607511 /* Montserrat-BlackItalic.otf */; };
+		0DBBA90C22C36B5D00607511 /* NotoSans-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E822C36B5B00607511 /* NotoSans-ExtraLightItalic.ttf */; };
+		0DBBA90D22C36B5D00607511 /* NotoSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8E922C36B5C00607511 /* NotoSans-ExtraBoldItalic.ttf */; };
+		0DBBA90E22C36B5D00607511 /* NotoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8EA22C36B5C00607511 /* NotoSans-Italic.ttf */; };
+		0DBBA90F22C36B5D00607511 /* Montserrat-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8EB22C36B5C00607511 /* Montserrat-LightItalic.otf */; };
+		0DBBA91022C36B5D00607511 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8EC22C36B5C00607511 /* Montserrat-Regular.otf */; };
+		0DBBA91122C36B5D00607511 /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8ED22C36B5C00607511 /* NotoSans-Regular.ttf */; };
+		0DBBA91222C36B5D00607511 /* Montserrat-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8EE22C36B5C00607511 /* Montserrat-Black.otf */; };
+		0DBBA91322C36B5D00607511 /* Montserrat-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8EF22C36B5C00607511 /* Montserrat-ExtraLight.otf */; };
+		0DBBA91422C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8F022C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf */; };
+		0DBBA91522C36B5D00607511 /* NotoSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8F122C36B5D00607511 /* NotoSans-Medium.ttf */; };
+		0DBBA91622C36B5D00607511 /* NotoSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8F222C36B5D00607511 /* NotoSans-MediumItalic.ttf */; };
+		0DBBA91E22C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
+		0DBBA91F22C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
+		0DBBA92022C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
+		0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */; };
+		0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */; };
+		0DCF0F9222C4B7E4003CE196 /* C1_CameraRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */; };
+		0DCF0F9622C4D3C5003CE196 /* photoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */; };
+		0DFC90F722C34EF700B7A7B0 /* staffMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFC90F622C34EF700B7A7B0 /* staffMember.swift */; };
+		0DFC90F922C350C900B7A7B0 /* globalVariablesFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0D7F8A9222C2331800F0A280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0D7F8A7522C2331400F0A280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D7F8A7C22C2331400F0A280;
+			remoteInfo = iArrive;
+		};
+		0D7F8A9D22C2331800F0A280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0D7F8A7522C2331400F0A280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D7F8A7C22C2331400F0A280;
+			remoteInfo = iArrive;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectStaffTableViewCell.swift; sourceTree = "<group>"; };
+		0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B_SignInViewController.swift; sourceTree = "<group>"; };
+		0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B3_SelectCorrectViewController.swift; sourceTree = "<group>"; };
+		0D7F8A7D22C2331400F0A280 /* iArrive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iArrive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D7F8A8022C2331400F0A280 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0D7F8A8222C2331400F0A280 /* A_LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A_LoadingViewController.swift; sourceTree = "<group>"; };
+		0D7F8A8522C2331400F0A280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0D7F8A8722C2331800F0A280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D7F8A8A22C2331800F0A280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0D7F8A8C22C2331800F0A280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D7F8A9122C2331800F0A280 /* iArriveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iArriveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D7F8A9522C2331800F0A280 /* iArriveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iArriveTests.swift; sourceTree = "<group>"; };
+		0D7F8A9722C2331800F0A280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D7F8A9C22C2331800F0A280 /* iArriveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iArriveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D7F8AA022C2331900F0A280 /* iArriveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iArriveUITests.swift; sourceTree = "<group>"; };
+		0D7F8AA222C2331900F0A280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DB08D3622C5C2CE0000B74B /* iArrive@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iArrive@3x.png"; sourceTree = "<group>"; };
+		0DB08D3722C5C2CE0000B74B /* iArrive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iArrive@2x.png"; sourceTree = "<group>"; };
+		0DB08D3822C5C2CF0000B74B /* iArrive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iArrive.png; sourceTree = "<group>"; };
+		0DBBA8CF22C36B5800607511 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
+		0DBBA8D022C36B5800607511 /* NotoSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Black.ttf"; sourceTree = "<group>"; };
+		0DBBA8D122C36B5800607511 /* Montserrat-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.otf"; sourceTree = "<group>"; };
+		0DBBA8D222C36B5800607511 /* Montserrat-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8D322C36B5800607511 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		0DBBA8D422C36B5800607511 /* NotoSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA8D522C36B5900607511 /* NotoSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Thin.ttf"; sourceTree = "<group>"; };
+		0DBBA8D622C36B5900607511 /* Montserrat-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.otf"; sourceTree = "<group>"; };
+		0DBBA8D722C36B5900607511 /* Montserrat-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8D822C36B5900607511 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
+		0DBBA8D922C36B5900607511 /* Montserrat-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8DA22C36B5900607511 /* Montserrat-ExtraLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8DB22C36B5900607511 /* NotoSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		0DBBA8DC22C36B5A00607511 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
+		0DBBA8DD22C36B5A00607511 /* NotoSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA8DE22C36B5A00607511 /* Montserrat-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8DF22C36B5A00607511 /* Montserrat-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-MediumItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8E022C36B5A00607511 /* NotoSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-ExtraLight.ttf"; sourceTree = "<group>"; };
+		0DBBA8E122C36B5A00607511 /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
+		0DBBA8E222C36B5B00607511 /* NotoSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Light.ttf"; sourceTree = "<group>"; };
+		0DBBA8E322C36B5B00607511 /* NotoSans-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-ThinItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA8E422C36B5B00607511 /* Montserrat-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.otf"; sourceTree = "<group>"; };
+		0DBBA8E522C36B5B00607511 /* NotoSans-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-BlackItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA8E622C36B5B00607511 /* NotoSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		0DBBA8E722C36B5B00607511 /* Montserrat-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8E822C36B5B00607511 /* NotoSans-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA8E922C36B5C00607511 /* NotoSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA8EA22C36B5C00607511 /* NotoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Italic.ttf"; sourceTree = "<group>"; };
+		0DBBA8EB22C36B5C00607511 /* Montserrat-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-LightItalic.otf"; sourceTree = "<group>"; };
+		0DBBA8EC22C36B5C00607511 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
+		0DBBA8ED22C36B5C00607511 /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.ttf"; sourceTree = "<group>"; };
+		0DBBA8EE22C36B5C00607511 /* Montserrat-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.otf"; sourceTree = "<group>"; };
+		0DBBA8EF22C36B5C00607511 /* Montserrat-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.otf"; sourceTree = "<group>"; };
+		0DBBA8F022C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA8F122C36B5D00607511 /* NotoSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Medium.ttf"; sourceTree = "<group>"; };
+		0DBBA8F222C36B5D00607511 /* NotoSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
+		0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B_LoginViewController.swift; sourceTree = "<group>"; };
+		0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C_RegisterViewController.swift; sourceTree = "<group>"; };
+		0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C1_CameraRegisterViewController.swift; sourceTree = "<group>"; };
+		0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoCollectionViewCell.swift; sourceTree = "<group>"; };
+		0DFC90F622C34EF700B7A7B0 /* staffMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = staffMember.swift; sourceTree = "<group>"; };
+		0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globalVariablesFunctions.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0D7F8A7A22C2331400F0A280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D7F8A8E22C2331800F0A280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D7F8A9922C2331800F0A280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D7F8A7422C2331400F0A280 = {
+			isa = PBXGroup;
+			children = (
+				0D7F8A7F22C2331400F0A280 /* iArrive */,
+				0D7F8A9422C2331800F0A280 /* iArriveTests */,
+				0D7F8A9F22C2331800F0A280 /* iArriveUITests */,
+				0D7F8A7E22C2331400F0A280 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0D7F8A7E22C2331400F0A280 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D7F8A7D22C2331400F0A280 /* iArrive.app */,
+				0D7F8A9122C2331800F0A280 /* iArriveTests.xctest */,
+				0D7F8A9C22C2331800F0A280 /* iArriveUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0D7F8A7F22C2331400F0A280 /* iArrive */ = {
+			isa = PBXGroup;
+			children = (
+				0DBBA91C22C36EB600607511 /* Non-ViewController */,
+				0D7F8A8222C2331400F0A280 /* A_LoadingViewController.swift */,
+				0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */,
+				0D5B56EA22C49D7300376BFD /* B_SignInViewController.swift */,
+				0D67BCEF22C60BBA0035D181 /* B3_SelectCorrectViewController.swift */,
+				0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */,
+				0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */,
+				0D7F8A8422C2331400F0A280 /* Main.storyboard */,
+				0D7F8A8722C2331800F0A280 /* Assets.xcassets */,
+				0D7F8A8922C2331800F0A280 /* LaunchScreen.storyboard */,
+				0D7F8A8022C2331400F0A280 /* AppDelegate.swift */,
+				0D7F8A8C22C2331800F0A280 /* Info.plist */,
+				0DB08D3C22C5C2D80000B74B /* images */,
+				0DBBA91722C36B7200607511 /* fonts */,
+			);
+			path = iArrive;
+			sourceTree = "<group>";
+		};
+		0D7F8A9422C2331800F0A280 /* iArriveTests */ = {
+			isa = PBXGroup;
+			children = (
+				0D7F8A9522C2331800F0A280 /* iArriveTests.swift */,
+				0D7F8A9722C2331800F0A280 /* Info.plist */,
+			);
+			path = iArriveTests;
+			sourceTree = "<group>";
+		};
+		0D7F8A9F22C2331800F0A280 /* iArriveUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0D7F8AA022C2331900F0A280 /* iArriveUITests.swift */,
+				0D7F8AA222C2331900F0A280 /* Info.plist */,
+			);
+			path = iArriveUITests;
+			sourceTree = "<group>";
+		};
+		0DB08D3C22C5C2D80000B74B /* images */ = {
+			isa = PBXGroup;
+			children = (
+				0DB08D3822C5C2CF0000B74B /* iArrive.png */,
+				0DB08D3722C5C2CE0000B74B /* iArrive@2x.png */,
+				0DB08D3622C5C2CE0000B74B /* iArrive@3x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		0DBBA91722C36B7200607511 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0DBBA8EE22C36B5C00607511 /* Montserrat-Black.otf */,
+				0DBBA8E722C36B5B00607511 /* Montserrat-BlackItalic.otf */,
+				0DBBA8CF22C36B5800607511 /* Montserrat-Bold.otf */,
+				0DBBA8D122C36B5800607511 /* Montserrat-ExtraBold.otf */,
+				0DBBA8D222C36B5800607511 /* Montserrat-ExtraBoldItalic.otf */,
+				0DBBA8EF22C36B5C00607511 /* Montserrat-ExtraLight.otf */,
+				0DBBA8DA22C36B5900607511 /* Montserrat-ExtraLightItalic.otf */,
+				0DBBA8E422C36B5B00607511 /* Montserrat-Italic.otf */,
+				0DBBA8DE22C36B5A00607511 /* Montserrat-BoldItalic.otf */,
+				0DBBA8DC22C36B5A00607511 /* Montserrat-Light.otf */,
+				0DBBA8EB22C36B5C00607511 /* Montserrat-LightItalic.otf */,
+				0DBBA8D822C36B5900607511 /* Montserrat-Medium.otf */,
+				0DBBA8DF22C36B5A00607511 /* Montserrat-MediumItalic.otf */,
+				0DBBA8EC22C36B5C00607511 /* Montserrat-Regular.otf */,
+				0DBBA8D322C36B5800607511 /* Montserrat-SemiBold.otf */,
+				0DBBA8D922C36B5900607511 /* Montserrat-SemiBoldItalic.otf */,
+				0DBBA8D622C36B5900607511 /* Montserrat-Thin.otf */,
+				0DBBA8D722C36B5900607511 /* Montserrat-ThinItalic.otf */,
+				0DBBA8D022C36B5800607511 /* NotoSans-Black.ttf */,
+				0DBBA8E522C36B5B00607511 /* NotoSans-BlackItalic.ttf */,
+				0DBBA8E122C36B5A00607511 /* NotoSans-Bold.ttf */,
+				0DBBA8D422C36B5800607511 /* NotoSans-BoldItalic.ttf */,
+				0DBBA8DB22C36B5900607511 /* NotoSans-ExtraBold.ttf */,
+				0DBBA8E922C36B5C00607511 /* NotoSans-ExtraBoldItalic.ttf */,
+				0DBBA8E022C36B5A00607511 /* NotoSans-ExtraLight.ttf */,
+				0DBBA8E822C36B5B00607511 /* NotoSans-ExtraLightItalic.ttf */,
+				0DBBA8EA22C36B5C00607511 /* NotoSans-Italic.ttf */,
+				0DBBA8E222C36B5B00607511 /* NotoSans-Light.ttf */,
+				0DBBA8DD22C36B5A00607511 /* NotoSans-LightItalic.ttf */,
+				0DBBA8F122C36B5D00607511 /* NotoSans-Medium.ttf */,
+				0DBBA8F222C36B5D00607511 /* NotoSans-MediumItalic.ttf */,
+				0DBBA8ED22C36B5C00607511 /* NotoSans-Regular.ttf */,
+				0DBBA8E622C36B5B00607511 /* NotoSans-SemiBold.ttf */,
+				0DBBA8F022C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf */,
+				0DBBA8D522C36B5900607511 /* NotoSans-Thin.ttf */,
+				0DBBA8E322C36B5B00607511 /* NotoSans-ThinItalic.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		0DBBA91C22C36EB600607511 /* Non-ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */,
+				0DFC90F622C34EF700B7A7B0 /* staffMember.swift */,
+				0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */,
+				0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */,
+				0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */,
+			);
+			path = "Non-ViewController";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D7F8A7C22C2331400F0A280 /* iArrive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D7F8AA522C2331900F0A280 /* Build configuration list for PBXNativeTarget "iArrive" */;
+			buildPhases = (
+				0D7F8A7922C2331400F0A280 /* Sources */,
+				0D7F8A7A22C2331400F0A280 /* Frameworks */,
+				0D7F8A7B22C2331400F0A280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iArrive;
+			productName = iArrive;
+			productReference = 0D7F8A7D22C2331400F0A280 /* iArrive.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0D7F8A9022C2331800F0A280 /* iArriveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D7F8AA822C2331900F0A280 /* Build configuration list for PBXNativeTarget "iArriveTests" */;
+			buildPhases = (
+				0D7F8A8D22C2331800F0A280 /* Sources */,
+				0D7F8A8E22C2331800F0A280 /* Frameworks */,
+				0D7F8A8F22C2331800F0A280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0D7F8A9322C2331800F0A280 /* PBXTargetDependency */,
+			);
+			name = iArriveTests;
+			productName = iArriveTests;
+			productReference = 0D7F8A9122C2331800F0A280 /* iArriveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0D7F8A9B22C2331800F0A280 /* iArriveUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D7F8AAB22C2331900F0A280 /* Build configuration list for PBXNativeTarget "iArriveUITests" */;
+			buildPhases = (
+				0D7F8A9822C2331800F0A280 /* Sources */,
+				0D7F8A9922C2331800F0A280 /* Frameworks */,
+				0D7F8A9A22C2331800F0A280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0D7F8A9E22C2331800F0A280 /* PBXTargetDependency */,
+			);
+			name = iArriveUITests;
+			productName = iArriveUITests;
+			productReference = 0D7F8A9C22C2331800F0A280 /* iArriveUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0D7F8A7522C2331400F0A280 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Lam Wun Yin";
+				TargetAttributes = {
+					0D7F8A7C22C2331400F0A280 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					0D7F8A9022C2331800F0A280 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 0D7F8A7C22C2331400F0A280;
+					};
+					0D7F8A9B22C2331800F0A280 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 0D7F8A7C22C2331400F0A280;
+					};
+				};
+			};
+			buildConfigurationList = 0D7F8A7822C2331400F0A280 /* Build configuration list for PBXProject "iArrive" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0D7F8A7422C2331400F0A280;
+			productRefGroup = 0D7F8A7E22C2331400F0A280 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0D7F8A7C22C2331400F0A280 /* iArrive */,
+				0D7F8A9022C2331800F0A280 /* iArriveTests */,
+				0D7F8A9B22C2331800F0A280 /* iArriveUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0D7F8A7B22C2331400F0A280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DB08D3922C5C2CF0000B74B /* iArrive@3x.png in Resources */,
+				0DB08D3A22C5C2CF0000B74B /* iArrive@2x.png in Resources */,
+				0DB08D3B22C5C2CF0000B74B /* iArrive.png in Resources */,
+				0DBBA8F322C36B5D00607511 /* Montserrat-Bold.otf in Resources */,
+				0DBBA8F422C36B5D00607511 /* NotoSans-Black.ttf in Resources */,
+				0DBBA8F522C36B5D00607511 /* Montserrat-ExtraBold.otf in Resources */,
+				0DBBA8F622C36B5D00607511 /* Montserrat-ExtraBoldItalic.otf in Resources */,
+				0DBBA8F722C36B5D00607511 /* Montserrat-SemiBold.otf in Resources */,
+				0DBBA8F822C36B5D00607511 /* NotoSans-BoldItalic.ttf in Resources */,
+				0DBBA8F922C36B5D00607511 /* NotoSans-Thin.ttf in Resources */,
+				0DBBA8FA22C36B5D00607511 /* Montserrat-Thin.otf in Resources */,
+				0DBBA8FB22C36B5D00607511 /* Montserrat-ThinItalic.otf in Resources */,
+				0DBBA8FC22C36B5D00607511 /* Montserrat-Medium.otf in Resources */,
+				0DBBA8FD22C36B5D00607511 /* Montserrat-SemiBoldItalic.otf in Resources */,
+				0DBBA8FE22C36B5D00607511 /* Montserrat-ExtraLightItalic.otf in Resources */,
+				0DBBA8FF22C36B5D00607511 /* NotoSans-ExtraBold.ttf in Resources */,
+				0DBBA90022C36B5D00607511 /* Montserrat-Light.otf in Resources */,
+				0DBBA90122C36B5D00607511 /* NotoSans-LightItalic.ttf in Resources */,
+				0DBBA90222C36B5D00607511 /* Montserrat-BoldItalic.otf in Resources */,
+				0DBBA90322C36B5D00607511 /* Montserrat-MediumItalic.otf in Resources */,
+				0DBBA90422C36B5D00607511 /* NotoSans-ExtraLight.ttf in Resources */,
+				0DBBA90522C36B5D00607511 /* NotoSans-Bold.ttf in Resources */,
+				0DBBA90622C36B5D00607511 /* NotoSans-Light.ttf in Resources */,
+				0DBBA90722C36B5D00607511 /* NotoSans-ThinItalic.ttf in Resources */,
+				0DBBA90822C36B5D00607511 /* Montserrat-Italic.otf in Resources */,
+				0DBBA90922C36B5D00607511 /* NotoSans-BlackItalic.ttf in Resources */,
+				0DBBA90A22C36B5D00607511 /* NotoSans-SemiBold.ttf in Resources */,
+				0DBBA90B22C36B5D00607511 /* Montserrat-BlackItalic.otf in Resources */,
+				0DBBA90C22C36B5D00607511 /* NotoSans-ExtraLightItalic.ttf in Resources */,
+				0DBBA90D22C36B5D00607511 /* NotoSans-ExtraBoldItalic.ttf in Resources */,
+				0DBBA90E22C36B5D00607511 /* NotoSans-Italic.ttf in Resources */,
+				0DBBA90F22C36B5D00607511 /* Montserrat-LightItalic.otf in Resources */,
+				0DBBA91022C36B5D00607511 /* Montserrat-Regular.otf in Resources */,
+				0DBBA91122C36B5D00607511 /* NotoSans-Regular.ttf in Resources */,
+				0DBBA91222C36B5D00607511 /* Montserrat-Black.otf in Resources */,
+				0DBBA91322C36B5D00607511 /* Montserrat-ExtraLight.otf in Resources */,
+				0DBBA91422C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf in Resources */,
+				0DBBA91522C36B5D00607511 /* NotoSans-Medium.ttf in Resources */,
+				0DBBA91622C36B5D00607511 /* NotoSans-MediumItalic.ttf in Resources */,
+				0D7F8A8B22C2331800F0A280 /* LaunchScreen.storyboard in Resources */,
+				0D7F8A8822C2331800F0A280 /* Assets.xcassets in Resources */,
+				0D7F8A8622C2331400F0A280 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D7F8A8F22C2331800F0A280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D7F8A9A22C2331800F0A280 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0D7F8A7922C2331400F0A280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DCF0F9622C4D3C5003CE196 /* photoCollectionViewCell.swift in Sources */,
+				0DFC90F922C350C900B7A7B0 /* globalVariablesFunctions.swift in Sources */,
+				0D67BCF022C60BBA0035D181 /* B3_SelectCorrectViewController.swift in Sources */,
+				0D7F8A8322C2331400F0A280 /* A_LoadingViewController.swift in Sources */,
+				0DBBA91E22C378BC00607511 /* FloatLabelTextField.swift in Sources */,
+				0D7F8A8122C2331400F0A280 /* AppDelegate.swift in Sources */,
+				0DFC90F722C34EF700B7A7B0 /* staffMember.swift in Sources */,
+				0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */,
+				0D241FF022C617E60039E7EE /* selectStaffTableViewCell.swift in Sources */,
+				0D5B56EB22C49D7300376BFD /* B_SignInViewController.swift in Sources */,
+				0DCF0F9222C4B7E4003CE196 /* C1_CameraRegisterViewController.swift in Sources */,
+				0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D7F8A8D22C2331800F0A280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DBBA91F22C378BC00607511 /* FloatLabelTextField.swift in Sources */,
+				0D7F8A9622C2331800F0A280 /* iArriveTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D7F8A9822C2331800F0A280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DBBA92022C378BC00607511 /* FloatLabelTextField.swift in Sources */,
+				0D7F8AA122C2331900F0A280 /* iArriveUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0D7F8A9322C2331800F0A280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D7F8A7C22C2331400F0A280 /* iArrive */;
+			targetProxy = 0D7F8A9222C2331800F0A280 /* PBXContainerItemProxy */;
+		};
+		0D7F8A9E22C2331800F0A280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D7F8A7C22C2331400F0A280 /* iArrive */;
+			targetProxy = 0D7F8A9D22C2331800F0A280 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0D7F8A8422C2331400F0A280 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0D7F8A8522C2331400F0A280 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0D7F8A8922C2331800F0A280 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0D7F8A8A22C2331800F0A280 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0D7F8AA322C2331900F0A280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0D7F8AA422C2331900F0A280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0D7F8AA622C2331900F0A280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3N6692BLL;
+				INFOPLIST_FILE = iArrive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = WillLam.iArrive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0D7F8AA722C2331900F0A280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3N6692BLL;
+				INFOPLIST_FILE = iArrive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = WillLam.iArrive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0D7F8AA922C2331900F0A280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3N6692BLL;
+				INFOPLIST_FILE = iArriveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = WillLam.iArriveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iArrive.app/iArrive";
+			};
+			name = Debug;
+		};
+		0D7F8AAA22C2331900F0A280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3N6692BLL;
+				INFOPLIST_FILE = iArriveTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = WillLam.iArriveTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iArrive.app/iArrive";
+			};
+			name = Release;
+		};
+		0D7F8AAC22C2331900F0A280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3N6692BLL;
+				INFOPLIST_FILE = iArriveUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = WillLam.iArriveUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iArrive;
+			};
+			name = Debug;
+		};
+		0D7F8AAD22C2331900F0A280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T3N6692BLL;
+				INFOPLIST_FILE = iArriveUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = WillLam.iArriveUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iArrive;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D7F8A7822C2331400F0A280 /* Build configuration list for PBXProject "iArrive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D7F8AA322C2331900F0A280 /* Debug */,
+				0D7F8AA422C2331900F0A280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D7F8AA522C2331900F0A280 /* Build configuration list for PBXNativeTarget "iArrive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D7F8AA622C2331900F0A280 /* Debug */,
+				0D7F8AA722C2331900F0A280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D7F8AA822C2331900F0A280 /* Build configuration list for PBXNativeTarget "iArriveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D7F8AA922C2331900F0A280 /* Debug */,
+				0D7F8AAA22C2331900F0A280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D7F8AAB22C2331900F0A280 /* Build configuration list for PBXNativeTarget "iArriveUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D7F8AAC22C2331900F0A280 /* Debug */,
+				0D7F8AAD22C2331900F0A280 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0D7F8A7522C2331400F0A280 /* Project object */;
+}
