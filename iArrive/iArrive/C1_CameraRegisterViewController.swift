@@ -73,13 +73,11 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         // Setup your camera
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .medium
-        guard let backCamera = AVCaptureDevice.default(for: AVMediaType.video)
-            else {
-                print("Unable to access back camera!")
-                return
+        guard let frontCamera = AVCaptureDevice.devices().filter({ $0.position == .front }).first else {
+            fatalError("Unable to access front camera!")
         }
         do {
-            let input = try AVCaptureDeviceInput(device: backCamera)
+            let input = try AVCaptureDeviceInput(device: frontCamera)
             stillImageOutput = AVCapturePhotoOutput()
             if captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput) {
                 captureSession.addInput(input)
