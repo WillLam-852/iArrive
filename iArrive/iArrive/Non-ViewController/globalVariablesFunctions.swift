@@ -204,3 +204,20 @@ extension CALayer {
         }
     }
 }
+
+extension UIButton{
+    
+    func setImage(image: UIImage?, inFrame frame: CGRect?, forState state: UIControl.State){
+        self.setImage(image, for: state)
+        
+        if let frame = frame{
+            self.imageEdgeInsets = UIEdgeInsets(
+                top: frame.minY - self.frame.minY,
+                left: frame.minX - self.frame.minX,
+                bottom: self.frame.maxY - frame.maxY,
+                right: self.frame.maxX - frame.maxX
+            )
+        }
+    }
+    
+}

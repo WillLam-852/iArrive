@@ -44,8 +44,7 @@ class B_SignInViewController: UIViewController {
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs))
         
         greetingLabel.attributedText = attributedString
-        logoutButton.imageView?.contentMode = .scaleAspectFill
-        
+
         checkInOutButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
             alpha: 1.0,
