@@ -33,7 +33,6 @@ class B_LoginViewController: UIViewController {
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-<<<<<<< HEAD
         userNameTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
         passwordTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
         
@@ -45,14 +44,7 @@ class B_LoginViewController: UIViewController {
             y: 0,
             blur: 4,
             spread: 0)
-=======
-        loginButton.layer.cornerRadius = 4.0
-        loginButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        loginButton.layer.shadowOffset = .zero
-        loginButton.layer.shadowOpacity = 1.0
-        loginButton.layer.shadowRadius = 0.0
-        loginButton.layer.masksToBounds = false
->>>>>>> 2a7e7bf93e17e803e1c7345aaf49754c91d6a584
+
         loginButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
         loginButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
@@ -72,29 +64,6 @@ class B_LoginViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
         showPasswordButton.isHidden = true
-    }
-    
-    
-    // MARK: Button Pressing Animation
-    
-    @objc func buttonPressing(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        loginButton.layer.shadowOffset = .zero
-    }
-    
-    @objc func buttonPressedInside(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-        loginButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
-    }
-    
-    @objc func buttonDraggedInside(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        loginButton.layer.shadowOffset = .zero
-    }
-    
-    @objc func buttonDraggedOutside(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-        loginButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
     }
     
     
