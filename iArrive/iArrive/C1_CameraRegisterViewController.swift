@@ -22,6 +22,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     
     // MARK: Local variables
     var noOfPhotos = 0
+    var frontCamera: AVCaptureDevice?
     var captureSession: AVCaptureSession!
     var stillImageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
@@ -73,11 +74,15 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         // Setup your camera
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .medium
-        guard let frontCamera = AVCaptureDevice.devices().filter({ $0.position == .front }).first else {
-            fatalError("Unable to access front camera!")
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+        let devices = deviceDiscoverySession.devices
+        for device in devices {
+            if device.position == AVCaptureDevice.Position.front {
+                frontCamera = device
+            }
         }
         do {
-            let input = try AVCaptureDeviceInput(device: frontCamera)
+            let input = try AVCaptureDeviceInput(device: frontCamera!)
             stillImageOutput = AVCapturePhotoOutput()
             if captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput) {
                 captureSession.addInput(input)
@@ -86,7 +91,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
             }
         }
         catch let error  {
-            print("Error Unable to initialize back camera:  \(error.localizedDescription)")
+            print("Error Unable to initialize front camera:  \(error.localizedDescription)")
         }
     }
 
@@ -99,7 +104,6 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     // MARK: AVCapturePhotoCaptureDelegate
     
     func setupLivePreview() {
-
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 
         videoPreviewLayer.videoGravity = .resizeAspect
