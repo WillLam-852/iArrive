@@ -257,11 +257,11 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")
         }
-        dismiss(animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
     }
     
     @IBAction func pressedCancelButton(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
     }
     
 }
