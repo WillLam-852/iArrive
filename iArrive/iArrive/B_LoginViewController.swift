@@ -8,7 +8,7 @@
 
 import UIKit
 
-class B_LoginViewController: UIViewController, UITextFieldDelegate {
+class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     // MARK: Properties
     
@@ -17,14 +17,18 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var bottomBar: UILabel!
     @IBOutlet weak var showPasswordButton: UIButton!
+    @IBOutlet weak var explainTextView: UITextView!
     
+    // MARK: Local Variable
     var isShownPassword = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userNameTextField.delegate = self
         passwordTextField.delegate = self
+        explainTextView.delegate = self
         
         if isLoadSampleStaff {
             publicFunctions().loadSampleStaff()
@@ -34,6 +38,25 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
         showPasswordButton.isHidden = true
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        
+        let labelText = """
+        By Logging in, you agree to the iArrive
+        Terms of Service and Privacy Policy
+        """
+        let stringAttribute = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Regular", size: 16)!, .foregroundColor : UIColor.white]
+        let string = NSMutableAttributedString(string: labelText, attributes: stringAttribute)
+        
+        var textRange = string.mutableString.range(of: "Terms of Service")
+        string.addAttribute(.link, value: termOfServiceLink, range: textRange)
+        textRange = string.mutableString.range(of: "Privacy Policy")
+        string.addAttribute(.link, value: privacyPolicyLink, range: textRange)
+        let linkAttribute = [NSAttributedString.Key.font: UIFont(name: "NotoSans-Medium", size: 16)!, .foregroundColor : publicFunctions().hexStringToUIColor(hex: "#C9F4FF"), .underlineStyle: 1] as [NSAttributedString.Key : Any]
+        explainTextView.isEditable = false
+        explainTextView.dataDetectorTypes = .link
+        explainTextView.attributedText = string
+        explainTextView.linkTextAttributes = linkAttribute
+        explainTextView.textAlignment = .center
+        
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         userNameTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
@@ -95,7 +118,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Text Field Functions
     
-    @objc func textFieldDidChange(_ textField: UITextField) {
+    @objc private func textFieldDidChange(_ textField: UITextField) {
         updatedLoginButtonState()
     }
     
@@ -117,6 +140,18 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+    
+    
+    // MARK: UITextViewDelegate
+    
+    private func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+        if (URL.absoluteString == termOfServiceLink) {
+            UIApplication.shared.open(URL as URL)
+        } else if (URL.absoluteString == privacyPolicyLink) {
+            UIApplication.shared.open(URL as URL)
+        }
+        return false
     }
     
     
@@ -157,6 +192,10 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate {
             showPasswordButton.setImage(UIImage(named: "Show"), for: .normal)
             isShownPassword = false
         }
+    }
+    
+    @IBAction func pressedForgotPassordButton(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string: "http://www.google.com")! as URL)
     }
     
     

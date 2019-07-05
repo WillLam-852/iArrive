@@ -17,7 +17,6 @@ class B_SignInViewController: UIViewController {
     @IBOutlet weak var checkInOutButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,8 +39,8 @@ class B_SignInViewController: UIViewController {
         let boldText = organization + " !"
         let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
         
-        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs)
-        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs))
+        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
+        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
         
         greetingLabel.attributedText = attributedString
 
@@ -129,10 +128,6 @@ class B_SignInViewController: UIViewController {
 
     
     // MARK: Navigations
-    
-    @IBAction func pressedCheckInOutButton(_ sender: UIButton) {
-//        print(staffNameList.count)
-    }
     
     @IBAction func pressedLogoutButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
