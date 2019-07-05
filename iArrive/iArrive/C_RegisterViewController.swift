@@ -8,13 +8,14 @@
 
 import UIKit
 
-class C_RegisterViewController: UIViewController, UITextFieldDelegate {
+class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     // MARK: Properties
     @IBOutlet weak var bottomBar: UILabel!
     @IBOutlet weak var firstNameTextField: FloatLabelTextField!
     @IBOutlet weak var lastNameTextField: FloatLabelTextField!
     @IBOutlet weak var jobTitleTextField: FloatLabelTextField!
+    @IBOutlet weak var explainTextView: UITextView!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
@@ -22,12 +23,32 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addBackgroundGradientColors()
-        bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
-        
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
         jobTitleTextField.delegate = self
+        explainTextView.delegate = self
+        
+        addBackgroundGradientColors()
+        bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        
+        let labelText = """
+        By registering, you agree to the iArrive
+        Terms of Service and Privacy Policy
+        """
+        let stringAttribute = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Regular", size: 16)!, .foregroundColor : UIColor.white]
+        let string = NSMutableAttributedString(string: labelText, attributes: stringAttribute)
+        
+        var textRange = string.mutableString.range(of: "Terms of Service")
+        string.addAttribute(.link, value: termOfServiceLink, range: textRange)
+        textRange = string.mutableString.range(of: "Privacy Policy")
+        string.addAttribute(.link, value: privacyPolicyLink, range: textRange)
+        let linkAttribute = [NSAttributedString.Key.font: UIFont(name: "NotoSans-Medium", size: 16)!, .foregroundColor : publicFunctions().hexStringToUIColor(hex: "#C9F4FF"), .underlineStyle: 1] as [NSAttributedString.Key : Any]
+        explainTextView.isEditable = false
+        explainTextView.dataDetectorTypes = .link
+        explainTextView.attributedText = string
+        explainTextView.linkTextAttributes = linkAttribute
+        explainTextView.textAlignment = .center
+        
         firstNameTextField.text = currentRegisteringFirstName
         lastNameTextField.text = currentRegisteringLastName
         jobTitleTextField.text = currentRegisteringJobTitle
@@ -73,7 +94,7 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Text Field Functions
     
-    @objc func textFieldDidChange(_ textField: UITextField) {
+    @objc private func textFieldDidChange(_ textField: UITextField) {
         currentRegisteringFirstName = firstNameTextField.text ?? ""
         currentRegisteringLastName = lastNameTextField.text ?? ""
         currentRegisteringJobTitle = jobTitleTextField.text ?? ""
@@ -92,6 +113,16 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+    
+    
+    private func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+        if (URL.absoluteString == termOfServiceLink) {
+            UIApplication.shared.open(URL as URL)
+        } else if (URL.absoluteString == privacyPolicyLink) {
+            UIApplication.shared.open(URL as URL)
+        }
+        return false
     }
     
     

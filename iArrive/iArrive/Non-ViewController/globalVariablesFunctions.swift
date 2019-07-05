@@ -24,6 +24,12 @@ var currentCheckingInOutPhoto: UIImage?
 var isLoadSampleStaff = true
 
 
+// MARK: Global Constants
+
+let termOfServiceLink = "https://www.apptech.com.hk"
+let privacyPolicyLink = "https://www.google.com.hk"
+
+
 // MARK: Global Classes
 
 class backgroundGradientColors {
