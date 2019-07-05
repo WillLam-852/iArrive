@@ -10,21 +10,39 @@ import UIKit
 
 class B1_1_PhotoDetectedViewController: UIViewController {
 
+    // MARK: Properties
+    @IBOutlet weak var notMeButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = currentCheckingInOutPhoto
+        imageView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.insertSubview(imageView, at: 0)
 
-        // Do any additional setup after loading the view.
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = 0.9
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.insertSubview(blurEffectView, at: 1)
+        
+        notMeButton.layer.cornerRadius = 28
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: Navigation
+    
+    @IBAction func pressedTryAgainButton(_ sender: UIButton) {
+        dismiss(animated: false, completion: nil)
     }
-    */
+    
 
 }

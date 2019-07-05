@@ -62,6 +62,11 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.captureSession.stopRunning()
+    }
+    
     
     // MARK: AVCapturePhotoCaptureDelegate
     
@@ -161,7 +166,10 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     @IBAction func pressedPhotoButton(_ sender: Any) {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
-        print("Photo Taken")
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
+            
+        })
     }
     
     
