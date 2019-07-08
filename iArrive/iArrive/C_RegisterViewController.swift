@@ -196,15 +196,15 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     // MARK: Navigation
     
     @IBAction func pressedCancelButton(_ sender: Any) {
-        currentRegisteringFirstName = ""
-        currentRegisteringLastName = ""
-        currentRegisteringJobTitle = ""
+        currentRegisteringFirstName = nil
+        currentRegisteringLastName = nil
+        currentRegisteringJobTitle = nil
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func pressedNextButton(_ sender: UIButton) {
         if staffNameList.contains(where: {(staff : staffMember) -> Bool in
-            return (staff.firstName.lowercased() == currentRegisteringFirstName.lowercased()) && (staff.lastName.lowercased() == currentRegisteringLastName.lowercased())
+            return (staff.firstName.lowercased() == currentRegisteringFirstName!.lowercased()) && (staff.lastName.lowercased() == currentRegisteringLastName!.lowercased())
         }){
             let alert = UIAlertController(title: "Existing Staff Name", message: "Please input a new staff", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))

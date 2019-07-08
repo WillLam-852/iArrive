@@ -11,18 +11,20 @@ import UIKit
 
 // MARK: Global Variables
 
-var organization = "AppTech"    // Campany Name
-var isLogin = false     // True for logged in, False otherwise
-var currentRegisteringFirstName = ""
-var currentRegisteringLastName = ""
-var currentRegisteringJobTitle = ""
+var organization: String?    // Organization Name
+var currentRegisteringFirstName: String?
+var currentRegisteringLastName: String?
+var currentRegisteringJobTitle: String?
 var staffNameList = [staffMember] ()
-var currentCheckingInOutFirstName = ""
-var currentCheckingInOutLastName = ""
-var currentCheckingInOutJobTitle = ""
+var currentCheckingInOutFirstName: String?
+var currentCheckingInOutLastName: String?
+var currentCheckingInOutJobTitle: String?
+var currentCheckingInOutDate: String?
+var currentCheckingInOutTime: String?
 var currentCheckingInOutPhoto: UIImage?
-var isLoadSampleStaff = true
 
+var isLoadSampleStaff = true
+var isLoadSampleDetectedData = true
 
 // MARK: Global Constants
 
@@ -41,6 +43,34 @@ class backgroundGradientColors {
         self.gl = CAGradientLayer()
         self.gl.colors = [colorTop, colorBottom]
         self.gl.locations = [0.0, 1.0]
+    }
+}
+
+class CheckBox: UIButton {
+    // Images
+    let checkedImage = UIImage(named: "ic_check_box")! as UIImage
+    let uncheckedImage = UIImage(named: "ic_check_box_outline_blank")! as UIImage
+    
+    // Bool property
+    var isChecked: Bool = false {
+        didSet{
+            if isChecked == true {
+                self.setImage(checkedImage, for: UIControl.State.normal)
+            } else {
+                self.setImage(uncheckedImage, for: UIControl.State.normal)
+            }
+        }
+    }
+    
+    override func awakeFromNib() {
+        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
+        self.isChecked = false
+    }
+    
+    @objc func buttonClicked(sender: UIButton) {
+        if sender == self {
+            isChecked = !isChecked
+        }
     }
 }
 
@@ -189,6 +219,8 @@ extension UILabel
     }
 }
 
+// Extension on layer for adding shadow
+
 extension CALayer {
     func applySketchShadow(
         color: UIColor = .black,
@@ -212,19 +244,19 @@ extension CALayer {
     }
 }
 
-extension UIButton{
-    
-    func setImage(image: UIImage?, inFrame frame: CGRect?, forState state: UIControl.State){
-        self.setImage(image, for: state)
-        
-        if let frame = frame{
-            self.imageEdgeInsets = UIEdgeInsets(
-                top: frame.minY - self.frame.minY,
-                left: frame.minX - self.frame.minX,
-                bottom: self.frame.maxY - frame.maxY,
-                right: self.frame.maxX - frame.maxX
-            )
-        }
-    }
-    
-}
+//extension UIButton{
+//
+//    func setImage(image: UIImage?, inFrame frame: CGRect?, forState state: UIControl.State){
+//        self.setImage(image, for: state)
+//
+//        if let frame = frame{
+//            self.imageEdgeInsets = UIEdgeInsets(
+//                top: frame.minY - self.frame.minY,
+//                left: frame.minX - self.frame.minX,
+//                bottom: self.frame.maxY - frame.maxY,
+//                right: self.frame.maxX - frame.maxX
+//            )
+//        }
+//    }
+//
+//}

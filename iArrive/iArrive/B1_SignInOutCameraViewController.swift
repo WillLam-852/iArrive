@@ -166,9 +166,11 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     @IBAction func pressedPhotoButton(_ sender: Any) {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
+        currentCheckingInOutDate = dateLabel.text ?? ""
+        currentCheckingInOutTime = timeLabel.text ?? ""
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
             
+            self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
         })
     }
     
