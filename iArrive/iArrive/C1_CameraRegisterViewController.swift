@@ -224,10 +224,10 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     @IBAction func pressedConfirmButton(_ sender: UIButton) {
 //        self.view.showToast(toastMessage: "Register successfully", duration: 2.0)
         print("Register successfully")
-        staffNameList.append(staffMember(firstName: currentRegisteringFirstName, lastName: currentRegisteringLastName, jobTitle: currentRegisteringJobTitle, isCheckedIn: false))
-        currentRegisteringFirstName = ""
-        currentRegisteringLastName = ""
-        currentRegisteringJobTitle = ""
+        staffNameList.append(staffMember(firstName: currentRegisteringFirstName!, lastName: currentRegisteringLastName!, jobTitle: currentRegisteringJobTitle!, isCheckedIn: false))
+        currentRegisteringFirstName = nil
+        currentRegisteringLastName = nil
+        currentRegisteringJobTitle = nil
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
     }
     

@@ -249,10 +249,10 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
             if staffNameList[index].isCheckedIn {
                 staffNameList[index].isCheckedIn = false
-                print(currentCheckingInOutFirstName, "Check out successfully")
+                print(currentCheckingInOutFirstName ?? "", "Check out successfully")
             } else {
                 staffNameList[index].isCheckedIn = true
-                print(currentCheckingInOutFirstName, "Check in successfully")
+                print(currentCheckingInOutFirstName ?? "", "Check in successfully")
             }
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")

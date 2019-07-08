@@ -24,6 +24,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Montserrat-Medium.otf</string>
 		<string>Montserrat-Bold.otf</string>
 		<string>Montserrat-ExtraBold.otf</string>
 		<string>NotoSans-Regular.ttf</string>

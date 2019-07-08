@@ -14,6 +14,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     @IBOutlet weak var userNameTextField: FloatLabelTextField!
     @IBOutlet weak var passwordTextField: FloatLabelTextField!
+    @IBOutlet weak var keepMeLoginButton: CheckBox!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var bottomBar: UILabel!
     @IBOutlet weak var showPasswordButton: UIButton!
@@ -204,8 +205,10 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         if (userNameTextField.text == "user" && passwordTextField.text == "pw") {
             organization = userNameTextField.text!
-            userNameTextField.text = ""
-            passwordTextField.text = ""
+            if !keepMeLoginButton.isChecked {
+                userNameTextField.text = ""
+                passwordTextField.text = ""
+            }
             performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
         } else {
             let alert = UIAlertController(title: "Wrong username / password", message: """
