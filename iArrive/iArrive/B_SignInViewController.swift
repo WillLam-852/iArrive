@@ -11,21 +11,23 @@ import UIKit
 class B_SignInViewController: UIViewController {
 
     // MARK: Properties
-    @IBOutlet weak var bottomBar: UILabel!
     @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var checkInOutButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var bottomBar: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Set up Background and Bottom Bar Color
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
+        // Set up Greeting Label (with time conditions and username)
         let currentHour = Calendar.current.component(.hour, from: Date())
         var normalText = ""
-        
         if (currentHour >= 6 && currentHour < 12) {
             normalText = "Good morning "
         } else if (currentHour >= 12 && currentHour < 18) {
@@ -36,14 +38,13 @@ class B_SignInViewController: UIViewController {
             normalText = "Good night "
         }
         let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
-        let boldText = organization! + " !"
+        let boldText = username! + " !"
         let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
-        
         let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
-        
         greetingLabel.attributedText = attributedString
 
+        // Set up Check In / Out Button
         checkInOutButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
             alpha: 1.0,
@@ -52,9 +53,12 @@ class B_SignInViewController: UIViewController {
             blur: 4,
             spread: 0)
         checkInOutButton.layer.cornerRadius = 4.0
-        registerButton.layer.cornerRadius = 4.0
-        registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
         
+        // Set up Register Button
+        registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
+        registerButton.layer.cornerRadius = 4.0
+        
+        // Associate Button objects with action methods (For updating button background colors and shadows)
         logoutButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
         logoutButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         logoutButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
@@ -70,7 +74,9 @@ class B_SignInViewController: UIViewController {
     }
     
     
-    // MARK: Button Pressing Animation
+    
+    // MARK: Action Methods for Buttons
+    // For updating button background colors and shadows
     
     @objc func buttonPressing(_ sender: AnyObject?) {
         if sender === logoutButton {
@@ -117,8 +123,10 @@ class B_SignInViewController: UIViewController {
     }
     
 
+    
     // MARK: Private Methods
     
+    // Add Background Gradient Colors
     private func addBackgroundGradientColors() {
         view.backgroundColor = UIColor.clear
         let backgroundLayer = backgroundGradientColors().gl
@@ -127,8 +135,10 @@ class B_SignInViewController: UIViewController {
     }
 
     
+    
     // MARK: Navigations
     
+    // Back to Login Page when user presses Logout Button
     @IBAction func pressedLogoutButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

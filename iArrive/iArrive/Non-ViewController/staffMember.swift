@@ -8,6 +8,8 @@
 
 import UIKit
 
+// Staff Member Format for storing
+
 class staffMember {
     
     // MARK: Properties
