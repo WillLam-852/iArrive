@@ -31,9 +31,9 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         super.viewDidLoad()
         
         // Load Sample Staff for debugging (Delete after deployment)
-        if isLoadSampleStaff {
-            publicFunctions().loadSampleStaff()
-        }
+//        if isLoadSampleStaff {
+//            publicFunctions().loadSampleStaff()
+//        }
         
         // Load Sample Detected Staff Member Infomation for debugging (Delete after deployment)
         if isLoadSampleDetectedData {

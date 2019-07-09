@@ -44,8 +44,8 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // Set up the camera
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo

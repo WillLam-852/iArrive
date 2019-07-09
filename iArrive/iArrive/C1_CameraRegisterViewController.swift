@@ -9,7 +9,8 @@
 import UIKit
 import AVFoundation
 
-class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AVCapturePhotoCaptureDelegate{
+class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate{
+    
 
     // MARK: Properties
     @IBOutlet weak var noOfPhotosLabel: UILabel!
@@ -24,10 +25,12 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     var noOfPhotos = 0
     var captureSession: AVCaptureSession!
     var stillImageOutput: AVCapturePhotoOutput!
+    var movieOutput: AVCaptureFileOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var frontCamera: AVCaptureDevice?
     var imageArray = [UIImage?] ()
     var photoSaved = false
+    var outputURL: NSURL?
     private let reuseIdentifier = "photoCell"
     
     
@@ -137,7 +140,12 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     func setupLivePreview() {
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         videoPreviewLayer.videoGravity = .resizeAspect
-        videoPreviewLayer.connection?.videoOrientation = .portrait
+        if videoPreviewLayer.connection!.isVideoOrientationSupported {
+            videoPreviewLayer.connection?.videoOrientation = .portrait
+        }
+        if videoPreviewLayer.connection!.isVideoStabilizationSupported {
+            videoPreviewLayer.connection?.preferredVideoStabilizationMode = .auto
+        }
         previewView.layer.addSublayer(videoPreviewLayer)
         DispatchQueue.global(qos: .userInitiated).async {
             self.captureSession.startRunning()
@@ -151,16 +159,48 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation()
             else { return }
+        let image = UIImage(cgImage: (UIImage(data: imageData)?.cgImage)!, scale: 1.0, orientation: .leftMirrored)
         for i in stride(from: 39, through: 1, by: -1) {
             imageArray[i] = imageArray[i-1]
         }
-        imageArray[0] = UIImage(data: imageData)
+        imageArray[0] = image
         noOfPhotos += 1
         photoSaved = true
         noOfPhotosLabel.text = String(noOfPhotos)
         photoCollectionView?.reloadData()
+//        outputURL = self.tempURL()
+//        movieOutput.startRecording(to: outputURL! as URL, recordingDelegate: self)
+//        self.photoButton.isEnabled = false
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_3", comment: ""), for: .normal)
+//        _ = Timer(timeInterval: 1, repeats: false, block: {timer in print("CHECK")})        // To Be Tested
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_2", comment: ""), for: .normal)
+//        _ = Timer(timeInterval: 1, repeats: false, block: {timer in print("CHECK")})        // To Be Tested
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_1", comment: ""), for: .normal)
+//        _ = Timer(timeInterval: 1, repeats: false, block: {timer in print("CHECK")})        // To Be Tested
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_0", comment: ""), for: .normal)
+//        movieOutput.stopRecording()
     }
+    
+    
+    
+    // MARK: AVCaptureFileOutputRecordingDelegate
 
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+
+    }
+    
+    
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    [[API sharedAPI] uploadVideo:self.outputURL success:^(NSDictionary *responseObject) {
+//    NSString *videoURL = responseObject[@"video_filename"];
+//    [self uploadToAddFace:videoURL];
+//    } failure:^(NSError *error) {
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//    [UsefulTools showAlertwithTitle:CustomLocalisedString(@"registerVC_error", @"") withContent:CustomLocalisedString(@"registerVC_error_message1", @"") viewController:self withComplection:^(UIAlertAction * _Nonnull action) {
+//    }];
+//    }];
+    
+    
     
     
     // MARK: UICollectionViewDelegate
@@ -204,6 +244,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
             alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
             self.present(alert, animated: true)
         } else {
+//            if !movieOutput.isRecording {
             let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
             stillImageOutput.capturePhoto(with: settings, delegate: self)
             noOfPhotosLabel.text = String(noOfPhotos)
@@ -211,6 +252,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
                 confirmButton.isEnabled = true
                 confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
             }
+//            }
         }
     }
     
@@ -233,5 +275,17 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         currentRegisteringJobTitle = nil
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
     }
+    
+
+//    func tempURL() -> NSURL? {
+//        let temp = NSTemporaryDirectory()
+//        if temp != "" {
+//            let uuid = UUID().uuidString
+//            let filename = String(format: "%@.mp4", uuid)
+//            let path = URL(fileURLWithPath: temp).appendingPathComponent(filename)
+//            return path as NSURL?
+//        }
+//        return nil
+//    }
     
 }

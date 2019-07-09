@@ -14,7 +14,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: Properties
     @IBOutlet weak var staffSearchBar: UISearchBar!
     @IBOutlet weak var selectStaffTableView: UITableView!
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     
     
@@ -29,9 +29,9 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         
         // Load Sample Staff for debugging (Delete after deployment)
-        if isLoadSampleStaff {
-            publicFunctions().loadSampleStaff()
-        }
+//        if isLoadSampleStaff {
+//            publicFunctions().loadSampleStaff()
+//        }
         
         // Update delegate, data source, and other initialization
         staffSearchBar.delegate = self
@@ -61,10 +61,10 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         confirmButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         confirmButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         confirmButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
-        cancelButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        cancelButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        cancelButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        cancelButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+        backButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
+        backButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
+        backButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
     
     // Hide keyboard and Update selectStaffTableView when users tap space outside search bar
@@ -86,7 +86,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             confirmButton.layer.shadowOffset = .zero
         } else {
-            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
         }
     }
     
@@ -95,7 +95,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
         } else {
-            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
         }
     }
     
@@ -104,7 +104,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             confirmButton.layer.shadowOffset = .zero
         } else {
-            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
         }
     }
     
@@ -113,7 +113,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
         } else {
-            cancelButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
+            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
         }
     }
     
@@ -210,7 +210,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             confirmButton.setTitleColor(UIColor.black, for: .normal)
             confirmButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
             confirmButton.isEnabled = true
-        } else { // When the cell is double selected (cancel)
+        } else { // When the cell is double selected (cancel the cell)
             cell.selectionStyle = .none
             cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
             cell.layer.shadowOffset = .zero
@@ -268,8 +268,8 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     // Back to Sign In Page when user presses Confirm Button without any status updated
-    @IBAction func pressedCancelButton(_ sender: UIButton) {
-        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
+    @IBAction func pressedBackButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: {})
     }
     
 }

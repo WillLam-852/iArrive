@@ -94,7 +94,9 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         loginButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         loginButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         // Initialize Login button state
         updatedLoginButtonState()
     }
