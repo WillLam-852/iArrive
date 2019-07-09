@@ -4,6 +4,7 @@ import UIKit
 class FloatLabelTextField: UITextField, UITextFieldDelegate {
 	let animationDuration = 0.3
 	var title = UILabel()
+    var placeholderValue: String?
     
 	// MARK:- Properties
 	override var accessibilityLabel:String? {
@@ -28,6 +29,7 @@ class FloatLabelTextField: UITextField, UITextFieldDelegate {
 	
 	override var attributedPlaceholder:NSAttributedString? {
 		didSet {
+//            placeholder = attributedPlaceholder?.string
 			title.text = attributedPlaceholder?.string
 			title.sizeToFit()
 		}
