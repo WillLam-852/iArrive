@@ -13,13 +13,14 @@ class A_LoadingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         addBackgroundGradientColors()
     }
     
     
     // MARK: Private Methods
     
+    // Add Background Gradient Colors
     private func addBackgroundGradientColors() {
         view.backgroundColor = UIColor.clear
         let backgroundLayer = backgroundGradientColors().gl
