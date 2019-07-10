@@ -246,7 +246,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                 Please input valid
                 username and password.
                 """, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
     }

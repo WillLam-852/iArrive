@@ -15,6 +15,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     // MARK: Properties
     @IBOutlet weak var noOfPhotosLabel: UILabel!
     @IBOutlet weak var previewView: UIView!
+    @IBOutlet weak var imageInsidePreviewView: UIImageView!
     @IBOutlet weak var photoCollectionView: UICollectionView?
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var photoButton: UIButton!
@@ -44,6 +45,16 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         
         // Set up Number Of Photos Label
         noOfPhotosLabel.text = "0"
+        
+        // Set up Camera Preview View
+        previewView.layer.borderWidth = 1.0
+        previewView.layer.masksToBounds = false
+        previewView.layer.borderColor = UIColor.white.cgColor
+        previewView.layer.cornerRadius = previewView.frame.height / 2
+        previewView.clipsToBounds = true
+        
+        // Set up Image Inside Preview View
+        previewView.insertSubview(imageInsidePreviewView, at: 1)
         
         // Set up Confirm Button
         confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
@@ -139,7 +150,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     // Set up the Preview View Layer
     func setupLivePreview() {
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer.videoGravity = .resizeAspect
+        videoPreviewLayer.videoGravity = .resizeAspectFill
         if videoPreviewLayer.connection!.isVideoOrientationSupported {
             videoPreviewLayer.connection?.videoOrientation = .portrait
         }
@@ -151,6 +162,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
             self.captureSession.startRunning()
             DispatchQueue.main.async {
                 self.videoPreviewLayer.frame = self.previewView.bounds
+                self.previewView.layer.insertSublayer(self.videoPreviewLayer, at: 0)
             }
         }
     }
@@ -159,7 +171,8 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation()
             else { return }
-        let image = UIImage(cgImage: (UIImage(data: imageData)?.cgImage)!, scale: 1.0, orientation: .leftMirrored)
+        var image = UIImage(cgImage: (UIImage(data: imageData)?.cgImage)!, scale: 1.0, orientation: .leftMirrored)
+        image = self.cropImageToSquare(image)
         for i in stride(from: 39, through: 1, by: -1) {
             imageArray[i] = imageArray[i-1]
         }
@@ -217,17 +230,44 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
             fatalError("The dequeued cell is not an instance of selectStaffTableViewCell.")
         }
         cell.captureImageView.image = imageArray[indexPath.item]
-        if cell.captureImageView == nil {
-            cell.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#E9F0F5")
-            cell.layer.borderColor = publicFunctions().hexStringToUIColor(hex: "#91D6F0").cgColor
+        cell.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#E9F0F5")
+        cell.layer.borderColor = publicFunctions().hexStringToUIColor(hex: "#91D6F0").cgColor
+        if indexPath.item >= noOfPhotos {
             cell.layer.borderWidth = 2
+        } else {
+            cell.layer.borderWidth = 0
         }
         return cell
     }
     
-    // Set up each collection view cell in the photoCollectionView (Can be deleted when deployment)
+    // Set up the action when user tap the collection view cell in the photoCollectionView (Can be deleted when deployment)
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
+    }
+    
+    
+    
+    // MARK: Private Methods
+    
+    // For Cropping the output image into square
+    func cropImageToSquare(_ image: UIImage) -> UIImage {
+        let orientation: UIDeviceOrientation = UIDevice.current.orientation
+        var imageWidth = image.size.width
+        var imageHeight = image.size.height
+        switch orientation {
+        case .landscapeLeft, .landscapeRight:
+            // Swap width and height if orientation is landscape
+            imageWidth = image.size.height
+            imageHeight = image.size.width
+        default:
+            break
+        }
+        
+        // The center coordinate along Y axis
+        let rcy = imageHeight * 0.5
+        let rect = CGRect(x: rcy - imageWidth * 0.5, y: 0, width: imageWidth, height: imageWidth)
+        let imageRef = image.cgImage?.cropping(to: rect)
+        return UIImage(cgImage: imageRef!, scale: 1.0, orientation: image.imageOrientation)
     }
     
 
