@@ -111,6 +111,24 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         upperLayerView.insertSubview(iconImageView, at: 3)
     }
     
+    // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+            if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
+                if staffNameList[index].isCheckedIn {
+                    staffNameList[index].isCheckedIn = false
+                    print(currentCheckingInOutFirstName ?? "", "Check out successfully")
+                } else {
+                    staffNameList[index].isCheckedIn = true
+                    print(currentCheckingInOutFirstName ?? "", "Check in successfully")
+                }
+            } else {
+                print("ERROR: There is no selected staff in the staffNameList.")
+            }
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     
     
     // MARK: Private Methods
@@ -129,7 +147,7 @@ class B1_1_PhotoDetectedViewController: UIViewController {
     
     // MARK: Navigation
     
-    // Back to Sign In Page when user presses Check In / Out Button with Check In / Out status updated
+    // Back to Sign In / Out Camera Page when user presses Check In / Out Button with Check In / Out status updated
     @IBAction func pressedCheckInOutButton(_ sender: UIButton) {
         if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
             if staffNameList[index].isCheckedIn {
@@ -142,7 +160,7 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")
         }
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     // Back to Camera View when user presses Try Again Button
