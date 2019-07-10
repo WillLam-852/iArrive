@@ -28,6 +28,9 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     override func viewDidLoad() {
         super.viewDidLoad()
   
+        // Create a transparent circle view with shadow outside the circle
+        createOverlay(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        
         // Set up Time and Date Label
         timeAndDateLabelConfiguration()
         
@@ -36,6 +39,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         homeButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         homeButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         homeButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+        view.bringSubviewToFront(homeButton)
         
         // Associate Double-tap gesture with action methods (For capturing image and Go to Photo Detected Page)
         let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
@@ -130,6 +134,25 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     
     // MARK: Private Methods
+    
+    // Create a transparent circle view with shadow outside the circle
+    private func createOverlay(frame : CGRect) {
+        let overlayView = UIView(frame: frame)
+        overlayView.alpha = 0.45
+        overlayView.backgroundColor = UIColor.black
+        self.view.insertSubview(overlayView, at: 1)
+        let maskLayer = CAShapeLayer()
+        // Create a path with the rectangle in it.
+        let path = CGMutablePath()
+        path.addArc(center: CGPoint(x: overlayView.frame.width/2, y: overlayView.frame.height/2), radius: overlayView.frame.width*9/20, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+        path.addRect(CGRect(x: 0, y: 0, width: overlayView.frame.width, height: overlayView.frame.height))
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.path = path;
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+        // Release the path since it's not covered by ARC.
+        overlayView.layer.mask = maskLayer
+        overlayView.clipsToBounds = true
+    }
     
     // Set up the current time and date label with correct format
     private func timeAndDateLabelConfiguration() {
