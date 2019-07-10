@@ -264,12 +264,12 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")
         }
-        self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     // Back to Sign In Page when user presses Confirm Button without any status updated
     @IBAction func pressedBackButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: {})
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
 }
