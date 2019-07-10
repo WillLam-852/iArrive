@@ -45,7 +45,6 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         // Set up the camera
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
@@ -75,6 +74,10 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     // Stop running the camera
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        let inputs = captureSession!.inputs
+        for oldInput:AVCaptureInput in inputs {
+            captureSession?.removeInput(oldInput)
+        }
         self.captureSession.stopRunning()
     }
     
@@ -107,7 +110,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         stillImageOutput.capturePhoto(with: settings, delegate: self)
         currentCheckingInOutDate = dateLabel.text ?? ""
         currentCheckingInOutTime = timeLabel.text ?? ""
-        // Wait for 0.5 second for the image being captured
+        // Wait for 0.2 second for the image being captured
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: {
             self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
         })
@@ -116,21 +119,6 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     
     // MARK: AVCapturePhotoCaptureDelegate
-    
-    // Set up the Preview View Layer
-    func setupLivePreview() {
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer.videoGravity = .resizeAspectFill
-        videoPreviewLayer.connection?.videoOrientation = .portrait
-        videoPreviewLayer.frame = self.view.frame
-        self.view.layer.insertSublayer(videoPreviewLayer, at: 0)
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.captureSession.startRunning()
-            DispatchQueue.main.async {
-                self.videoPreviewLayer.frame = self.previewView.bounds
-            }
-        }
-    }
     
     // Store the captured photo
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
@@ -169,6 +157,21 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
             dateLabel.text = dateLabel.text! + "0"
         }
         dateLabel.text = dateLabel.text! + String(day)
+    }
+    
+    // Set up the Preview View Layer
+    private func setupLivePreview() {
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoPreviewLayer.videoGravity = .resizeAspectFill
+        videoPreviewLayer.connection?.videoOrientation = .portrait
+        videoPreviewLayer.frame = self.view.frame
+        self.view.layer.insertSublayer(videoPreviewLayer, at: 0)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.startRunning()
+            DispatchQueue.main.async {
+                self.videoPreviewLayer.frame = self.previewView.bounds
+            }
+        }
     }
     
 

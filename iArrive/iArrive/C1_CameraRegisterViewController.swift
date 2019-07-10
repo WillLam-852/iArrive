@@ -146,26 +146,6 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     
     
     // MARK: AVCapturePhotoCaptureDelegate
-    
-    // Set up the Preview View Layer
-    func setupLivePreview() {
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer.videoGravity = .resizeAspectFill
-        if videoPreviewLayer.connection!.isVideoOrientationSupported {
-            videoPreviewLayer.connection?.videoOrientation = .portrait
-        }
-        if videoPreviewLayer.connection!.isVideoStabilizationSupported {
-            videoPreviewLayer.connection?.preferredVideoStabilizationMode = .auto
-        }
-        previewView.layer.addSublayer(videoPreviewLayer)
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.captureSession.startRunning()
-            DispatchQueue.main.async {
-                self.videoPreviewLayer.frame = self.previewView.bounds
-                self.previewView.layer.insertSublayer(self.videoPreviewLayer, at: 0)
-            }
-        }
-    }
 
     // Store the captured photo in the Photo Collection View
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
@@ -249,8 +229,28 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     
     // MARK: Private Methods
     
+    // Set up the Preview View Layer
+    private func setupLivePreview() {
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoPreviewLayer.videoGravity = .resizeAspectFill
+        if videoPreviewLayer.connection!.isVideoOrientationSupported {
+            videoPreviewLayer.connection?.videoOrientation = .portrait
+        }
+        if videoPreviewLayer.connection!.isVideoStabilizationSupported {
+            videoPreviewLayer.connection?.preferredVideoStabilizationMode = .auto
+        }
+        previewView.layer.addSublayer(videoPreviewLayer)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.startRunning()
+            DispatchQueue.main.async {
+                self.videoPreviewLayer.frame = self.previewView.bounds
+                self.previewView.layer.insertSublayer(self.videoPreviewLayer, at: 0)
+            }
+        }
+    }
+    
     // For Cropping the output image into square
-    func cropImageToSquare(_ image: UIImage) -> UIImage {
+    private func cropImageToSquare(_ image: UIImage) -> UIImage {
         let orientation: UIDeviceOrientation = UIDevice.current.orientation
         var imageWidth = image.size.width
         var imageHeight = image.size.height
