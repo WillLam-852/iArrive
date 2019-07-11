@@ -27,18 +27,21 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+        
+        // Enable auto-transition to menu after no response for 30 seconds
+        isAutoQuitCheckInOutCameraView = true
+        
         // Create a transparent circle view with shadow outside the circle
         createOverlay(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         
         // Set up Time and Date Label
         timeAndDateLabelConfiguration()
         
-        // Associate Home Button object with action methods (For updating Login button and Show Password button states)
-        homeButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        homeButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        homeButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        homeButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+        // Set up Home Button
+        homeButton.setTitleColor(UIColor.white.withAlphaComponent(1.0), for: .normal)
+        homeButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
+        homeButton.setImage(UIImage(named: "HomeArrow"), for: .normal)
+        homeButton.setImage(UIImage(named: "HighlightedHomeArrow"), for: .highlighted)
         view.bringSubviewToFront(homeButton)
         
         // Associate Double-tap gesture with action methods (For capturing image and Go to Photo Detected Page)
@@ -72,6 +75,13 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         } catch let error  {
             print("Error Unable to initialize front camera:  \(error.localizedDescription)")
         }
+        
+        // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+            if isAutoQuitCheckInOutCameraView {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     
@@ -87,29 +97,10 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     
     
-    // MARK: Action Methods for Buttons
-    
-    // For updating button background colors and shadows
-    @objc func buttonPressing(_ sender: AnyObject?) {
-        homeButton.setTitleColor(UIColor.white.withAlphaComponent(0.1), for: .normal)
-    }
-    
-    @objc func buttonPressedInside(_ sender: AnyObject?) {
-        homeButton.setTitleColor(UIColor.white.withAlphaComponent(1.0), for: .normal)
-    }
-    
-    @objc func buttonDraggedInside(_ sender: AnyObject?) {
-        homeButton.setTitleColor(UIColor.white.withAlphaComponent(0.1), for: .normal)
-    }
-    
-    @objc func buttonDraggedOutside(_ sender: AnyObject?) {
-        homeButton.setTitleColor(UIColor.white.withAlphaComponent(1.0), for: .normal)
-    }
-    
-    
     // For capturing image and Go to Photo Detected Page when user double-tap the screen
     // Auto-detection when deployment
     @objc func doubleTapped() {
+        isAutoQuitCheckInOutCameraView = false
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
         currentCheckingInOutDate = dateLabel.text ?? ""
@@ -203,6 +194,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     // Back to Sign In Page when user presses Home Button
     @IBAction func pressedHomeButton(_ sender: Any) {
+        isAutoQuitCheckInOutCameraView = false
         dismiss(animated: true, completion: nil)
     }
     

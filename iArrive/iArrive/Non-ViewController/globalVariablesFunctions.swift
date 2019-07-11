@@ -14,10 +14,10 @@ import UIKit
 // For Storing the Staff Member List Data
 var staffNameList = [staffMember] ()
 
-// For Section B
+// Login Information (For Section B)
 var username: String?
 
-// For Section B1
+// Staff Member Information (For Section B1)
 var currentCheckingInOutFirstName: String?
 var currentCheckingInOutLastName: String?
 var currentCheckingInOutJobTitle: String?
@@ -25,10 +25,14 @@ var currentCheckingInOutDate: String?
 var currentCheckingInOutTime: String?
 var currentCheckingInOutPhoto: UIImage?
 
-// For Section C
+// Staff Member Information (For Section C)
 var currentRegisteringFirstName: String?
 var currentRegisteringLastName: String?
 var currentRegisteringJobTitle: String?
+
+// Boolean Variable for auto view transition after a period of time (For Section B1)
+var isAutoQuitCheckInOutCameraView = true
+var isAutoCheckInOut = true
 
 // For Loading Sample Data and Debugging (Deleted after deployment)
 var isLoadSampleStaff = true
@@ -152,8 +156,6 @@ extension CALayer {
         }
     }
 }
-
-
 
 
 

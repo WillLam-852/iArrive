@@ -58,17 +58,16 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         
         // Set up Confirm Button
         confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
+        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
+        confirmButton.setImage(UIImage(named: "Confirm"), for: .normal)
+        confirmButton.setImage(UIImage(named: "HighlightedConfirmArrow"), for: .highlighted)
         confirmButton.isEnabled = false
         
-        // Associate Button objects with action methods (For updating button background colors and shadows)
-        confirmButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        confirmButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        confirmButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        confirmButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
-        backButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        backButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        backButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+        // Set up Back Button
+        backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
+        backButton.setImage(UIImage(named: "Back_3"), for: .normal)
+        backButton.setImage(UIImage(named: "HighlightedBackArrow"), for: .highlighted)
     }
 
     
@@ -106,44 +105,6 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         self.captureSession.stopRunning()
     }
 
-    
-    
-    // MARK: Action Methods for Buttons
-    
-    // For updating button background colors and shadows
-    @objc func buttonPressing(_ sender: AnyObject?) {
-        if sender === confirmButton {
-            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
-        }
-    }
-    
-    @objc func buttonPressedInside(_ sender: AnyObject?) {
-        if sender === confirmButton {
-            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-        }
-    }
-    
-    @objc func buttonDraggedInside(_ sender: AnyObject?) {
-        if sender === confirmButton {
-            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
-        }
-    }
-    
-    @objc func buttonDraggedOutside(_ sender: AnyObject?) {
-        if sender === confirmButton {
-            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-        }
-    }
-    
-    
     
     // MARK: AVCapturePhotoCaptureDelegate
 

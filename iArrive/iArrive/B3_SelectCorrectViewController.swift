@@ -45,7 +45,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         
         // Set up Confirm Button
         confirmButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-        confirmButton.titleLabel?.textColor = UIColor.black.withAlphaComponent(0.5)
+        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1), for: .normal)
         confirmButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
             alpha: 1.0,
@@ -56,15 +56,15 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         confirmButton.layer.cornerRadius = 4.0
         confirmButton.isEnabled = false
         
+        // Set up Back Button
+        backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
+        backButton.setTitleColor(UIColor.black.withAlphaComponent(0.7), for: .highlighted)
+        
         // Associate Button objects with action methods (For updating button background colors and shadows)
         confirmButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
         confirmButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         confirmButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         confirmButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
-        backButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        backButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        backButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
     
     // Hide keyboard and Update selectStaffTableView when users tap space outside search bar
@@ -85,8 +85,6 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if sender === confirmButton {
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             confirmButton.layer.shadowOffset = .zero
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
         }
     }
     
@@ -94,8 +92,6 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if sender === confirmButton {
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
         }
     }
     
@@ -103,8 +99,6 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if sender === confirmButton {
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             confirmButton.layer.shadowOffset = .zero
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(0.5), for: .normal)
         }
     }
     
@@ -112,8 +106,6 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if sender === confirmButton {
             confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
-        } else {
-            backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
         }
     }
     
@@ -206,8 +198,9 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             currentCheckingInOutLastName = staff!.lastName
             currentCheckingInOutJobTitle = staff!.jobTitle
             cell.didSelectedRow = true
+            // Confirm Button is enabled
             confirmButton.backgroundColor = UIColor.white
-            confirmButton.setTitleColor(UIColor.black, for: .normal)
+            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
             confirmButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
             confirmButton.isEnabled = true
         } else { // When the cell is double selected (cancel the cell)
@@ -222,8 +215,9 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             currentCheckingInOutLastName = ""
             currentCheckingInOutJobTitle = ""
             cell.didSelectedRow = false
+            // Confirm Button is disabled
             confirmButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-            confirmButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1), for: .normal)
             confirmButton.layer.shadowOffset = .zero
             confirmButton.isEnabled = false
         }
@@ -256,10 +250,10 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
             if staffNameList[index].isCheckedIn {
                 staffNameList[index].isCheckedIn = false
-                print(currentCheckingInOutFirstName ?? "", "Check out successfully")
+                print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "", "Check out successfully")
             } else {
                 staffNameList[index].isCheckedIn = true
-                print(currentCheckingInOutFirstName ?? "", "Check in successfully")
+                print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "",  "Check in successfully")
             }
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")
