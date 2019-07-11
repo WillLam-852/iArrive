@@ -75,16 +75,15 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         explainTextView.linkTextAttributes = linkAttribute
         explainTextView.textAlignment = .center
         
+        // Set up Cancel Button
+        cancelButton.setTitleColor(UIColor.darkGray.withAlphaComponent(0.5), for: .highlighted)
+        
         // Associate Text Field objects with action methods (For updating Next button state)
         firstNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         lastNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         jobTitleTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
         // Associate Button objects with action methods (For updating button background colors and shadows)
-        cancelButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        cancelButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        cancelButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        cancelButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
         nextButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
         nextButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
@@ -117,36 +116,28 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     // For updating button background colors and shadows
     
     @objc func buttonPressing(_ sender: AnyObject?) {
-        if sender === cancelButton {
-            cancelButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-        } else {
+        if sender === nextButton {
             nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             nextButton.layer.shadowOffset = .zero
         }
     }
     
     @objc func buttonPressedInside(_ sender: AnyObject?) {
-        if sender === cancelButton {
-            cancelButton.setTitleColor(UIColor.white.withAlphaComponent(1.0), for: .normal)
-        } else {
+        if sender === nextButton {
             nextButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             nextButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
         }
     }
     
     @objc func buttonDraggedInside(_ sender: AnyObject?) {
-        if sender === cancelButton {
-            cancelButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .normal)
-        } else {
+        if sender === nextButton {
             nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             nextButton.layer.shadowOffset = .zero
         }
     }
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
-        if sender === cancelButton {
-            cancelButton.setTitleColor(UIColor.white.withAlphaComponent(1.0), for: .normal)
-        } else {
+        if sender === nextButton {
             nextButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             nextButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
         }

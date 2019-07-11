@@ -443,8 +443,8 @@ Terms of Service and Privacy Policy</string>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="13" minY="4" maxX="9" maxY="4"/>
-                                <state key="normal" title="         Back" image="PaleBlueBack">
+                                <inset key="imageEdgeInsets" minX="26" minY="4" maxX="12" maxY="4"/>
+                                <state key="normal" title="        Back" image="PaleBlueBack">
                                     <color key="titleColor" red="0.18431372549019609" green="0.70588235294117641" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -505,14 +505,16 @@ Terms of Service and Privacy Policy</string>
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1kh-lF-o1D">
-                                <rect key="frame" x="20" y="42" width="135" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHG-8y-UYm">
+                                <rect key="frame" x="20" y="40" width="175" height="44"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
-                                <inset key="titleEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
-                                <state key="normal" title="    HOME" image="Back"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="13" maxY="0.0"/>
+                                <state key="normal" title="      HOME" image="HomeArrow">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
-                                    <action selector="pressedHomeButton:" destination="GUu-bl-gyD" eventType="touchUpInside" id="myb-5n-kVq"/>
+                                    <action selector="pressedHomeButton:" destination="GUu-bl-gyD" eventType="touchUpInside" id="XeV-df-ctR"/>
+                                    <action selector="pressedTryAgainButton:" destination="jBG-48-P4x" eventType="touchUpInside" id="ifn-ui-fpa"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TimeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIj-hT-FaE">
@@ -534,27 +536,27 @@ Terms of Service and Privacy Policy</string>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tIj-hT-FaE" firstAttribute="baseline" secondItem="1kh-lF-o1D" secondAttribute="baseline" id="3mW-Bl-tDh"/>
-                            <constraint firstItem="Za0-mP-VZs" firstAttribute="trailing" secondItem="1kh-lF-o1D" secondAttribute="trailing" constant="613" id="4br-oN-Xmg"/>
-                            <constraint firstItem="Rbr-7J-lLd" firstAttribute="leading" secondItem="tIj-hT-FaE" secondAttribute="leading" id="5oC-MC-1LY"/>
-                            <constraint firstItem="Rbr-7J-lLd" firstAttribute="top" secondItem="tIj-hT-FaE" secondAttribute="bottom" constant="9" id="6s2-ao-fUm"/>
-                            <constraint firstItem="Rbr-7J-lLd" firstAttribute="trailing" secondItem="tIj-hT-FaE" secondAttribute="trailing" id="7dV-uw-p3b"/>
-                            <constraint firstItem="2Rc-Dz-IIy" firstAttribute="top" secondItem="V6U-WW-omO" secondAttribute="top" id="AYr-PA-id3"/>
-                            <constraint firstItem="2Rc-Dz-IIy" firstAttribute="centerX" secondItem="V6U-WW-omO" secondAttribute="centerX" id="G9w-gb-UxO"/>
-                            <constraint firstItem="2Rc-Dz-IIy" firstAttribute="leading" secondItem="V6U-WW-omO" secondAttribute="leading" id="I8N-8s-JNx"/>
-                            <constraint firstItem="tIj-hT-FaE" firstAttribute="leading" secondItem="1kh-lF-o1D" secondAttribute="trailing" constant="9" id="IRU-la-OZh"/>
-                            <constraint firstItem="1kh-lF-o1D" firstAttribute="leading" secondItem="V6U-WW-omO" secondAttribute="leadingMargin" id="avb-aE-Adk"/>
-                            <constraint firstItem="2Rc-Dz-IIy" firstAttribute="bottom" secondItem="Za0-mP-VZs" secondAttribute="bottom" id="fWt-vs-jRG"/>
-                            <constraint firstItem="Za0-mP-VZs" firstAttribute="bottom" secondItem="1kh-lF-o1D" secondAttribute="bottom" constant="942" id="g0g-uu-LHU"/>
-                            <constraint firstItem="tIj-hT-FaE" firstAttribute="centerY" secondItem="1kh-lF-o1D" secondAttribute="centerY" id="pGc-Ms-7gb"/>
-                            <constraint firstItem="Za0-mP-VZs" firstAttribute="trailing" secondItem="tIj-hT-FaE" secondAttribute="trailing" constant="162" id="sOg-By-wNI"/>
-                            <constraint firstItem="1kh-lF-o1D" firstAttribute="top" secondItem="Za0-mP-VZs" secondAttribute="top" constant="22" id="zNK-Pn-mBl"/>
+                            <constraint firstItem="2Rc-Dz-IIy" firstAttribute="top" secondItem="V6U-WW-omO" secondAttribute="top" id="2sn-Sn-U0y"/>
+                            <constraint firstAttribute="trailing" secondItem="2Rc-Dz-IIy" secondAttribute="trailing" id="96U-HY-5rI"/>
+                            <constraint firstItem="2Rc-Dz-IIy" firstAttribute="bottom" secondItem="Za0-mP-VZs" secondAttribute="bottom" id="BGL-by-72o"/>
+                            <constraint firstItem="lHG-8y-UYm" firstAttribute="leading" secondItem="V6U-WW-omO" secondAttribute="leadingMargin" id="CPs-Tj-dxi"/>
+                            <constraint firstItem="lHG-8y-UYm" firstAttribute="top" secondItem="Za0-mP-VZs" secondAttribute="top" constant="20" id="Kl7-g7-42D"/>
+                            <constraint firstItem="Rbr-7J-lLd" firstAttribute="top" secondItem="tIj-hT-FaE" secondAttribute="bottom" constant="9" id="PO4-nD-zVY"/>
+                            <constraint firstItem="tIj-hT-FaE" firstAttribute="top" secondItem="Za0-mP-VZs" secondAttribute="top" constant="15" id="RwJ-aH-ar4"/>
+                            <constraint firstItem="2Rc-Dz-IIy" firstAttribute="leading" secondItem="V6U-WW-omO" secondAttribute="leading" id="SIp-eC-7tI"/>
+                            <constraint firstItem="tIj-hT-FaE" firstAttribute="leading" secondItem="Rbr-7J-lLd" secondAttribute="leading" id="XgN-Hr-a3l"/>
+                            <constraint firstItem="tIj-hT-FaE" firstAttribute="trailing" secondItem="Rbr-7J-lLd" secondAttribute="trailing" id="bxD-y7-swf"/>
+                            <constraint firstItem="Za0-mP-VZs" firstAttribute="trailing" secondItem="lHG-8y-UYm" secondAttribute="trailing" constant="573" id="hwp-7w-XAI"/>
+                            <constraint firstItem="tIj-hT-FaE" firstAttribute="leading" secondItem="Za0-mP-VZs" secondAttribute="leading" constant="164" id="in4-LS-Wmo"/>
+                            <constraint firstItem="Za0-mP-VZs" firstAttribute="bottom" secondItem="Rbr-7J-lLd" secondAttribute="bottom" constant="893" id="kl6-Ot-Cqz"/>
+                            <constraint firstItem="Za0-mP-VZs" firstAttribute="trailing" secondItem="tIj-hT-FaE" secondAttribute="trailing" constant="162" id="lc2-HL-Ub8"/>
+                            <constraint firstItem="lHG-8y-UYm" firstAttribute="centerY" secondItem="tIj-hT-FaE" secondAttribute="centerY" id="ydf-6z-EEX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Za0-mP-VZs"/>
                     </view>
                     <connections>
                         <outlet property="dateLabel" destination="Rbr-7J-lLd" id="CFy-lV-W1r"/>
-                        <outlet property="homeButton" destination="1kh-lF-o1D" id="Xdv-I7-e5s"/>
+                        <outlet property="homeButton" destination="lHG-8y-UYm" id="e8k-Je-s4p"/>
                         <outlet property="previewView" destination="2Rc-Dz-IIy" id="TjQ-gl-jfl"/>
                         <outlet property="timeLabel" destination="tIj-hT-FaE" id="F7f-5W-Lo5"/>
                         <segue destination="jBG-48-P4x" kind="presentation" identifier="SignInOutCameratoPhotoDetectedSegue" id="nqM-ak-do5"/>
@@ -612,7 +614,7 @@ Time</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.1843137255" green="0.70588235290000001" blue="0.90196078430000004" alpha="0.21330325704225353" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="QsI-0O-HlV" firstAttribute="top" secondItem="dTT-ZD-nXe" secondAttribute="top" constant="69" id="306-Dh-0mz"/>
                                     <constraint firstItem="m8x-s8-95A" firstAttribute="leading" secondItem="Pmu-Bm-oAz" secondAttribute="leading" id="FBz-9c-7xm"/>
@@ -643,33 +645,35 @@ Time</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="pressedNotMeButton:" destination="jBG-48-P4x" eventType="touchUpInside" id="HS4-7c-jcF"/>
                                     <segue destination="jjP-IL-4vz" kind="presentation" id="mfy-wd-j3N"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-jh-deO">
-                                <rect key="frame" x="32" y="931" width="159" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMq-Me-6ON">
+                                <rect key="frame" x="64" y="932" width="175" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="uBY-Yi-sbr"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
-                                <inset key="titleEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="   Try Again" image="TryAgainBack">
+                                <state key="normal" title="    Try Again" image="TryAgainBack">
                                     <color key="titleColor" red="0.1803921568627451" green="0.2627450980392157" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressedHomeButton:" destination="GUu-bl-gyD" eventType="touchUpInside" id="kIX-Cc-cJC"/>
-                                    <action selector="pressedTryAgainButton:" destination="jBG-48-P4x" eventType="touchUpInside" id="GhN-vx-f8q"/>
+                                    <action selector="pressedTryAgainButton:" destination="jBG-48-P4x" eventType="touchUpInside" id="bdf-7o-N0A"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dMq-Me-6ON" firstAttribute="leading" secondItem="rAf-Ho-eAu" secondAttribute="leading" constant="64" id="1cF-ez-IdY"/>
                             <constraint firstItem="dTT-ZD-nXe" firstAttribute="top" secondItem="rAf-Ho-eAu" secondAttribute="top" constant="76" id="73A-6b-z4s"/>
                             <constraint firstItem="dTT-ZD-nXe" firstAttribute="leading" secondItem="rAf-Ho-eAu" secondAttribute="leading" constant="171" id="D0t-j9-twx"/>
                             <constraint firstItem="7dN-ob-vDs" firstAttribute="top" secondItem="dTT-ZD-nXe" secondAttribute="bottom" constant="34" id="E8H-cD-LT4"/>
-                            <constraint firstItem="rAf-Ho-eAu" firstAttribute="trailing" secondItem="6cR-jh-deO" secondAttribute="trailing" constant="577" id="Ml4-ea-QD0"/>
+                            <constraint firstItem="rAf-Ho-eAu" firstAttribute="bottom" secondItem="dMq-Me-6ON" secondAttribute="bottom" constant="47" id="NM8-nc-LiF"/>
                             <constraint firstItem="rAf-Ho-eAu" firstAttribute="bottom" secondItem="7dN-ob-vDs" secondAttribute="bottom" constant="190" id="Qxi-Xw-GLl"/>
                             <constraint firstItem="7dN-ob-vDs" firstAttribute="leading" secondItem="rAf-Ho-eAu" secondAttribute="leading" constant="298" id="ZCL-0k-qPC"/>
-                            <constraint firstItem="rAf-Ho-eAu" firstAttribute="bottom" secondItem="6cR-jh-deO" secondAttribute="bottom" constant="60" id="eXk-C0-nnI"/>
+                            <constraint firstItem="rAf-Ho-eAu" firstAttribute="trailing" secondItem="dMq-Me-6ON" secondAttribute="trailing" constant="529" id="cZr-32-Tkg"/>
                             <constraint firstItem="dTT-ZD-nXe" firstAttribute="centerX" secondItem="7dN-ob-vDs" secondAttribute="centerX" id="liC-Dl-U20"/>
-                            <constraint firstItem="6cR-jh-deO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rAf-Ho-eAu" secondAttribute="leading" id="tfz-Oe-u0t"/>
                             <constraint firstItem="dTT-ZD-nXe" firstAttribute="centerX" secondItem="a6N-ZZ-bwp" secondAttribute="centerX" id="zXM-8B-fKj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rAf-Ho-eAu"/>
@@ -680,6 +684,7 @@ Time</string>
                         <outlet property="detectedNameLabel" destination="Pmu-Bm-oAz" id="ACh-Xf-PZ6"/>
                         <outlet property="iconImageView" destination="QsI-0O-HlV" id="4BH-OX-A54"/>
                         <outlet property="notMeButton" destination="7dN-ob-vDs" id="1mv-uZ-qDf"/>
+                        <outlet property="tryAgainButton" destination="dMq-Me-6ON" id="5De-WW-Eth"/>
                         <outlet property="upperLayerView" destination="dTT-ZD-nXe" id="Uvg-ve-4d9"/>
                     </connections>
                 </viewController>
@@ -731,7 +736,7 @@ Time</string>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" textContentType="name"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" textContentType="name"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -749,7 +754,7 @@ Time</string>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="name"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" textContentType="name"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -767,7 +772,7 @@ Time</string>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="organization-title"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="organization-title"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -906,7 +911,7 @@ Terms of Service and Privacy Policy</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLJ-qL-eRM">
-                                <rect key="frame" x="317" y="88" width="81" height="66"/>
+                                <rect key="frame" x="317" y="88" width="81" height="65.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="81" id="waN-Mb-EYU"/>
                                 </constraints>
@@ -982,7 +987,7 @@ Terms of Service and Privacy Policy</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qao-Pj-Pg1">
-                                <rect key="frame" x="244" y="169" width="280" height="280"/>
+                                <rect key="frame" x="244" y="168.5" width="280" height="280.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RegisterCameraView" translatesAutoresizingMaskIntoConstraints="NO" id="lWR-eL-diz">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
@@ -1039,17 +1044,17 @@ Terms of Service and Privacy Policy</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Back" width="16" height="16"/>
         <image name="Back_2" width="16" height="16"/>
         <image name="Back_3" width="16" height="16"/>
         <image name="CameraIcon" width="65" height="65"/>
         <image name="Confirm" width="16" height="16"/>
+        <image name="HomeArrow" width="16" height="16"/>
         <image name="Large_Logo" width="136" height="29"/>
         <image name="Logo" width="65" height="69"/>
         <image name="Logout" width="16" height="16"/>
         <image name="PaleBlueBack" width="16" height="16"/>
         <image name="RegisterCameraView" width="140" height="140"/>
-        <image name="TryAgainBack" width="32" height="32"/>
+        <image name="TryAgainBack" width="16" height="16"/>
         <image name="Unshow" width="16" height="16"/>
         <image name="ic_check_box_outline_blank" width="12" height="12"/>
     </resources>

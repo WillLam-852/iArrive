@@ -44,6 +44,10 @@ class B_SignInViewController: UIViewController {
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
         greetingLabel.attributedText = attributedString
 
+        // Set up Logout Button
+        logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+        logoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
+        
         // Set up Check In / Out Button
         checkInOutButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
@@ -59,10 +63,6 @@ class B_SignInViewController: UIViewController {
         registerButton.layer.cornerRadius = 4.0
         
         // Associate Button objects with action methods (For updating button background colors and shadows)
-        logoutButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        logoutButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        logoutButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        logoutButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
         checkInOutButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
         checkInOutButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         checkInOutButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
@@ -79,9 +79,7 @@ class B_SignInViewController: UIViewController {
     // For updating button background colors and shadows
     
     @objc func buttonPressing(_ sender: AnyObject?) {
-        if sender === logoutButton {
-            logoutButton.setTitleColor(UIColor.black, for: .normal)
-        } else if sender === checkInOutButton {
+        if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             checkInOutButton.layer.shadowOffset = .zero
         } else if sender === registerButton {
@@ -90,9 +88,7 @@ class B_SignInViewController: UIViewController {
     }
     
     @objc func buttonPressedInside(_ sender: AnyObject?) {
-        if sender === logoutButton {
-            logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
-        } else if sender === checkInOutButton {
+        if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
         } else if sender === registerButton {
@@ -101,9 +97,7 @@ class B_SignInViewController: UIViewController {
     }
     
     @objc func buttonDraggedInside(_ sender: AnyObject?) {
-        if sender === logoutButton {
-            logoutButton.setTitleColor(UIColor.black, for: .normal)
-        } else if sender === checkInOutButton {
+        if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             checkInOutButton.layer.shadowOffset = .zero
         } else if sender === registerButton {
@@ -112,9 +106,7 @@ class B_SignInViewController: UIViewController {
     }
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
-        if sender === logoutButton {
-            logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
-        } else if sender === checkInOutButton {
+        if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
         } else if sender === registerButton {

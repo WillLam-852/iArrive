@@ -18,6 +18,7 @@ class B1_1_PhotoDetectedViewController: UIViewController {
     @IBOutlet weak var detectedJobTitleLabel: UILabel!
     @IBOutlet weak var checkInOutButton: UIButton!
     @IBOutlet weak var notMeButton: UIButton!
+    @IBOutlet weak var tryAgainButton: UIButton!
     
     
     // MARK: Local Variables
@@ -39,6 +40,9 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         if isLoadSampleDetectedData {
             loadSampleDetectedData()
         }
+        
+        // Enable auto-check in/out after no response for 20 seconds
+        isAutoCheckInOut = true
         
         // Determine the current detected staff need to check in or check out
         if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
@@ -104,28 +108,37 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         // Set up Not Me Button
         notMeButton.layer.cornerRadius = 28
         
+        // Set up Try Again Button
+        tryAgainButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365"), for: .normal)
+        tryAgainButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
+        tryAgainButton.setImage(UIImage(named: "TryAgainBack"), for: .normal)
+        tryAgainButton.setImage(UIImage(named: "HighlightedTryAgainArrow"), for: .highlighted)
+        
         // Rearrange the order of Different layers
         self.view.insertSubview(imageView, at: 0)
         self.view.insertSubview(blurEffectView, at: 1)
         self.view.insertSubview(upperLayerView, at: 2)
         upperLayerView.insertSubview(iconImageView, at: 3)
     }
+
     
     // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-            if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
-                if staffNameList[index].isCheckedIn {
-                    staffNameList[index].isCheckedIn = false
-                    print(currentCheckingInOutFirstName ?? "", "Check out successfully")
+            if isAutoCheckInOut {
+                if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
+                    if staffNameList[index].isCheckedIn {
+                        staffNameList[index].isCheckedIn = false
+                        print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "",  "Check out successfully")
+                    } else {
+                        staffNameList[index].isCheckedIn = true
+                        print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "",  "Check in successfully")
+                    }
                 } else {
-                    staffNameList[index].isCheckedIn = true
-                    print(currentCheckingInOutFirstName ?? "", "Check in successfully")
+                    print("ERROR: There is no selected staff in the staffNameList.")
                 }
-            } else {
-                print("ERROR: There is no selected staff in the staffNameList.")
+                self.presentingViewController?.dismiss(animated: true, completion: nil)
             }
-            self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -160,11 +173,17 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")
         }
+        isAutoCheckInOut = false
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func pressedNotMeButton(_ sender: UIButton) {
+        isAutoCheckInOut = false
     }
     
     // Back to Camera View when user presses Try Again Button
     @IBAction func pressedTryAgainButton(_ sender: UIButton) {
+        isAutoCheckInOut = false
         dismiss(animated: false, completion: nil)
     }
     
