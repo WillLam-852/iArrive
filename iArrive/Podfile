@@ -10,6 +10,7 @@ target 'iArrive' do
 
   # Pods for iArrive
   pod 'AFNetworking', '~> 3.0'
+  pod 'Toast-Swift', '~> 5.0.0'
 
   target 'iArriveTests' do
     inherit! :search_paths

@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Toast_Swift
 
 class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate{
     
@@ -274,6 +275,8 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         currentRegisteringFirstName = nil
         currentRegisteringLastName = nil
         currentRegisteringJobTitle = nil
+        self.view.window?.hideAllToasts()
+        self.view.window?.makeToast("Register Successfully", duration: 5.0, point: toast_postion, title: nil, image: nil, style: publicFunctions().toastStyleSetUp(), completion: nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
     }
     
