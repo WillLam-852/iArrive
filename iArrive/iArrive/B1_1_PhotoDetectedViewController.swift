@@ -148,9 +148,10 @@ class B1_1_PhotoDetectedViewController: UIViewController {
     
     // Load Sample Detected Staff Member Infomation for debugging (Delete after deployment)
     private func loadSampleDetectedData() {
-        currentCheckingInOutFirstName = "Samuel"
-        currentCheckingInOutLastName = "Lee"
-        currentCheckingInOutJobTitle = "Web Designer"
+        let sampleCheckingInOutStaffMember = staffNameList.randomItem()
+        currentCheckingInOutFirstName = sampleCheckingInOutStaffMember?.firstName
+        currentCheckingInOutLastName = sampleCheckingInOutStaffMember?.lastName
+        currentCheckingInOutJobTitle = sampleCheckingInOutStaffMember?.jobTitle
         if currentCheckingInOutTime == nil {
             currentCheckingInOutTime = "15:00"
         }
@@ -165,10 +166,12 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
             if staffNameList[index].isCheckedIn {
                 staffNameList[index].isCheckedIn = false
-                print(currentCheckingInOutFirstName ?? "", "Check out successfully")
+                self.view.window?.hideAllToasts()
+                self.view.window?.makeToast(currentCheckingInOutFirstName! + " " + currentCheckingInOutLastName! + " Check Out Successfully", duration: 5.0, point: toast_postion, title: nil, image: nil, style: publicFunctions().toastStyleSetUp(), completion: nil)
             } else {
                 staffNameList[index].isCheckedIn = true
-                print(currentCheckingInOutFirstName ?? "", "Check in successfully")
+                self.view.window?.hideAllToasts()
+                self.view.window?.makeToast(currentCheckingInOutFirstName! + " " + currentCheckingInOutLastName! + " Check In Successfully", duration: 5.0, point: toast_postion, title: nil, image: nil, style: publicFunctions().toastStyleSetUp(), completion: nil)
             }
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")
