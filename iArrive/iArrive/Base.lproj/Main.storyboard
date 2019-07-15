@@ -131,13 +131,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEF-It-bW6">
-                                <rect key="frame" x="273" y="980" width="113" height="29"/>
+                                <rect key="frame" x="273" y="980" width="112.5" height="29"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="LLg-GG-vKE">
-                                <rect key="frame" x="394" y="980" width="112" height="29"/>
+                                <rect key="frame" x="393.5" y="980" width="112" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="112" id="w2S-mp-GpN"/>
                                 </constraints>
@@ -714,20 +714,20 @@ Time</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwz-a4-Rsf">
-                                <rect key="frame" x="0.0" y="965" width="768" height="59"/>
+                                <rect key="frame" x="0.0" y="970.5" width="768" height="53.5"/>
                                 <color key="backgroundColor" red="0.1764705882" green="0.2666666667" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="ZIM-BQ-kcb">
-                                <rect key="frame" x="393.5" y="980" width="112" height="29"/>
+                                <rect key="frame" x="389.5" y="985.5" width="112" height="23.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="112" id="Fgj-m2-T9k"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOJ-wE-Vtm">
-                                <rect key="frame" x="273" y="980" width="112.5" height="29"/>
+                                <rect key="frame" x="273" y="985.5" width="108.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -812,7 +812,7 @@ Time</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuP-Lg-yvh">
-                                <rect key="frame" x="175" y="736" width="158" height="33"/>
+                                <rect key="frame" x="175" y="736" width="158" height="28"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                 <state key="normal" title="     Cancel" image="Back_2">

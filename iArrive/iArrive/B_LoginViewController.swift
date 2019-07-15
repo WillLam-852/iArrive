@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
@@ -239,22 +241,23 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // Go to Sign In Page if the username and password are matched (otherwise an alert message appears)
     @IBAction func pressedLoginButton(_ sender: Any) {
-        API().postUsernamePassword(username: userNameTextField.text!, password: passwordTextField.text!)
-//        if (userNameTextField.text == "user" && passwordTextField.text == "pw") {
-        username = userNameTextField.text!
-        if !keepMeLoginButton.isChecked {
-            userNameTextField.text = ""
-            passwordTextField.text = ""
+        API().postUsernamePassword(username: userNameTextField.text!, password: passwordTextField.text!) { (responseObject, error, isLogIn) in
+            if isLogIn {
+                username = self.userNameTextField.text!
+                if !self.keepMeLoginButton.isChecked {
+                    self.userNameTextField.text = ""
+                    self.passwordTextField.text = ""
+                }
+                self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
+            } else {
+                let alert = UIAlertController(title: "Wrong username / password", message: """
+                    Please input valid
+                    username and password.
+                    """, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
         }
-        performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
-//        } else {
-//            let alert = UIAlertController(title: "Wrong username / password", message: """
-//                Please input valid
-//                username and password.
-//                """, preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
-//            self.present(alert, animated: true)
-//        }
     }
 }
 
