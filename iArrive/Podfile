@@ -2,7 +2,7 @@
 # platform :ios, '9.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '10.0'
 
 target 'iArrive' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -11,6 +11,7 @@ target 'iArrive' do
   # Pods for iArrive
   pod 'AFNetworking', '~> 3.0'
   pod 'Toast-Swift', '~> 5.0.0'
+  pod 'Alamofire', '~> 5.0.0-beta.5'
 
   target 'iArriveTests' do
     inherit! :search_paths
