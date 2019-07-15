@@ -27,6 +27,10 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // TO BE DELETED
+        userNameTextField.text = "richard.zhang@apptech.com.hk"
+        passwordTextField.text = "123456"
+        
         // Load Sample Staff for debugging (Delete after deployment)
         if isLoadSampleStaff {
             publicFunctions().loadSampleStaff()
@@ -42,6 +46,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
         // Set up UserNameTextField and PasswordTextField
+        passwordTextField.setRightPaddingPoints(45)
         userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         for i in [userNameTextField, passwordTextField] {
@@ -234,21 +239,22 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // Go to Sign In Page if the username and password are matched (otherwise an alert message appears)
     @IBAction func pressedLoginButton(_ sender: Any) {
-        if (userNameTextField.text == "user" && passwordTextField.text == "pw") {
-            username = userNameTextField.text!
-            if !keepMeLoginButton.isChecked {
-                userNameTextField.text = ""
-                passwordTextField.text = ""
-            }
-            performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
-        } else {
-            let alert = UIAlertController(title: "Wrong username / password", message: """
-                Please input valid
-                username and password.
-                """, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
-            self.present(alert, animated: true)
+        API().postUsernamePassword(username: userNameTextField.text!, password: passwordTextField.text!)
+//        if (userNameTextField.text == "user" && passwordTextField.text == "pw") {
+        username = userNameTextField.text!
+        if !keepMeLoginButton.isChecked {
+            userNameTextField.text = ""
+            passwordTextField.text = ""
         }
+        performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
+//        } else {
+//            let alert = UIAlertController(title: "Wrong username / password", message: """
+//                Please input valid
+//                username and password.
+//                """, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+//            self.present(alert, animated: true)
+//        }
     }
 }
 
