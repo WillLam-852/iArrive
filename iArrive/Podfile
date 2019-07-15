@@ -12,6 +12,7 @@ target 'iArrive' do
   pod 'AFNetworking', '~> 3.0'
   pod 'Toast-Swift', '~> 5.0.0'
   pod 'Alamofire', '~> 5.0.0-beta.5'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'iArriveTests' do
     inherit! :search_paths

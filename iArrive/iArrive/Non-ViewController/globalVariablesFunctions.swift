@@ -36,6 +36,8 @@ var currentRegisteringJobTitle: String?
 var isAutoQuitCheckInOutCameraView = true
 var isAutoCheckInOut = true
 
+var token: String?
+
 // For Loading Sample Data and Debugging (Deleted after deployment)
 var isLoadSampleStaff = true
 var isLoadSampleDetectedData = true
