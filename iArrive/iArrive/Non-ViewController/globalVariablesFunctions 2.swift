@@ -36,10 +36,6 @@ var currentRegisteringJobTitle: String?
 var isAutoQuitCheckInOutCameraView = true
 var isAutoCheckInOut = true
 
-// For sending and retriving JSON data to/from database
-var token: String?
-var orgID: String?
-
 // For Loading Sample Data and Debugging (Deleted after deployment)
 var isLoadSampleStaff = true
 var isLoadSampleDetectedData = true
@@ -57,9 +53,6 @@ let forgotPasswordLink = "https://www.google.com/search?q=forgot+password"
 let toast_x = UIScreen.main.bounds.width / 2
 let toast_y = UIScreen.main.bounds.height * 3/4
 let toast_postion = CGPoint(x: toast_x, y: toast_y)
-
-// For sending and retriving data to/from database
-let baseURL = "https://iarrive.apptech.com.hk/api"
 
 
 

@@ -77,6 +77,7 @@
 		791B2AAC22CE0C8E004E834F /* B1_1_PhotoDetectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B2AAB22CE0C8E004E834F /* B1_1_PhotoDetectedViewController.swift */; };
 		7925EFFA22CDF4F5000B0B03 /* B1_SignInOutCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925EFF922CDF4F5000B0B03 /* B1_SignInOutCameraViewController.swift */; };
 		7942FCA122D6F5D7000E814F /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FCA022D6F5D7000E814F /* extension.swift */; };
+		79EEE8A622DDD807003265D6 /* usefulTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE8A522DDD807003265D6 /* usefulTools.swift */; };
 		EA5561651AFCB0EA83321B8A /* Pods_iArrive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C525A21E93AD5946B419B53D /* Pods_iArrive.framework */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,7 @@
 		7925EFF922CDF4F5000B0B03 /* B1_SignInOutCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B1_SignInOutCameraViewController.swift; sourceTree = "<group>"; };
 		7933AD3422D8675F00E83448 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FCA022D6F5D7000E814F /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		79EEE8A522DDD807003265D6 /* usefulTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = usefulTools.swift; sourceTree = "<group>"; };
 		97C508D6B25C192FBC7F0417 /* Pods-iArrive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iArrive.debug.xcconfig"; path = "Target Support Files/Pods-iArrive/Pods-iArrive.debug.xcconfig"; sourceTree = "<group>"; };
 		B6C58065685A2D644636CF2D /* Pods-iArriveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iArriveTests.release.xcconfig"; path = "Target Support Files/Pods-iArriveTests/Pods-iArriveTests.release.xcconfig"; sourceTree = "<group>"; };
 		C525A21E93AD5946B419B53D /* Pods_iArrive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iArrive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				7900DB2C22D4813D00760DC7 /* API.swift */,
+				79EEE8A522DDD807003265D6 /* usefulTools.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				791B0E0222D8827E00E246A8 /* Alamofire.framework in Sources */,
+				79EEE8A622DDD807003265D6 /* usefulTools.swift in Sources */,
 				791B0E0122D8827700E246A8 /* Alamofire.framework in Sources */,
 				0DCF0F9622C4D3C5003CE196 /* photoCollectionViewCell.swift in Sources */,
 				0DFC90F922C350C900B7A7B0 /* globalVariablesFunctions.swift in Sources */,

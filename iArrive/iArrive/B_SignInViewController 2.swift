@@ -132,7 +132,9 @@ class B_SignInViewController: UIViewController {
     
     // Back to Login Page when user presses Logout Button
     @IBAction func pressedLogoutButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
+    
+    
     
 }
