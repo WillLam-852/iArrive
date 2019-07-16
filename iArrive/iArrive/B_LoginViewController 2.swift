@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Foundation
+import AFNetworking
 import Alamofire
-import SwiftyJSON
 
 class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
@@ -29,10 +30,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TO BE DELETED
-        userNameTextField.text = "richard.zhang@apptech.com.hk"
-        passwordTextField.text = "123456"
-        
         // Load Sample Staff for debugging (Delete after deployment)
         if isLoadSampleStaff {
             publicFunctions().loadSampleStaff()
@@ -48,7 +45,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
         // Set up UserNameTextField and PasswordTextField
-        passwordTextField.setRightPaddingPoints(45)
         userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         for i in [userNameTextField, passwordTextField] {
@@ -241,23 +237,150 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // Go to Sign In Page if the username and password are matched (otherwise an alert message appears)
     @IBAction func pressedLoginButton(_ sender: Any) {
-        API().LogInAPI(username: userNameTextField.text!, password: passwordTextField.text!) { (responseObject, error, isLogIn) in
-            if isLogIn {
-                username = self.userNameTextField.text!
-                if !self.keepMeLoginButton.isChecked {
-                    self.userNameTextField.text = ""
-                    self.passwordTextField.text = ""
-                }
-                self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
-            } else {
-                let alert = UIAlertController(title: "Wrong username / password", message: """
-                    Please input valid
-                    username and password.
-                    """, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
-                self.present(alert, animated: true)
+        postUsernamePassword()
+        if (userNameTextField.text == "user" && passwordTextField.text == "pw") {
+            username = userNameTextField.text!
+            if !keepMeLoginButton.isChecked {
+                userNameTextField.text = ""
+                passwordTextField.text = ""
             }
+            performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
+        } else {
+            let alert = UIAlertController(title: "Wrong username / password", message: """
+                Please input valid
+                username and password.
+                """, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+            self.present(alert, animated: true)
         }
+    }
+
+    
+    func printdata(data: DataResponse<Any>?) {
+        print(data!)
+    }
+
+    
+    // MARK: HTTP POST Methods
+
+    var response: DataResponse<Data?>?
+    
+    
+    
+    func postUsernamePassword() {
+
+        let url = URL(string: "http://iarrive.apptech.com.hk/api/auth")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "email" : userNameTextField.text!,
+            "password" : passwordTextField.text!
+            ]
+        
+//        request.httpBody = parameters.percentEscaped().data(using: .utf8)
+//        print("Sent Data: ", parameters.percentEscaped())
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard let data = data,
+//                let response = response as? HTTPURLResponse,
+//                error == nil else {                                              // check for fundamental networking error
+//                    print("error", error ?? "Unknown error")
+//                    return
+//            }
+//
+//            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+//                print("statusCode should be 2xx, but is \(response.statusCode)")
+//                print("response = \(response)")
+//                return
+//            }
+//
+//            let responseString = String(data: data, encoding: .utf8)
+//            print("responseString = \(responseString ?? "No response")")
+//        }
+//
+//        task.resume()
+//
+        AF.request(url, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: .default, interceptor: nil)
+            .responseJSON { response in
+                print("JSON Response: ", response)
+            }
+            .responseData { response in
+                print("Data Response: ", response)
+            }
+            .responseString { response in
+                print("String Response: ", response)
+            }
+        
+//        let dataTask = URLSession.shared.dataTask(with: url) { data, response, _ in
+//            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let
+//                jsonData = data else {
+//                    print(httpResponse.statusCode)
+//                    print("Fail")
+////                    completion(.failure(.responseProblem))
+//                    return
+//            }
+//            print(jsonData)
+//        }
+//        dataTask.resume()
+        
+//        resp = AF.request(url, method: .post).response(completionHandler: {print(Data})
+        
+        
+//        var alamofireManager = Alamofire.SessionManager(configuration: configuration)
+        
+//        Alamofire.DataRequest(method: .POST, "http://iarrive.apptech.com.hk/api/auth", parameters: parameters)
+//        DataResponse(request: <#URLRequest?#>) {
+//            request, response, data, error in
+//                print(request)
+//                print(response)
+//                print(error)
+//        }
+    }
+}
+        
+//        let manager = AFHTTPSessionManager()
+//
+//        manager.post("http://iarrive.apptech.com.hk/api/auth", parameters: parameters, progress: nil, success: {
+//            (task: URLSessionDataTask!, responseObject: Any!) in
+//            print("success")
+//        }, failure: {
+//            (task: URLSessionDataTask!, error: Error!) in
+//            print("error: ", error)
+//        })
+//            [String: Any] = [
+//            "email": userNameTextField.text ?? "",
+//            "password": passwordTextField.text ?? ""
+//        ]
+//        request.httpBody = parameters.percentEscaped().data(using: .utf8)
+
+//        Alamofire.DataRequest(url: url, method: .post, parameters: parameters)
+//        Alamofire.DataRequest()
+
+//
+//    }
+    
+
+//
+//
+extension NSDictionary {
+    func percentEscaped() -> String {
+        return map { (key, value) in
+            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            return escapedKey + "=" + escapedValue
+            }
+            .joined(separator: "&")
     }
 }
 
+extension CharacterSet {
+    static let urlQueryValueAllowed: CharacterSet = {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+
+        var allowed = CharacterSet.urlQueryAllowed
+        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        return allowed
+    }()
+}

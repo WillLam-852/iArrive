@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 
 // MARK: Extension
@@ -57,5 +58,15 @@ extension Array {
         if isEmpty { return nil }
         let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
+    }
+}
+
+
+// Extension on String for Alamofire request body
+extension String: ParameterEncoding {
+    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+        var request = try urlRequest.asURLRequest()
+        request.httpBody = data(using: .utf8, allowLossyConversion: false)
+        return request
     }
 }

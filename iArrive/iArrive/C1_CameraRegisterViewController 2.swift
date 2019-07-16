@@ -9,11 +9,10 @@
 import UIKit
 import AVFoundation
 import Toast_Swift
-import Alamofire
-import SwiftyJSON
 
 class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate{
     
+
     // MARK: Properties
     @IBOutlet weak var noOfPhotosLabel: UILabel!
     @IBOutlet weak var previewView: UIView!
@@ -28,20 +27,17 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     var noOfPhotos = 0
     var captureSession: AVCaptureSession!
     var stillImageOutput: AVCapturePhotoOutput!
-    var movieOutput: AVCaptureMovieFileOutput!
+    var movieOutput: AVCaptureFileOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var frontCamera: AVCaptureDevice?
     var imageArray = [UIImage?] ()
+    var photoSaved = false
     var outputURL: NSURL?
     private let reuseIdentifier = "photoCell"
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Set up Still Image Output and Movie Output
-        stillImageOutput = AVCapturePhotoOutput()
-        movieOutput = AVCaptureMovieFileOutput()
         
         // Set up Image Array for Photo Collection View
         for _ in 0 ..< 40 {
@@ -74,18 +70,40 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         backButton.setImage(UIImage(named: "Back_3"), for: .normal)
         backButton.setImage(UIImage(named: "HighlightedBackArrow"), for: .highlighted)
     }
-    
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Set up the camera
-        setupSession()
+        captureSession = AVCaptureSession()
+        captureSession.sessionPreset = .medium
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+        let devices = deviceDiscoverySession.devices
+        for device in devices {
+            if device.position == AVCaptureDevice.Position.front {
+                frontCamera = device
+            }
+        }
+        do {
+            // Set up the input and output source for camera
+            let input = try AVCaptureDeviceInput(device: frontCamera!)
+            stillImageOutput = AVCapturePhotoOutput()
+            if captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput) {
+                captureSession.addInput(input)
+                captureSession.addOutput(stillImageOutput)
+                setupLivePreview()
+            }
+        }
+        catch let error  {
+            print("Error Unable to initialize front camera:  \(error.localizedDescription)")
+        }
     }
+
     
+    // Stop running the camera
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // Stop running the camera
-        stopSession()
+        self.captureSession.stopRunning()
     }
 
     
@@ -102,28 +120,42 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         }
         imageArray[0] = image
         noOfPhotos += 1
+        photoSaved = true
         noOfPhotosLabel.text = String(noOfPhotos)
         photoCollectionView?.reloadData()
+//        outputURL = self.tempURL()
+//        movieOutput.startRecording(to: outputURL! as URL, recordingDelegate: self)
+//        self.photoButton.isEnabled = false
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_3", comment: ""), for: .normal)
+//        _ = Timer(timeInterval: 1, repeats: false, block: {timer in print("CHECK")})        // To Be Tested
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_2", comment: ""), for: .normal)
+//        _ = Timer(timeInterval: 1, repeats: false, block: {timer in print("CHECK")})        // To Be Tested
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_1", comment: ""), for: .normal)
+//        _ = Timer(timeInterval: 1, repeats: false, block: {timer in print("CHECK")})        // To Be Tested
+//        self.photoButton.setTitle(NSLocalizedString("photoVC_recording_0", comment: ""), for: .normal)
+//        movieOutput.stopRecording()
     }
+    
     
     
     // MARK: AVCaptureFileOutputRecordingDelegate
-    
-    // For uploading video to the server
+
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-//        API().uploadVideo(videoFileURL: self.outputURL!) { (responseObject, error) in
-//            if error == nil {
-//                let videoURL = responseObject?["video_filename"].stringValue
-//                self.uploadToAddFace(video_url: videoURL!)
-//            } else {
-//                self.view.hideToastActivity()
-//                self.photoButton.isEnabled = true
-//                let alert = UIAlertController(title: "registerVC_error", message: "registerVC_error_message1", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
-//                self.present(alert, animated: true)
-//            }
-//        }
+
     }
+    
+    
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    [[API sharedAPI] uploadVideo:self.outputURL success:^(NSDictionary *responseObject) {
+//    NSString *videoURL = responseObject[@"video_filename"];
+//    [self uploadToAddFace:videoURL];
+//    } failure:^(NSError *error) {
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//    [UsefulTools showAlertwithTitle:CustomLocalisedString(@"registerVC_error", @"") withContent:CustomLocalisedString(@"registerVC_error_message1", @"") viewController:self withComplection:^(UIAlertAction * _Nonnull action) {
+//    }];
+//    }];
+    
+    
     
     
     // MARK: UICollectionViewDelegate
@@ -159,37 +191,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     
     // MARK: Private Methods
     
-    // Set up the camera
-    private func setupSession() {
-        captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .medium
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
-        let devices = deviceDiscoverySession.devices
-        for device in devices {
-            if device.position == AVCaptureDevice.Position.front {
-                frontCamera = device
-            }
-        }
-        do {
-            // Set up the input and output source for camera
-            let input = try AVCaptureDeviceInput(device: frontCamera!)
-            if captureSession.canAddInput(input) {
-                captureSession.addInput(input)
-            }
-//            if captureSession.canAddOutput(movieOutput) {
-//                captureSession.addOutput(movieOutput)
-//            }
-            if captureSession.canAddOutput(stillImageOutput) {
-                captureSession.addOutput(stillImageOutput)
-            }
-            setupLivePreview()
-        }
-        catch let error  {
-            print("Error Unable to initialize front camera:  \(error.localizedDescription)")
-        }
-    }
-    
-    // Set up  Preview View Layer
+    // Set up the Preview View Layer
     private func setupLivePreview() {
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         videoPreviewLayer.videoGravity = .resizeAspectFill
@@ -199,25 +201,12 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         if videoPreviewLayer.connection!.isVideoStabilizationSupported {
             videoPreviewLayer.connection?.preferredVideoStabilizationMode = .auto
         }
-        self.videoPreviewLayer.frame = self.previewView.bounds
-        self.previewView.layer.insertSublayer(self.videoPreviewLayer, at: 0)
-        startSession()
-    }
-    
-    // Start Running the Camera
-    private func startSession() {
-        if !self.captureSession.isRunning {
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.captureSession.startRunning()
-            }
-        }
-    }
-    
-    // Stop Running the Camera
-    private func stopSession() {
-        if self.captureSession.isRunning {
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.captureSession.stopRunning()
+        previewView.layer.addSublayer(videoPreviewLayer)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.startRunning()
+            DispatchQueue.main.async {
+                self.videoPreviewLayer.frame = self.previewView.bounds
+                self.previewView.layer.insertSublayer(self.videoPreviewLayer, at: 0)
             }
         }
     }
@@ -235,59 +224,13 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         default:
             break
         }
+        
         // The center coordinate along Y axis
         let rcy = imageHeight * 0.5
         let rect = CGRect(x: rcy - imageWidth * 0.5, y: 0, width: imageWidth, height: imageWidth)
         let imageRef = image.cgImage?.cropping(to: rect)
         return UIImage(cgImage: imageRef!, scale: 1.0, orientation: image.imageOrientation)
     }
-    
-    // For generating a temporary URL for saved photos
-//    private func tempURL() -> NSURL? {
-//        let temp = NSTemporaryDirectory()
-//        if temp != "" {
-//            let uuid = UUID().uuidString
-//            let filename = String(format: "%@.mp4", uuid)
-//            let path = URL(fileURLWithPath: temp).appendingPathComponent(filename)
-//            return path as NSURL?
-//        }
-//        return nil
-//    }
-    
-    // For uploading to add face
-//    func uploadToAddFace (video_url: String) {
-//        let faceName = usefulTools().ret32bitString()
-//        print("faceName: ", faceName!)
-//        let contactInfo: Parameters = [
-//            "face_name" : faceName!,
-//            "video_url" : video_url,
-//            "train" : "true"
-//        ]
-//        API().createFace(parameters: contactInfo) { (responseObject, error) in
-//            if error == nil {
-//                self.view.hideToastActivity()
-//                self.photoButton.isEnabled = true
-//                let alert = UIAlertController(title: "registerVC_add_success_title", message: "registerVC_add_success_content", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-//                    self.pictureClick()
-//                }))
-//                self.present(alert, animated: true)
-//            } else {
-//                self.view.hideToastActivity()
-//                self.photoButton.isEnabled = true
-//                let alert = UIAlertController(title: "registerVC_error", message: "registerVC_error_message2", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
-//                self.present(alert, animated: true)
-//            }
-//        }
-//    }
-
-    
-//    private func pictureClick() {
-//        if let viewControllers = navigationController?.viewControllers[1] {
-//            navigationController?.popToViewController(viewControllers, animated: true)
-//        }
-//    }
     
 
     
@@ -303,37 +246,15 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
             alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
             self.present(alert, animated: true)
         } else {
+//            if !movieOutput.isRecording {
             let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
             stillImageOutput.capturePhoto(with: settings, delegate: self)
-//            let connection = movieOutput.connection(with: .video)
-//            if connection!.isVideoOrientationSupported {
-//                connection?.videoOrientation = .portrait
-//            }
-//            outputURL = self.tempURL()
-//            movieOutput.startRecording(to: outputURL! as URL, recordingDelegate: self)
-//            self.view.makeToastActivity(.center)
-//            self.photoButton.isEnabled = false
-////            self.photoButton.setTitle(NSLocalizedString("photoVC_recording_3", comment: ""), for: .normal)
-//            print("3")
-//            Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { timer in
-////                self.photoButton.setTitle(NSLocalizedString("photoVC_recording_2", comment: ""), for: .normal)
-//                print("2")
-//            })
-//            Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { timer in
-////                self.photoButton.setTitle(NSLocalizedString("photoVC_recording_1", comment: ""), for: .normal)
-//                print("1")
-//            })
-//            Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { timer in
-////                self.photoButton.setTitle(NSLocalizedString("photoVC_recording_0", comment: ""), for: .normal)
-//                print("0")
-//                self.movieOutput.stopRecording()
-////                self.photoButton.isEnabled = true
-//            })
             noOfPhotosLabel.text = String(noOfPhotos)
             if noOfPhotos >= 19 && !confirmButton.isEnabled {
                 confirmButton.isEnabled = true
                 confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
             }
+//            }
         }
     }
     
@@ -348,6 +269,8 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     
     // Back to Sign In Page when user presses Confirm Button (with staff member information stored)
     @IBAction func pressedConfirmButton(_ sender: UIButton) {
+//        self.view.showToast(toastMessage: "Register successfully", duration: 2.0)
+        print("Register successfully")
         staffNameList.append(staffMember(firstName: currentRegisteringFirstName!, lastName: currentRegisteringLastName!, jobTitle: currentRegisteringJobTitle!, isCheckedIn: false))
         currentRegisteringFirstName = nil
         currentRegisteringLastName = nil
@@ -356,5 +279,17 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         self.view.window?.makeToast("Register Successfully", duration: 5.0, point: toast_postion, title: nil, image: nil, style: publicFunctions().toastStyleSetUp(), completion: nil)
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {})
     }
+    
+
+//    func tempURL() -> NSURL? {
+//        let temp = NSTemporaryDirectory()
+//        if temp != "" {
+//            let uuid = UUID().uuidString
+//            let filename = String(format: "%@.mp4", uuid)
+//            let path = URL(fileURLWithPath: temp).appendingPathComponent(filename)
+//            return path as NSURL?
+//        }
+//        return nil
+//    }
     
 }
