@@ -32,10 +32,6 @@ var currentRegisteringFirstName: String?
 var currentRegisteringLastName: String?
 var currentRegisteringJobTitle: String?
 
-// Boolean Variable for auto view transition after a period of time (For Section B1)
-var isAutoQuitCheckInOutCameraView = true
-var isAutoCheckInOut = true
-
 // For sending and retriving JSON data to/from database
 var token: String?
 var orgID: String?

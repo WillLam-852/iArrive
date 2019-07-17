@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Toast_Swift
 
 class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
@@ -23,13 +24,11 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     var stillImageOutput: AVCapturePhotoOutput!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var frontCamera: AVCaptureDevice?
+    var AutoQuitCheckInOutCameraView: DispatchWorkItem?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Enable auto-transition to menu after no response for 30 seconds
-        isAutoQuitCheckInOutCameraView = true
         
         // Create a transparent circle view with shadow outside the circle
         createOverlay(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -52,6 +51,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     
     override func viewWillAppear(_ animated: Bool) {
+//        self.view.window?.hideToastActivity()
         // Set up the camera
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
@@ -76,12 +76,12 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
             print("Error Unable to initialize front camera:  \(error.localizedDescription)")
         }
         
+        AutoQuitCheckInOutCameraView = DispatchWorkItem(block: {
+            self.dismiss(animated: true, completion: nil)
+        })
+        
         // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
-            if isAutoQuitCheckInOutCameraView {
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30, execute: AutoQuitCheckInOutCameraView!)
     }
     
     
@@ -100,7 +100,8 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     // For capturing image and Go to Photo Detected Page when user double-tap the screen
     // Auto-detection when deployment
     @objc func doubleTapped() {
-        isAutoQuitCheckInOutCameraView = false
+//        self.view.window?.makeToastActivity(.center)
+        AutoQuitCheckInOutCameraView?.cancel()
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
         currentCheckingInOutDate = dateLabel.text ?? ""
@@ -194,7 +195,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     // Back to Sign In Page when user presses Home Button
     @IBAction func pressedHomeButton(_ sender: Any) {
-        isAutoQuitCheckInOutCameraView = false
+        AutoQuitCheckInOutCameraView?.cancel()
         dismiss(animated: true, completion: nil)
     }
     
