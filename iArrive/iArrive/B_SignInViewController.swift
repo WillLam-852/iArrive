@@ -74,10 +74,6 @@ class B_SignInViewController: UIViewController {
     }
     
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.view.window?.hideToastActivity()
-//    }
-    
     
     // MARK: Action Methods for Buttons
     // For updating button background colors and shadows
