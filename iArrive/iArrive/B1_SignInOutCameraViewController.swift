@@ -25,10 +25,26 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var frontCamera: AVCaptureDevice?
     var AutoQuitCheckInOutCameraView: DispatchWorkItem?
+    var imageView: UIImageView!
+    var blurEffectView: UIVisualEffectView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up imageView and blurEffectView
+        imageView = UIImageView(frame: self.view.bounds)
+        let blurEffect = UIBlurEffect(style: .regular)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        imageView.center = self.view.center
+        blurEffectView.alpha = 0.9
+        blurEffectView.frame = self.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.insertSubview(imageView, at: 3)
+        self.view.insertSubview(blurEffectView, at: 4)
         
         // Create a transparent circle view with shadow outside the circle
         createOverlay(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -51,7 +67,15 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.view.window?.hideToastActivity()
+        
+        // Hide imageView and blurEffectView
+        imageView.isHidden = true
+        blurEffectView.isHidden = true
+        
+        // Show Time and Date
+        timeLabel.isHidden = false
+        dateLabel.isHidden = false
+        
         // Set up the camera
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
@@ -75,11 +99,9 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         } catch let error  {
             print("Error Unable to initialize front camera:  \(error.localizedDescription)")
         }
-        
         AutoQuitCheckInOutCameraView = DispatchWorkItem(block: {
             self.dismiss(animated: true, completion: nil)
         })
-        
         // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
         DispatchQueue.main.asyncAfter(deadline: .now() + 30, execute: AutoQuitCheckInOutCameraView!)
     }
@@ -100,7 +122,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     // For capturing image and Go to Photo Detected Page when user double-tap the screen
     // Auto-detection when deployment
     @objc func doubleTapped() {
-//        self.view.window?.makeToastActivity(.center)
+        self.view.makeToastActivity(.center)
         AutoQuitCheckInOutCameraView?.cancel()
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
@@ -108,6 +130,12 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         currentCheckingInOutTime = timeLabel.text ?? ""
         // Wait for 0.2 second for the image being captured
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: {
+            self.timeLabel.isHidden = true
+            self.dateLabel.isHidden = true
+            self.showBlurredImageBackground()
+        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
+            self.view.hideToastActivity()
             self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
         })
     }
@@ -132,7 +160,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         let overlayView = UIView(frame: frame)
         overlayView.alpha = 0.45
         overlayView.backgroundColor = UIColor.black
-        self.view.insertSubview(overlayView, at: 1)
+        self.view.insertSubview(overlayView, at: 2)
         let maskLayer = CAShapeLayer()
         // Create a path with the rectangle in it.
         let path = CGMutablePath()
@@ -172,6 +200,9 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
             dateLabel.text = dateLabel.text! + "0"
         }
         dateLabel.text = dateLabel.text! + String(day)
+        
+        self.view.bringSubviewToFront(timeLabel)
+        self.view.bringSubviewToFront(dateLabel)
     }
     
     // Set up the Preview View Layer
@@ -187,6 +218,13 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
                 self.videoPreviewLayer.frame = self.previewView.bounds
             }
         }
+    }
+    
+    // Set up Blurred Image Background
+    private func showBlurredImageBackground() {
+        imageView.image = currentCheckingInOutPhoto
+        imageView.isHidden = false
+        blurEffectView.isHidden = false
     }
     
 

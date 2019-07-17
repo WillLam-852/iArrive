@@ -122,8 +122,6 @@ class B1_1_PhotoDetectedViewController: UIViewController {
     
     // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
     override func viewWillAppear(_ animated: Bool) {
-//        sleep(2)
-//        self.view.window?.hideToastActivity()
         autoCheckInOut = DispatchWorkItem(block: {
             if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
                 if staffNameList[index].isCheckedIn {
