@@ -26,6 +26,7 @@ class B1_1_PhotoDetectedViewController: UIViewController {
     let checkOutColor = publicFunctions().hexStringToUIColor(hex: "#FF2C55")
     var currentColor: UIColor?
     var currentStatus: String?
+    var autoCheckInOut: DispatchWorkItem?
     
     
     override func viewDidLoad() {
@@ -40,9 +41,6 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         if isLoadSampleDetectedData {
             loadSampleDetectedData()
         }
-        
-        // Enable auto-check in/out after no response for 20 seconds
-        isAutoCheckInOut = true
         
         // Determine the current detected staff need to check in or check out
         if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
@@ -124,22 +122,25 @@ class B1_1_PhotoDetectedViewController: UIViewController {
     
     // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
     override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-            if isAutoCheckInOut {
-                if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
-                    if staffNameList[index].isCheckedIn {
-                        staffNameList[index].isCheckedIn = false
-                        print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "",  "Check out successfully")
-                    } else {
-                        staffNameList[index].isCheckedIn = true
-                        print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "",  "Check in successfully")
-                    }
+//        sleep(2)
+//        self.view.window?.hideToastActivity()
+        autoCheckInOut = DispatchWorkItem(block: {
+            if let index = staffNameList.firstIndex(where: { $0.firstName == currentCheckingInOutFirstName && $0.lastName == currentCheckingInOutLastName && $0.jobTitle == currentCheckingInOutJobTitle }) {
+                if staffNameList[index].isCheckedIn {
+                    staffNameList[index].isCheckedIn = false
+                    print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "",  "Check out successfully")
+                    self.dismiss(animated: true, completion: nil)
                 } else {
-                    print("ERROR: There is no selected staff in the staffNameList.")
+                    staffNameList[index].isCheckedIn = true
+                    print(currentCheckingInOutFirstName ?? "", currentCheckingInOutLastName ?? "",  "Check in successfully")
+                    self.dismiss(animated: true, completion: nil)
                 }
-                self.presentingViewController?.dismiss(animated: true, completion: nil)
+            } else {
+                print("ERROR: There is no selected staff in the staffNameList.")
             }
-        }
+        })
+        // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20, execute: autoCheckInOut!)
     }
     
     
@@ -176,17 +177,16 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         } else {
             print("ERROR: There is no selected staff in the staffNameList.")
         }
-        isAutoCheckInOut = false
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func pressedNotMeButton(_ sender: UIButton) {
-        isAutoCheckInOut = false
+        autoCheckInOut?.cancel()
     }
     
     // Back to Camera View when user presses Try Again Button
     @IBAction func pressedTryAgainButton(_ sender: UIButton) {
-        isAutoCheckInOut = false
+        autoCheckInOut?.cancel()
         dismiss(animated: false, completion: nil)
     }
     
