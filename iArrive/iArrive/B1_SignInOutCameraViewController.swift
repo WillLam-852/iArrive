@@ -27,6 +27,8 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     var AutoQuitCheckInOutCameraView: DispatchWorkItem?
     var imageView: UIImageView!
     var blurEffectView: UIVisualEffectView!
+    var loadingView: UIView!
+    var loadingLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -45,6 +47,16 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.view.insertSubview(imageView, at: 3)
         self.view.insertSubview(blurEffectView, at: 4)
+        
+        // Set up loading view and loading label
+        loadingView = UIView()
+        loadingLabel = UILabel()
+        loadingLabel.text = "Loading"
+        loadingLabel.font = UIFont(name: "NotoSans-Medium", size: 24)
+        loadingLabel.textColor = publicFunctions().hexStringToUIColor(hex: "#2E4365")
+        loadingLabel.textAlignment = .center
+        loadingLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+        loadingLabel.center = CGPoint(x: self.view.center.x, y: self.view.center.y-30)
         
         // Create a transparent circle view with shadow outside the circle
         createOverlay(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -122,7 +134,6 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     // For capturing image and Go to Photo Detected Page when user double-tap the screen
     // Auto-detection when deployment
     @objc func doubleTapped() {
-        self.view.makeToastActivity(.center)
         AutoQuitCheckInOutCameraView?.cancel()
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
@@ -130,12 +141,16 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         currentCheckingInOutTime = timeLabel.text ?? ""
         // Wait for 0.2 second for the image being captured
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: {
+            self.view.addSubview(self.loadingLabel)
+            self.loadingView = usefulTools().animatedLoadingView()
+            self.view.addSubview(self.loadingView)
             self.timeLabel.isHidden = true
             self.dateLabel.isHidden = true
             self.showBlurredImageBackground()
         })
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
-            self.view.hideToastActivity()
+            self.loadingLabel.removeFromSuperview()
+            self.loadingView.removeFromSuperview()
             self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
         })
     }

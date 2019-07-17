@@ -77,6 +77,7 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         
         // Set up Icon Image Vice (with circle border)
         iconImageView.image = UIImage(named: "Search") // To Be changed
+        iconImageView.contentMode = .scaleAspectFit
         iconImageView.layer.borderWidth = 1.0
         iconImageView.layer.masksToBounds = false
         iconImageView.layer.borderColor = UIColor.white.cgColor
