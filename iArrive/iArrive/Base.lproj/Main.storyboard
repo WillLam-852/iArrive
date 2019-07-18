@@ -410,36 +410,34 @@ Terms of Service and Privacy Policy</string>
                                             <rect key="frame" x="0.0" y="0.0" width="602" height="97.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r93-C8-U6L">
-                                                    <rect key="frame" x="34" y="16" width="524" height="33"/>
-                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jobTitleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1NH-qs-mbu">
-                                                    <rect key="frame" x="34" y="52" width="524" height="32"/>
+                                                    <rect key="frame" x="39" y="65" width="132.5" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="NE4-BC-lqh"/>
+                                                        <constraint firstAttribute="height" constant="32" id="Riq-dd-q0W"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="NotoSans-Light" family="Noto Sans" pointSize="23"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r93-C8-U6L">
+                                                    <rect key="frame" x="39" y="31" width="524" height="33"/>
+                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="r93-C8-U6L" firstAttribute="top" secondItem="Ph7-kX-GWM" secondAttribute="topMargin" constant="5" id="1Q3-0c-7ks"/>
-                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="top" secondItem="r93-C8-U6L" secondAttribute="bottom" constant="3" id="4Qa-jT-942"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="1NH-qs-mbu" secondAttribute="bottom" constant="3" id="COX-cd-CYZ"/>
-                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="trailing" secondItem="r93-C8-U6L" secondAttribute="trailing" id="dyb-gh-DuY"/>
-                                                <constraint firstAttribute="trailing" secondItem="r93-C8-U6L" secondAttribute="trailing" constant="44" id="g6J-7s-Q4U"/>
-                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="leading" secondItem="Ph7-kX-GWM" secondAttribute="leadingMargin" constant="19" id="g9R-HJ-5c4"/>
-                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="leading" secondItem="r93-C8-U6L" secondAttribute="leading" id="hRY-Kc-U1r"/>
-                                                <constraint firstItem="r93-C8-U6L" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ph7-kX-GWM" secondAttribute="leadingMargin" id="vDl-p7-nh5"/>
+                                                <constraint firstItem="r93-C8-U6L" firstAttribute="top" secondItem="Ph7-kX-GWM" secondAttribute="topMargin" constant="20" id="JXL-RA-36E"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1NH-qs-mbu" secondAttribute="trailing" constant="20" symbolic="YES" id="QDK-Tp-9kj"/>
+                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="leading" secondItem="r93-C8-U6L" secondAttribute="leading" id="Vhm-V6-5rj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="r93-C8-U6L" secondAttribute="trailing" constant="24" id="YRx-qU-WbJ"/>
+                                                <constraint firstItem="1NH-qs-mbu" firstAttribute="top" secondItem="r93-C8-U6L" secondAttribute="bottom" constant="1" id="sbm-4t-ETL"/>
+                                                <constraint firstItem="r93-C8-U6L" firstAttribute="leading" secondItem="Ph7-kX-GWM" secondAttribute="leadingMargin" constant="24" id="yDp-Bf-LbU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="jobTitleLabel" destination="1NH-qs-mbu" id="SmS-Lm-vPF"/>
-                                            <outlet property="nameLabel" destination="r93-C8-U6L" id="NYA-Ft-ol8"/>
+                                            <outlet property="jobTitleLabel" destination="1NH-qs-mbu" id="ZEt-1H-Fx2"/>
+                                            <outlet property="nameLabel" destination="r93-C8-U6L" id="PZL-p6-ogM"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
