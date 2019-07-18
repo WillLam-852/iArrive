@@ -29,9 +29,9 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         
         // Load Sample Staff for debugging (Delete after deployment)
-//        if isLoadSampleStaff {
-//            publicFunctions().loadSampleStaff()
-//        }
+        if isLoadSampleStaff {
+            publicFunctions().loadSampleStaff()
+        }
         
         // Update delegate, data source, and other initialization
         staffSearchBar.delegate = self
@@ -39,6 +39,8 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         selectStaffTableView.dataSource = self
         selectStaffTableView.allowsMultipleSelection = false
         selectStaffTableView.allowsMultipleSelectionDuringEditing = false
+        selectStaffTableView.separatorStyle = .none
+        selectStaffTableView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#F7F7F7")
 
         // Sort the Staff Name List (according to ascending order of First Name)
         staffNameList.sort(by: { $0.firstName < $1.firstName })
@@ -146,23 +148,25 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? selectStaffTableViewCell else {
             fatalError("The dequeued cell is not an instance of selectStaffTableViewCell.")
         }
+        
         if searchActive {
             staff = filteredStaffNameList[indexPath.row]
         } else {
             staff = staffNameList[indexPath.row]
         }
         cell.selectionStyle = .none
-        cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+        cell.contentView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#F7F7F7")
+        cell.whiteRoundedView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
         cell.jobTitleLabel.text = staff!.jobTitle
-        cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
-        cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
+        cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.3)
+        cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.3)
         return cell
     }
     
-    // Set up the height of each table cell in the selectStaffTableView
+    // Set up height of each table cell in the selectStaffTableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 98.0
+        return 118.0
     }
     
     // Set up the selected table cell and related actions in the selectStaffTableView
@@ -176,19 +180,13 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
         cell.jobTitleLabel.text = staff!.jobTitle
         cell.selectionStyle = .none
-        cell.layer.cornerRadius = 4.0
-        cell.layer.applySketchShadow(
-            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
-            x: 0,
-            y: 3,
-            blur: 6,
-            spread: 0)
+//        cell.layer.cornerRadius = 4.0
         // When the cell is first selected
         if !cell.didSelectedRow {
             cell.nameLabel.textColor = UIColor.black
             cell.jobTitleLabel.textColor = UIColor.black
-            cell.contentView.backgroundColor = UIColor.white
-            cell.layer.showShadow()
+            cell.whiteRoundedView.backgroundColor = UIColor.white
+            cell.whiteRoundedView.layer.showShadow()
             // Store the information of selected table cell
             currentCheckingInOutFirstName = staff!.firstName
             currentCheckingInOutLastName = staff!.lastName
@@ -196,10 +194,10 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             cell.didSelectedRow = true
             enableConfirmButton()
         } else { // When the cell is double selected (cancel the cell)
-            cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
-            cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
-            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-            cell.layer.hideShadow()
+            cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.3)
+            cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.3)
+            cell.whiteRoundedView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            cell.whiteRoundedView.layer.hideShadow()
             currentCheckingInOutFirstName = ""
             currentCheckingInOutLastName = ""
             currentCheckingInOutJobTitle = ""
@@ -218,11 +216,11 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         }
         cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
         cell.jobTitleLabel.text = staff!.jobTitle
-        cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
-        cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
+        cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.3)
+        cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.3)
         cell.selectionStyle = .none
-        cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-        cell.layer.hideShadow()
+        cell.whiteRoundedView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+        cell.whiteRoundedView.layer.hideShadow()
         cell.didSelectedRow = false
     }
     

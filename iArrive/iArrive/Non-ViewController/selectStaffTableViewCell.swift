@@ -13,12 +13,25 @@ class selectStaffTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
-    var didSelectedRow = false
     
+    var didSelectedRow = false
+    var whiteRoundedView = UIView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        whiteRoundedView = UIView(frame: CGRect(x: 10, y: 5, width: self.contentView.frame.size.width - 20, height: self.contentView.frame.size.height+10))
+        whiteRoundedView.layer.backgroundColor = UIColor.white.cgColor
+        whiteRoundedView.layer.masksToBounds = false
+        whiteRoundedView.layer.cornerRadius = 8.0
+        whiteRoundedView.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
+            x: 0,
+            y: 3,
+            blur: 6,
+            spread: 0)
+        self.contentView.addSubview(whiteRoundedView)
+        self.contentView.sendSubviewToBack(whiteRoundedView)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
