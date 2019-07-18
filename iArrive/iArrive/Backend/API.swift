@@ -28,6 +28,7 @@ class API {
                     let receivedData = JSON(value)
                     if receivedData["success"].boolValue {
                         token = "Bearer " + receivedData["token"].stringValue
+                        companyName = receivedData["organization"]["name"].stringValue
                         orgID = receivedData["organization"]["organization_id"].stringValue
                         completionHandler(receivedData, nil, true)
                     } else {

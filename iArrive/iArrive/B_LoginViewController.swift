@@ -30,8 +30,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         super.viewDidLoad()
         
         // TO BE DELETED
-//        userNameTextField.text = "richard.zhang@apptech.com.hk"
-//        passwordTextField.text = "123456"
+        userNameTextField.text = "richard.zhang@apptech.com.hk"
+        passwordTextField.text = "123456"
         
         // Update delegate
         userNameTextField.delegate = self
@@ -78,11 +78,10 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         // Set up Login Button
         loginButton.layer.cornerRadius = 4.0
         loginButton.layer.applySketchShadow(
-            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
-            alpha: 1.0,
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
             x: 0,
-            y: 0,
-            blur: 4,
+            y: 6,
+            blur: 6,
             spread: 0)
         
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
@@ -132,23 +131,19 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     // For updating button background colors and shadows
     
     @objc func buttonPressing(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        loginButton.layer.shadowOffset = .zero
+        disableLoginButton()
     }
     
     @objc func buttonPressedInside(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-        loginButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+        enableLoginButton()
     }
     
     @objc func buttonDraggedInside(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        loginButton.layer.shadowOffset = .zero
+        disableLoginButton()
     }
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
-        loginButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-        loginButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+        enableLoginButton()
     }
 
     
@@ -197,14 +192,22 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         let passwordText = passwordTextField.text ?? ""
         loginButton.isEnabled = !userNameText.isEmpty && !passwordText.isEmpty
         if loginButton.isEnabled {
-            loginButton.backgroundColor = UIColor.white.withAlphaComponent(1)
-            loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-            loginButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+            enableLoginButton()
         } else {
-            loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-            loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
-            loginButton.layer.shadowOffset = .zero
+            disableLoginButton()
         }
+    }
+    
+    private func enableLoginButton() {
+        loginButton.backgroundColor = UIColor.white.withAlphaComponent(1)
+        loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        loginButton.layer.showShadow()
+    }
+    
+    private func disableLoginButton() {
+        loginButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
+        loginButton.layer.hideShadow()
     }
 
     
@@ -237,9 +240,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         API().LogInAPI(username: userNameTextField.text!, password: passwordTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
-                username = self.userNameTextField.text
                 if self.keepMeLoginButton.isChecked {
-                    UserDefaults.standard.set(self.userNameTextField.text, forKey: "username")
+                    UserDefaults.standard.set(companyName, forKey: "companyName")
                     UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
                     UserDefaults.standard.synchronize()
                 }

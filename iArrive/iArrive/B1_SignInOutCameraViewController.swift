@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Toast_Swift
+import CoreImage
 
 class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
@@ -66,21 +67,10 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
     }
     
     
+    
     override func viewWillAppear(_ animated: Bool) {
         
-        // Hide imageView and blurEffectView
-        imageView.isHidden = true
-        blurEffectView.isHidden = true
-        
-        // Show Home Button, Time and Date
-        homeButton.isHidden = false
-        timeLabel.isHidden = false
-        dateLabel.isHidden = false
-        
-        // Associate Double-tap gesture with action methods (For capturing image and Go to Photo Detected Page)
-        tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
-        tap.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tap)
+        returnFromLoadingViewToCameraView()
         
         // Set up the camera
         captureSession = AVCaptureSession()
@@ -144,8 +134,12 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
             self.showBlurredImageBackground()
         })
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(2000), execute: {
+            let isFaceDetected = self.detect(detectImage: currentCheckingInOutPhoto!)
             self.loadingView.removeFromSuperview()
-            self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
+            self.returnFromLoadingViewToCameraView()
+            if isFaceDetected {
+                self.performSegue(withIdentifier: "SignInOutCameratoPhotoDetectedSegue", sender: self)
+            }
         })
     }
     
@@ -236,6 +230,22 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         blurEffectView.isHidden = false
     }
     
+    private func returnFromLoadingViewToCameraView() {
+        // Hide imageView and blurEffectView
+        imageView.isHidden = true
+        blurEffectView.isHidden = true
+        
+        // Show Home Button, Time and Date
+        homeButton.isHidden = false
+        timeLabel.isHidden = false
+        dateLabel.isHidden = false
+        
+        // Associate Double-tap gesture with action methods (For capturing image and Go to Photo Detected Page)
+        tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        tap.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tap)
+    }
+    
 
     
     // MARK: Navigation
@@ -246,4 +256,74 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         dismiss(animated: true, completion: nil)
     }
     
+    
+    
+    
+    // To Be Deleted
+    
+    func detect(detectImage: UIImage) -> Bool {
+        
+        guard let personciImage = CIImage(image: detectImage) else {
+            return false
+        }
+        
+        let accuracy = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: accuracy)
+        let faces = faceDetector?.features(in: personciImage)
+        
+        if let face = faces?.first as? CIFaceFeature {
+            
+            print("Found bounds are \(face.bounds)")
+            
+            
+            let length: CGFloat
+            if face.bounds.height > face.bounds.width {
+                length = face.bounds.height
+            } else {
+                length = face.bounds.width
+            }
+            
+            let ciImageSize = personciImage.extent.size
+            var transform = CGAffineTransform(scaleX: 1, y: -1)
+            transform = transform.translatedBy(x: 0, y: -ciImageSize.height)
+            
+            var faceViewBounds = face.bounds.applying(transform)
+            let viewSize = self.view.bounds
+            let scale = min(viewSize.width / ciImageSize.width,
+                            viewSize.height / ciImageSize.height)
+            let offsetX = (viewSize.width - ciImageSize.width * scale) / 2
+            let offsetY = (viewSize.height - ciImageSize.height * scale) / 2
+            
+            faceViewBounds = faceViewBounds.applying(CGAffineTransform(scaleX: scale, y: scale))
+            faceViewBounds.origin.x += 260
+            faceViewBounds.origin.y += 180
+            faceViewBounds = CGRect(x: faceViewBounds.origin.x, y: faceViewBounds.origin.y, width: length*1.2, height: length*1.2)
+            
+            print("faceViewBounds: ", faceViewBounds)
+            
+            let faceBox_faceViewBounds = UIView(frame: faceViewBounds)
+            faceBox_faceViewBounds.layer.borderWidth = 3
+            faceBox_faceViewBounds.layer.borderColor = UIColor.red.cgColor
+            faceBox_faceViewBounds.backgroundColor = UIColor.clear
+//            self.view.window?.addSubview(faceBox_faceViewBounds)
+            
+            if face.hasSmile {
+                print("face is smiling")
+            }
+            
+            if face.hasLeftEyePosition {
+                print("Left eye bounds are \(face.leftEyePosition)")
+            }
+            
+            if face.hasRightEyePosition {
+                print("Right eye bounds are \(face.rightEyePosition)")
+            }
+            return true
+        } else {
+            let alert = UIAlertController(title: "No Face!", message: "No face was detected", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+    }
 }

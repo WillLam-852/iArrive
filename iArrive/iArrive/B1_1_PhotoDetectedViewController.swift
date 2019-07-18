@@ -119,8 +119,8 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         self.view.insertSubview(upperLayerView, at: 2)
         upperLayerView.insertSubview(iconImageView, at: 3)
     }
-
     
+
     // Back to Sign In / Out Camera Page when user has no actions for 20 seconds with Check In / Out status updated
     override func viewWillAppear(_ animated: Bool) {
         autoCheckInOut = DispatchWorkItem(block: {

@@ -50,11 +50,10 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         // Set up Next Button
         nextButton.layer.cornerRadius = 4.0
         nextButton.layer.applySketchShadow(
-            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
-            alpha: 1.0,
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
             x: 0,
-            y: 0,
-            blur: 4,
+            y: 3,
+            blur: 6,
             spread: 0)
         
         // Set up Text View with Required Fonts and URLs
@@ -117,29 +116,25 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     
     @objc func buttonPressing(_ sender: AnyObject?) {
         if sender === nextButton {
-            nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-            nextButton.layer.shadowOffset = .zero
+            disableNextButton()
         }
     }
     
     @objc func buttonPressedInside(_ sender: AnyObject?) {
         if sender === nextButton {
-            nextButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-            nextButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+            enableNextButton()
         }
     }
     
     @objc func buttonDraggedInside(_ sender: AnyObject?) {
         if sender === nextButton {
-            nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-            nextButton.layer.shadowOffset = .zero
+            disableNextButton()
         }
     }
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
         if sender === nextButton {
-            nextButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-            nextButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+            enableNextButton()
         }
     }
     
@@ -192,14 +187,22 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         let jobTitleText = jobTitleTextField.text ?? ""
         nextButton.isEnabled = !firstNameText.isEmpty && !lastNameText.isEmpty && !jobTitleText.isEmpty
         if nextButton.isEnabled {
-            nextButton.backgroundColor = UIColor.white.withAlphaComponent(1)
-            nextButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-            nextButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+            enableNextButton()
         } else {
-            nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-            nextButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
-            nextButton.layer.shadowOffset = .zero
+            disableNextButton()
         }
+    }
+    
+    private func enableNextButton() {
+        nextButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        nextButton.backgroundColor = UIColor.white.withAlphaComponent(1)
+        nextButton.layer.showShadow()
+    }
+    
+    private func disableNextButton() {
+        nextButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
+        nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        nextButton.layer.hideShadow()
     }
     
     
