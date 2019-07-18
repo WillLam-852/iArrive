@@ -38,7 +38,7 @@ class B_SignInViewController: UIViewController {
             normalText = "Good night "
         }
         let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
-        let boldText = username! + " !"
+        let boldText = username ?? UserDefaults.standard.string(forKey: "username")! + " !"
         let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
         let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
@@ -132,7 +132,13 @@ class B_SignInViewController: UIViewController {
     
     // Back to Login Page when user presses Logout Button
     @IBAction func pressedLogoutButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        if UserDefaults.standard.bool(forKey: "isUserLoggedIn") {
+            self.performSegue(withIdentifier: "SignIntoLogInSegue", sender: self)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+        UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
+        UserDefaults.standard.synchronize()
     }
     
 }

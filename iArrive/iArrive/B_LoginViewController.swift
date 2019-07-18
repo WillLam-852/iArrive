@@ -30,13 +30,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         super.viewDidLoad()
         
         // TO BE DELETED
-        userNameTextField.text = "richard.zhang@apptech.com.hk"
-        passwordTextField.text = "123456"
-        
-        // Load Sample Staff for debugging (Delete after deployment)
-        if isLoadSampleStaff {
-            publicFunctions().loadSampleStaff()
-        }
+//        userNameTextField.text = "richard.zhang@apptech.com.hk"
+//        passwordTextField.text = "123456"
         
         // Update delegate
         userNameTextField.delegate = self
@@ -201,7 +196,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         let userNameText = userNameTextField.text ?? ""
         let passwordText = passwordTextField.text ?? ""
         loginButton.isEnabled = !userNameText.isEmpty && !passwordText.isEmpty
-        
         if loginButton.isEnabled {
             loginButton.backgroundColor = UIColor.white.withAlphaComponent(1)
             loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
@@ -243,11 +237,14 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         API().LogInAPI(username: userNameTextField.text!, password: passwordTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
-                username = self.userNameTextField.text!
-                if !self.keepMeLoginButton.isChecked {
-                    self.userNameTextField.text = ""
-                    self.passwordTextField.text = ""
+                username = self.userNameTextField.text
+                if self.keepMeLoginButton.isChecked {
+                    UserDefaults.standard.set(self.userNameTextField.text, forKey: "username")
+                    UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+                    UserDefaults.standard.synchronize()
                 }
+                self.userNameTextField.text = ""
+                self.passwordTextField.text = ""
                 self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
             } else {
                 let alert = UIAlertController(title: "Wrong username / password", message: """

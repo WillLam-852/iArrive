@@ -16,6 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Load Sample Staff for debugging (Delete after deployment)
+        if isLoadSampleStaff {
+            publicFunctions().loadSampleStaff()
+            print("Sample Staff Loaded")
+        }
+        
+        let userLoginStatus = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
+        if userLoginStatus {
+            let mainStoryboard = UIStoryboard(name: "Main" , bundle: nil)
+            let protectedPage = mainStoryboard.instantiateViewController(withIdentifier: "B_SignInViewController") as! B_SignInViewController
+            window!.rootViewController = protectedPage
+            window!.makeKeyAndVisible()
+        }
         return true
     }
 
