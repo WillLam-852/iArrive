@@ -39,11 +39,22 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         selectStaffTableView.dataSource = self
         selectStaffTableView.allowsMultipleSelection = false
         selectStaffTableView.allowsMultipleSelectionDuringEditing = false
-        selectStaffTableView.separatorStyle = .none
-        selectStaffTableView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#F7F7F7")
-
+        
         // Sort the Staff Name List (according to ascending order of First Name)
         staffNameList.sort(by: { $0.firstName < $1.firstName })
+        
+        // Set up Staff Search Bar
+        let textFieldInsideSearchBar = staffSearchBar.value(forKey: "searchField") as! UITextField
+        textFieldInsideSearchBar.subviews.first?.backgroundColor = .white
+        textFieldInsideSearchBar.subviews.first?.layer.cornerRadius = 17.5
+        textFieldInsideSearchBar.subviews.first?.layer.borderColor = publicFunctions().hexStringToUIColor(hex: "#707070").cgColor
+        textFieldInsideSearchBar.subviews.first?.layer.borderWidth = 1.0
+        textFieldInsideSearchBar.subviews.first?.subviews.forEach({ $0.removeFromSuperview() })
+        textFieldInsideSearchBar.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#F7F7F7")
+        
+        // Set up Select Staff TableView
+        selectStaffTableView.separatorStyle = .none
+        selectStaffTableView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#F7F7F7")
         
         // Set up Confirm Button
         confirmButton.layer.cornerRadius = 4.0
