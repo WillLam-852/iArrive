@@ -44,17 +44,13 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         staffNameList.sort(by: { $0.firstName < $1.firstName })
         
         // Set up Confirm Button
-        confirmButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1), for: .normal)
-        confirmButton.layer.applySketchShadow(
-            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
-            alpha: 1.0,
-            x: 0,
-            y: 0,
-            blur: 4,
-            spread: 0)
         confirmButton.layer.cornerRadius = 4.0
-        confirmButton.isEnabled = false
+        confirmButton.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
+            x: 0,
+            y: 3,
+            blur: 6,
+            spread: 0)
         
         // Set up Back Button
         backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
@@ -65,6 +61,11 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         confirmButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         confirmButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         confirmButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Initialize Confirm button state
+        disableConfirmButton()
     }
     
     // Hide keyboard and Update selectStaffTableView when users tap space outside search bar
@@ -83,29 +84,25 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
     
     @objc func buttonPressing(_ sender: AnyObject?) {
         if sender === confirmButton {
-            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-            confirmButton.layer.shadowOffset = .zero
+            disableConfirmButton()
         }
     }
     
     @objc func buttonPressedInside(_ sender: AnyObject?) {
         if sender === confirmButton {
-            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-            confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+            enableConfirmButton()
         }
     }
     
     @objc func buttonDraggedInside(_ sender: AnyObject?) {
         if sender === confirmButton {
-            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-            confirmButton.layer.shadowOffset = .zero
+            disableConfirmButton()
         }
     }
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
         if sender === confirmButton {
-            confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-            confirmButton.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
+            enableConfirmButton()
         }
     }
     
@@ -176,50 +173,38 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             staff = staffNameList[indexPath.row]
         }
+        cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
+        cell.jobTitleLabel.text = staff!.jobTitle
+        cell.selectionStyle = .none
+        cell.layer.cornerRadius = 4.0
+        cell.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
+            x: 0,
+            y: 3,
+            blur: 6,
+            spread: 0)
         // When the cell is first selected
         if !cell.didSelectedRow {
-            cell.selectionStyle = .none
-            cell.contentView.backgroundColor = UIColor.white
-            cell.layer.applySketchShadow(
-                color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.25),
-                alpha: 1.0,
-                x: 3,
-                y: 3,
-                blur: 4,
-                spread: 0)
-            cell.layer.masksToBounds = false
-            cell.layer.cornerRadius = 4.0
-            cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
-            cell.jobTitleLabel.text = staff!.jobTitle
             cell.nameLabel.textColor = UIColor.black
             cell.jobTitleLabel.textColor = UIColor.black
+            cell.contentView.backgroundColor = UIColor.white
+            cell.layer.showShadow()
             // Store the information of selected table cell
             currentCheckingInOutFirstName = staff!.firstName
             currentCheckingInOutLastName = staff!.lastName
             currentCheckingInOutJobTitle = staff!.jobTitle
             cell.didSelectedRow = true
-            // Confirm Button is enabled
-            confirmButton.backgroundColor = UIColor.white
-            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-            confirmButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-            confirmButton.isEnabled = true
+            enableConfirmButton()
         } else { // When the cell is double selected (cancel the cell)
-            cell.selectionStyle = .none
-            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-            cell.layer.shadowOffset = .zero
-            cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
-            cell.jobTitleLabel.text = staff!.jobTitle
             cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
             cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
+            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            cell.layer.hideShadow()
             currentCheckingInOutFirstName = ""
             currentCheckingInOutLastName = ""
             currentCheckingInOutJobTitle = ""
             cell.didSelectedRow = false
-            // Confirm Button is disabled
-            confirmButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-            confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1), for: .normal)
-            confirmButton.layer.shadowOffset = .zero
-            confirmButton.isEnabled = false
+            disableConfirmButton()
         }
     }
     
@@ -231,16 +216,34 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             staff = staffNameList[indexPath.row]
         }
-        cell.selectionStyle = .none
-        cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
-        cell.layer.shadowOffset = .zero
-        cell.didSelectedRow = false
         cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
         cell.jobTitleLabel.text = staff!.jobTitle
         cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.5)
         cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.5)
+        cell.selectionStyle = .none
+        cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+        cell.layer.hideShadow()
+        cell.didSelectedRow = false
     }
     
+    
+    
+    // MARK: Private Methods
+    
+    // Update Confirm Button State
+    private func enableConfirmButton() {
+        confirmButton.isEnabled = true
+        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        confirmButton.backgroundColor = UIColor.white.withAlphaComponent(1)
+        confirmButton.layer.showShadow()
+    }
+    
+    private func disableConfirmButton() {
+        confirmButton.isEnabled = false
+        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1), for: .normal)
+        confirmButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+        confirmButton.layer.hideShadow()
+    }
     
     
     // MARK: Navigation

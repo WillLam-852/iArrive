@@ -17,7 +17,7 @@ import Toast_Swift
 var staffNameList = [staffMember] ()
 
 // Login Information (For Section B)
-var username: String?
+var companyName: String?
 
 // Staff Member Information (For Section B1)
 var currentCheckingInOutFirstName: String?
