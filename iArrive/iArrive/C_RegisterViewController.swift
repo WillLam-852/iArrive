@@ -77,6 +77,10 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         // Set up Cancel Button
         cancelButton.setTitleColor(UIColor.darkGray.withAlphaComponent(0.5), for: .highlighted)
         
+        // Set up English/Chinese Segmented Control
+        let engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
+        view.addSubview(engChinSegmentedControl)
+        
         // Associate Text Field objects with action methods (For updating Next button state)
         firstNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         lastNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)

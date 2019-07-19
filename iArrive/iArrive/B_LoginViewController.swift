@@ -84,6 +84,10 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             blur: 6,
             spread: 0)
         
+        // Set up English/Chinese Segmented Control
+        let engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
+        view.addSubview(engChinSegmentedControl)
+        
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)

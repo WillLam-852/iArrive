@@ -14,7 +14,7 @@ class B_SignInViewController: UIViewController {
     @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var checkInOutButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var addMemberButton: UIButton!
     @IBOutlet weak var bottomBar: UILabel!
     
     
@@ -57,19 +57,23 @@ class B_SignInViewController: UIViewController {
             blur: 6,
             spread: 0)
         
-        // Set up Register Button
-        registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
-        registerButton.layer.cornerRadius = 4.0
+        // Set up Add Member Button
+        addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
+        addMemberButton.layer.cornerRadius = 4.0
+        
+        // Set up English/Chinese Segmented Control
+        let engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
+        view.addSubview(engChinSegmentedControl)
         
         // Associate Button objects with action methods (For updating button background colors and shadows)
         checkInOutButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
         checkInOutButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
         checkInOutButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         checkInOutButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
-        registerButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
-        registerButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
-        registerButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
-        registerButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
+        addMemberButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
+        addMemberButton.addTarget(self, action: #selector(buttonPressedInside), for: .touchUpInside)
+        addMemberButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
+        addMemberButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
     
     
@@ -81,8 +85,8 @@ class B_SignInViewController: UIViewController {
         if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             checkInOutButton.layer.hideShadow()
-        } else if sender === registerButton {
-            registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5)
+        } else if sender === addMemberButton {
+            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.1)
         }
     }
     
@@ -90,8 +94,8 @@ class B_SignInViewController: UIViewController {
         if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.showShadow()
-        } else if sender === registerButton {
-            registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
+        } else if sender === addMemberButton {
+            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
         }
     }
     
@@ -99,8 +103,8 @@ class B_SignInViewController: UIViewController {
         if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
             checkInOutButton.layer.hideShadow()
-        } else if sender === registerButton {
-            registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5)
+        } else if sender === addMemberButton {
+            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.1)
         }
     }
     
@@ -108,8 +112,8 @@ class B_SignInViewController: UIViewController {
         if sender === checkInOutButton {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.showShadow()
-        } else if sender === registerButton {
-            registerButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.1)
+        } else if sender === addMemberButton {
+            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
         }
     }
     
