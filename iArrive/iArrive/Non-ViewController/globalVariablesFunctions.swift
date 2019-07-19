@@ -9,12 +9,16 @@
 import UIKit
 import AFNetworking
 import Toast_Swift
+import TTSegmentedControl
 
 
 // MARK: Global Variables
 
 // For Storing the Staff Member List Data
 var staffNameList = [staffMember] ()
+
+// For selecting language
+var engChinStatus = 0   // 0 for English, 1 for Chinese
 
 // Login Information (For Section B)
 var companyName: String?
@@ -138,6 +142,24 @@ class publicFunctions {
         return style
     }
     
+    // Set up ENG/中文 Segment Control
+    func addEngChinSegmentedControl() -> UIView {
+        let engChinSegmentedControl = TTSegmentedControl()
+        engChinSegmentedControl.frame = CGRect(x: 0, y: 0, width: 108, height: 31)
+        engChinSegmentedControl.center = CGPoint(x: UIScreen.main.bounds.width*0.5, y: UIScreen.main.bounds.height-100)
+        engChinSegmentedControl.layoutSubviews()
+        engChinSegmentedControl.cornerRadius = 8
+        engChinSegmentedControl.changeBackgroundColor(.clear)
+        engChinSegmentedControl.changeThumbGradientColors([publicFunctions().hexStringToUIColor(hex: "#2E4365"), publicFunctions().hexStringToUIColor(hex: "#2E4365")])
+        let segmentedControlStringAttribute = [NSAttributedString.Key.font : UIFont(name: "Montserrat-Bold", size: 16)!, .foregroundColor : UIColor.white]
+        let selectedSegmentedControlStringAttribute = [NSAttributedString.Key.font : UIFont(name: "Montserrat-Bold", size: 16)!, .foregroundColor : UIColor.white.withAlphaComponent(0.6)]
+        engChinSegmentedControl.changeAttributedTitle(NSMutableAttributedString(string: "ENG", attributes: selectedSegmentedControlStringAttribute), selectedTile: NSMutableAttributedString(string: "ENG", attributes: segmentedControlStringAttribute), atIndex: 0)
+        engChinSegmentedControl.changeAttributedTitle(NSMutableAttributedString(string: "中文", attributes: selectedSegmentedControlStringAttribute), selectedTile: NSMutableAttributedString(string: "中文", attributes: segmentedControlStringAttribute), atIndex: 1)
+        engChinSegmentedControl.didSelectItemWith = { (index, title) -> () in
+            engChinStatus = index
+        }
+        return engChinSegmentedControl
+    }
     
     // Function for loading sample staff list (To be deleted when deployment)
     func loadSampleStaff() {

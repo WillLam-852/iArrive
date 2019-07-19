@@ -131,13 +131,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEF-It-bW6">
-                                <rect key="frame" x="273" y="980" width="112.5" height="29"/>
+                                <rect key="frame" x="273" y="980" width="113" height="29"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="LLg-GG-vKE">
-                                <rect key="frame" x="393.5" y="980" width="112" height="29"/>
+                                <rect key="frame" x="394" y="980" width="112" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="112" id="w2S-mp-GpN"/>
                                 </constraints>
@@ -150,13 +150,6 @@
                                     <action selector="pressedShowPasswordButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="m3k-wO-Q7n"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aze-kf-eb6">
-                                <rect key="frame" x="324" y="906" width="120" height="29"/>
-                                <segments>
-                                    <segment title="ENG"/>
-                                    <segment title="中文"/>
-                                </segments>
-                            </segmentedControl>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XfH-gz-1Yf">
                                 <rect key="frame" x="224" y="664" width="320" height="60"/>
                                 <constraints>
@@ -198,7 +191,6 @@ Terms of Service and Privacy Policy</string>
                             <constraint firstItem="5Mf-3j-MiC" firstAttribute="top" secondItem="BlL-b5-9gd" secondAttribute="bottom" constant="36" id="PZf-gt-fvo"/>
                             <constraint firstItem="cWM-nG-raW" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="92W-vv-Ge4" secondAttribute="trailing" symbolic="YES" id="X1M-tJ-RxA"/>
                             <constraint firstItem="nEF-It-bW6" firstAttribute="centerY" secondItem="Iik-7X-uQn" secondAttribute="centerY" id="b8s-4S-8DE"/>
-                            <constraint firstItem="cWM-nG-raW" firstAttribute="trailing" secondItem="aze-kf-eb6" secondAttribute="trailing" constant="324" id="cWM-G2-MYA"/>
                             <constraint firstItem="BlL-b5-9gd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9xH-s2-DkD" secondAttribute="trailing" constant="8" symbolic="YES" id="d37-eE-yo7"/>
                             <constraint firstItem="BlL-b5-9gd" firstAttribute="top" secondItem="O3o-FY-jaa" secondAttribute="bottom" constant="24" id="d4h-ce-QPf"/>
                             <constraint firstItem="ZSR-ko-2Yb" firstAttribute="centerY" secondItem="O3o-FY-jaa" secondAttribute="centerY" id="erD-O5-G11"/>
@@ -207,8 +199,6 @@ Terms of Service and Privacy Policy</string>
                             <constraint firstItem="BlL-b5-9gd" firstAttribute="top" secondItem="ZSR-ko-2Yb" secondAttribute="bottom" constant="12" id="g3S-Wc-Nf2"/>
                             <constraint firstItem="Iik-7X-uQn" firstAttribute="leading" secondItem="cWM-nG-raW" secondAttribute="leading" id="iiW-pU-aHJ"/>
                             <constraint firstItem="ZSR-ko-2Yb" firstAttribute="top" secondItem="ejU-cm-6R0" secondAttribute="bottom" constant="16" id="kDQ-cX-dTP"/>
-                            <constraint firstItem="aze-kf-eb6" firstAttribute="leading" secondItem="cWM-nG-raW" secondAttribute="leading" constant="324" id="lTc-a7-h5g"/>
-                            <constraint firstItem="Iik-7X-uQn" firstAttribute="top" secondItem="aze-kf-eb6" secondAttribute="bottom" constant="31" id="mc4-CW-qXI"/>
                             <constraint firstItem="9xH-s2-DkD" firstAttribute="leading" secondItem="cWM-nG-raW" secondAttribute="leading" constant="224" id="nef-zF-dAr"/>
                             <constraint firstItem="cWM-nG-raW" firstAttribute="trailing" secondItem="ejU-cm-6R0" secondAttribute="trailing" constant="224" id="npi-CC-hDM"/>
                             <constraint firstItem="Iik-7X-uQn" firstAttribute="trailing" secondItem="cWM-nG-raW" secondAttribute="trailing" id="oLv-V6-xva"/>
@@ -285,7 +275,7 @@ Terms of Service and Privacy Policy</string>
                                     <constraint firstAttribute="height" constant="56" id="j1N-0k-WPM"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
-                                <state key="normal" title="Register">
+                                <state key="normal" title="Add Member">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -346,11 +336,11 @@ Terms of Service and Privacy Policy</string>
                     </view>
                     <navigationItem key="navigationItem" id="VVn-Kn-zuy"/>
                     <connections>
+                        <outlet property="addMemberButton" destination="9Y3-iK-WbG" id="QSD-HK-tgb"/>
                         <outlet property="bottomBar" destination="UFV-1a-Fo3" id="RpD-oy-BpT"/>
                         <outlet property="checkInOutButton" destination="pVp-Dm-a3L" id="HD2-sr-BMh"/>
                         <outlet property="greetingLabel" destination="fYn-Rd-bXz" id="J6h-3Q-h5m"/>
                         <outlet property="logoutButton" destination="7vM-pU-0U0" id="lSe-yw-DJX"/>
-                        <outlet property="registerButton" destination="9Y3-iK-WbG" id="QSD-HK-tgb"/>
                         <segue destination="7cn-WA-HRt" kind="show" identifier="SignIntoLogInSegue" id="F7L-43-YCx"/>
                     </connections>
                 </viewController>
@@ -518,7 +508,7 @@ Terms of Service and Privacy Policy</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHG-8y-UYm">
-                                <rect key="frame" x="20" y="40" width="175" height="44"/>
+                                <rect key="frame" x="20" y="40" width="175" height="49"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="13" maxY="0.0"/>
                                 <state key="normal" title="      HOME" image="HomeArrow">
@@ -530,13 +520,13 @@ Terms of Service and Privacy Policy</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TimeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIj-hT-FaE">
-                                <rect key="frame" x="164" y="35" width="442" height="54"/>
+                                <rect key="frame" x="164" y="35" width="442" height="59"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="56"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbr-7J-lLd">
-                                <rect key="frame" x="164" y="98" width="442" height="33"/>
+                                <rect key="frame" x="164" y="103" width="442" height="28"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
