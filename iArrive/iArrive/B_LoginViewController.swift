@@ -15,6 +15,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     // MARK: Properties
     @IBOutlet weak var disappearingApptechImage: UIImageView!
     @IBOutlet weak var disappearingAppIconImage: UIImageView!
+    
     @IBOutlet weak var appearingApptechImage: UIImageView!
     @IBOutlet weak var iArriveImage: UILabel!
     @IBOutlet weak var userNameTextField: FloatLabelTextField!
@@ -27,6 +28,10 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var bottomBar: UILabel!
     @IBOutlet weak var poweredByLabel: UILabel!
     @IBOutlet weak var bottomBarLogoImage: UIImageView!
+    
+    @IBOutlet weak var appearingGreetingLabel: UILabel!
+    @IBOutlet weak var appearingLogoutButton: UIButton!
+    @IBOutlet weak var appearingAddMemberButton: UIButton!
     
     
     // MARK: Local Variable
@@ -96,6 +101,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
         view.addSubview(engChinSegmentedControl)
         
+        setUpGreetingLabelLogoutButtonAddMemberButton()
+        
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -111,41 +118,62 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        iArriveImage.center.y += 267.0
-        for item in [appearingApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage] {
+        for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton, self.iArriveImage] {
+            item!.isHidden = false
+        }
+        for item in [self.appearingGreetingLabel, self.appearingLogoutButton, self.appearingAddMemberButton] {
             item!.layer.opacity = 0.0
         }
-        for item in [userNameTextField, passwordTextField, keepMeLoginButton, loginButton] {
-            item!.center.x += 250
-            item!.layer.opacity = 0.0
+        // For first-time open the app
+        if !isLoadedLoginPage {
+            iArriveImage.center.y += 267.0
+            for item in [appearingApptechImage, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage] {
+                item!.layer.opacity = 0.0
+            }
+            for item in [userNameTextField, passwordTextField, keepMeLoginButton, forgotPasswordButton, loginButton] {
+                item!.center.x += 250
+                item!.layer.opacity = 0.0
+            }
+        // For showing the view after logging out
+        } else {
+            for item in [appearingApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage, userNameTextField, passwordTextField, keepMeLoginButton, loginButton, iArriveImage] {
+                item!.layer.opacity = 1.0
+            }
+            loginButton.setTitle("Login", for: .normal)
+            disappearingApptechImage.layer.opacity = 0.0
+            disappearingAppIconImage.layer.opacity = 0.0
         }
         updatedLoginButtonState()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: [],
-                       animations: {
-            self.disappearingApptechImage.layer.opacity = 0.0
-            self.disappearingAppIconImage.layer.opacity = 0.0
-        },
-                       completion: nil)
-        UIView.animate(withDuration: 1.0, delay: 0.5, options: [],
-                       animations: {
-                        self.iArriveImage.center.y -= 267.0
-        },
-                       completion: nil)
-        UIView.animate(withDuration: 0.5, delay: 1.0, options: [],
-                       animations: {
-                        for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.engChinSegmentedControl, self.bottomBar, self.poweredByLabel, self.bottomBarLogoImage] {
-                            item!.layer.opacity = 1.0
-                        }
-                        for item in [self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton] {
-                            item!.center.x -= 250
-                            item!.layer.opacity = 1.0
-                        }
-        },
-                       completion: nil)
+        // Set up Fade-in animation
+        if !isLoadedLoginPage {
+            UIView.animate(withDuration: 0.5, delay: 0.5, options: [],
+                           animations: {
+                self.disappearingApptechImage.layer.opacity = 0.0
+                self.disappearingAppIconImage.layer.opacity = 0.0
+            },
+                           completion: nil)
+            UIView.animate(withDuration: 1.0, delay: 0.5, options: [],
+                           animations: {
+                            self.iArriveImage.center.y -= 267.0
+            },
+                           completion: nil)
+            UIView.animate(withDuration: 0.5, delay: 1.0, options: .curveEaseInOut,
+                           animations: {
+                            for item in [self.appearingApptechImage, self.explainTextView, self.engChinSegmentedControl, self.bottomBar, self.poweredByLabel, self.bottomBarLogoImage] {
+                                item!.layer.opacity = 1.0
+                            }
+                            for item in [self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton, self.forgotPasswordButton] {
+                                item!.center.x -= 250
+                                item!.layer.opacity = 1.0
+                            }
+            },
+                           completion: nil)
+            isLoadedLoginPage = true
+        }
     }
     
     // Hide keyboard when user tap space outside text field
@@ -255,6 +283,35 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
         loginButton.layer.hideShadow()
     }
+    
+    private func setUpGreetingLabelLogoutButtonAddMemberButton() {
+        // Set up Greeting Label (with time conditions and username)
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        var normalText = ""
+        if (currentHour >= 6 && currentHour < 12) {
+            normalText = "Good morning "
+        } else if (currentHour >= 12 && currentHour < 18) {
+            normalText = "Good afternoon "
+        } else if (currentHour >= 18 && currentHour < 24) {
+            normalText = "Good evening "
+        } else {
+            normalText = "Good night "
+        }
+        let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
+        let boldText = (companyName ?? UserDefaults.standard.string(forKey: "companyName")!) + " !"
+        let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
+        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
+        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
+        appearingGreetingLabel.attributedText = attributedString
+        
+        // Set up Logout Button
+        appearingLogoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+        appearingLogoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
+        
+        // Set up Add Member Button
+        appearingAddMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
+        appearingAddMemberButton.layer.cornerRadius = 4.0
+    }
 
     
     
@@ -293,7 +350,22 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                 }
                 self.userNameTextField.text = ""
                 self.passwordTextField.text = ""
-                self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
+                UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                    for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.iArriveImage] {
+                        item!.layer.opacity = 0.0
+                    }
+                    for item in [self.appearingGreetingLabel, self.appearingLogoutButton, self.appearingAddMemberButton] {
+                        item!.layer.opacity = 1.0
+                    }
+                    self.loginButton.center.y = 464.0
+                    self.loginButton.setTitle("Check in /Out", for: .normal)
+                }, completion: { finished in
+                    for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton, self.iArriveImage] {
+                        item!.isHidden = true
+                    }
+                    self.loginButton.center.y += 164.0
+                    self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
+                })
             } else {
                 let alert = UIAlertController(title: "Wrong username / password", message: """
                     Please input valid
@@ -305,4 +377,3 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         }
     }
 }
-
