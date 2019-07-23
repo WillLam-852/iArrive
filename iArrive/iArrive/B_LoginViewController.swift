@@ -13,16 +13,24 @@ import SwiftyJSON
 class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     // MARK: Properties
+    @IBOutlet weak var disappearingApptechImage: UIImageView!
+    @IBOutlet weak var disappearingAppIconImage: UIImageView!
+    @IBOutlet weak var appearingApptechImage: UIImageView!
+    @IBOutlet weak var iArriveImage: UILabel!
     @IBOutlet weak var userNameTextField: FloatLabelTextField!
     @IBOutlet weak var passwordTextField: FloatLabelTextField!
     @IBOutlet weak var showPasswordButton: UIButton!
     @IBOutlet weak var keepMeLoginButton: CheckBox!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var explainTextView: UITextView!
     @IBOutlet weak var bottomBar: UILabel!
+    @IBOutlet weak var poweredByLabel: UILabel!
+    @IBOutlet weak var bottomBarLogoImage: UIImageView!
     
     
     // MARK: Local Variable
+    var engChinSegmentedControl: UIView!
     var isShownPassword = false
     
     
@@ -85,7 +93,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             spread: 0)
         
         // Set up English/Chinese Segmented Control
-        let engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
+        engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
         view.addSubview(engChinSegmentedControl)
         
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
@@ -102,8 +110,42 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // Initialize Login button state
+        super.viewWillAppear(animated)
+        iArriveImage.center.y += 267.0
+        for item in [appearingApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage] {
+            item!.layer.opacity = 0.0
+        }
+        for item in [userNameTextField, passwordTextField, keepMeLoginButton, loginButton] {
+            item!.center.x += 250
+            item!.layer.opacity = 0.0
+        }
         updatedLoginButtonState()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [],
+                       animations: {
+            self.disappearingApptechImage.layer.opacity = 0.0
+            self.disappearingAppIconImage.layer.opacity = 0.0
+        },
+                       completion: nil)
+        UIView.animate(withDuration: 1.0, delay: 0.5, options: [],
+                       animations: {
+                        self.iArriveImage.center.y -= 267.0
+        },
+                       completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 1.0, options: [],
+                       animations: {
+                        for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.engChinSegmentedControl, self.bottomBar, self.poweredByLabel, self.bottomBarLogoImage] {
+                            item!.layer.opacity = 1.0
+                        }
+                        for item in [self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton] {
+                            item!.center.x -= 250
+                            item!.layer.opacity = 1.0
+                        }
+        },
+                       completion: nil)
     }
     
     // Hide keyboard when user tap space outside text field
