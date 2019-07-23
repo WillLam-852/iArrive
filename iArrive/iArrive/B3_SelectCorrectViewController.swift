@@ -21,7 +21,6 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: Local Variables
     var filteredStaffNameList = [staffMember] ()
     var searchActive = false
-    let staffSearchController = UISearchController(searchResultsController: nil)
     var staff: staffMember?
     
 
