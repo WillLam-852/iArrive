@@ -25,28 +25,7 @@ class B_SignInViewController: UIViewController {
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
-        // Set up Greeting Label (with time conditions and username)
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        var normalText = ""
-        if (currentHour >= 6 && currentHour < 12) {
-            normalText = "Good morning "
-        } else if (currentHour >= 12 && currentHour < 18) {
-            normalText = "Good afternoon "
-        } else if (currentHour >= 18 && currentHour < 24) {
-            normalText = "Good evening "
-        } else {
-            normalText = "Good night "
-        }
-        let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
-        let boldText = companyName ?? UserDefaults.standard.string(forKey: "companyName")! + " !"
-        let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
-        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
-        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
-        greetingLabel.attributedText = attributedString
-
-        // Set up Logout Button
-        logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
-        logoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
+        setUpGreetingLabelLogoutButtonAddMemberButton()
         
         // Set up Check In / Out Button
         checkInOutButton.layer.cornerRadius = 4.0
@@ -56,10 +35,6 @@ class B_SignInViewController: UIViewController {
             y: 3,
             blur: 6,
             spread: 0)
-        
-        // Set up Add Member Button
-        addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
-        addMemberButton.layer.cornerRadius = 4.0
         
         // Set up English/Chinese Segmented Control
         let engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
@@ -76,7 +51,24 @@ class B_SignInViewController: UIViewController {
         addMemberButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
     
-    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        for item in [greetingLabel, logoutButton, addMemberButton] {
+//            item!.layer.opacity = 0.0
+//        }
+//    }
+//
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
+//                       animations: {
+//                        for item in [self.greetingLabel, self.logoutButton, self.addMemberButton] {
+//                            item!.layer.opacity = 1.0
+//                        }
+//        },
+//                       completion: nil)
+//
+//    }
     
     // MARK: Action Methods for Buttons
     // For updating button background colors and shadows
@@ -127,6 +119,35 @@ class B_SignInViewController: UIViewController {
         let backgroundLayer = backgroundGradientColors().gl
         backgroundLayer.frame = view.frame
         view.layer.insertSublayer(backgroundLayer, at: 0)
+    }
+    
+    private func setUpGreetingLabelLogoutButtonAddMemberButton() {
+        // Set up Greeting Label (with time conditions and username)
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        var normalText = ""
+        if (currentHour >= 6 && currentHour < 12) {
+            normalText = "Good morning "
+        } else if (currentHour >= 12 && currentHour < 18) {
+            normalText = "Good afternoon "
+        } else if (currentHour >= 18 && currentHour < 24) {
+            normalText = "Good evening "
+        } else {
+            normalText = "Good night "
+        }
+        let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
+        let boldText = (companyName ?? UserDefaults.standard.string(forKey: "companyName")!) + " !"
+        let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
+        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
+        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
+        greetingLabel.attributedText = attributedString
+        
+        // Set up Logout Button
+        logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+        logoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
+        
+        // Set up Add Member Button
+        addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
+        addMemberButton.layer.cornerRadius = 4.0
     }
 
     

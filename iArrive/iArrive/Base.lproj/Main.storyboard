@@ -151,6 +151,38 @@ Terms of Service and Privacy Policy</string>
                                 <rect key="frame" x="319" y="399" width="130" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dd7-OX-OJ7">
+                                <rect key="frame" x="224" y="516" width="320" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.18039215689999999" green="0.26274509800000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
+                                <state key="normal" title="Add Member">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedLoginButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="ZWn-cg-OLU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4f-nQ-o0f">
+                                <rect key="frame" x="323" y="318" width="122" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-10" maxY="0.0"/>
+                                <state key="normal" title="   Logout" image="Logout">
+                                    <color key="titleColor" red="0.23137254900000001" green="0.67450980390000004" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedLogoutButton:" destination="kc3-S3-wjp" eventType="touchUpInside" id="tNn-81-7RA"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Good morning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKz-dd-WxC">
+                                <rect key="frame" x="80" y="274" width="608" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="iArrive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92W-vv-Ge4">
                                 <rect key="frame" x="322" y="279" width="124" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -164,7 +196,10 @@ Terms of Service and Privacy Policy</string>
                     </view>
                     <navigationItem key="navigationItem" id="AC7-aX-ICO"/>
                     <connections>
+                        <outlet property="appearingAddMemberButton" destination="dd7-OX-OJ7" id="Zp8-kb-0Xj"/>
                         <outlet property="appearingApptechImage" destination="rhh-2v-KUf" id="Zuo-fs-lIn"/>
+                        <outlet property="appearingGreetingLabel" destination="pKz-dd-WxC" id="nPN-Fe-f5f"/>
+                        <outlet property="appearingLogoutButton" destination="C4f-nQ-o0f" id="OYV-jW-gXm"/>
                         <outlet property="bottomBar" destination="Iik-7X-uQn" id="yIQ-q2-lwu"/>
                         <outlet property="bottomBarLogoImage" destination="LLg-GG-vKE" id="Kn0-jW-PBH"/>
                         <outlet property="disappearingAppIconImage" destination="n9u-CC-Qnk" id="aoN-Ik-6Tl"/>
@@ -178,7 +213,7 @@ Terms of Service and Privacy Policy</string>
                         <outlet property="poweredByLabel" destination="nEF-It-bW6" id="J8H-Om-P34"/>
                         <outlet property="showPasswordButton" destination="O3o-FY-jaa" id="H2S-j1-LQo"/>
                         <outlet property="userNameTextField" destination="ejU-cm-6R0" id="fFq-U0-EJM"/>
-                        <segue destination="kc3-S3-wjp" kind="showDetail" identifier="LogintoSignInSegue" id="FJQ-zf-QEl"/>
+                        <segue destination="kc3-S3-wjp" kind="showDetail" identifier="LogintoSignInSegue" animates="NO" id="FJQ-zf-QEl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dea-6j-3fq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -194,25 +229,25 @@ Terms of Service and Privacy Policy</string>
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFV-1a-Fo3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFV-1a-Fo3">
                                 <rect key="frame" x="0.0" y="965" width="768" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.1764705882" green="0.2666666667" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8i-Bg-fZS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Powered By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8i-Bg-fZS">
                                 <rect key="frame" x="273" y="980" width="113" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVp-Dm-a3L">
-                                <rect key="frame" x="224" y="446" width="320" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVp-Dm-a3L">
+                                <rect key="frame" x="224" y="436" width="320" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="re0-xJ-UF8"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <state key="normal" title="Check in /Out">
                                     <color key="titleColor" red="0.1803921568627451" green="0.2627450980392157" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
@@ -223,12 +258,10 @@ Terms of Service and Privacy Policy</string>
                                     <segue destination="GUu-bl-gyD" kind="presentation" id="Dfk-Mv-bww"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Y3-iK-WbG">
-                                <rect key="frame" x="224" y="526" width="320" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Y3-iK-WbG">
+                                <rect key="frame" x="224" y="516" width="320" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.1803921568627451" green="0.2627450980392157" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="j1N-0k-WPM"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <state key="normal" title="Add Member">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -239,14 +272,13 @@ Terms of Service and Privacy Policy</string>
                                     <segue destination="n89-Kq-gXM" kind="presentation" id="w7n-H4-x1z"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Large_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="lXC-UL-FgB">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Large_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="lXC-UL-FgB">
                                 <rect key="frame" x="394" y="980" width="112" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="112" id="Sw3-Aq-ME3"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vM-pU-0U0">
-                                <rect key="frame" x="323" y="323" width="122" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vM-pU-0U0">
+                                <rect key="frame" x="323" y="318" width="122" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-10" maxY="0.0"/>
                                 <state key="normal" title="   Logout" image="Logout">
@@ -256,37 +288,15 @@ Terms of Service and Privacy Policy</string>
                                     <action selector="pressedLogoutButton:" destination="kc3-S3-wjp" eventType="touchUpInside" id="SBU-u6-AGN"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good morning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYn-Rd-bXz">
-                                <rect key="frame" x="80" y="274" width="608" height="33"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Good morning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYn-Rd-bXz">
+                                <rect key="frame" x="80" y="274" width="608" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.2196078431372549" green="0.78823529411764703" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="pVp-Dm-a3L" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9Y3-iK-WbG" secondAttribute="trailing" id="2Yf-Ie-iuv"/>
-                            <constraint firstItem="zEx-OA-M7Q" firstAttribute="bottom" secondItem="D8i-Bg-fZS" secondAttribute="bottom" constant="15" id="9fp-WS-WxH"/>
-                            <constraint firstItem="pVp-Dm-a3L" firstAttribute="leading" secondItem="9Y3-iK-WbG" secondAttribute="leading" id="A3C-cx-5HS"/>
-                            <constraint firstItem="D8i-Bg-fZS" firstAttribute="top" secondItem="lXC-UL-FgB" secondAttribute="top" id="CZ2-0K-b1w"/>
-                            <constraint firstItem="D8i-Bg-fZS" firstAttribute="leading" secondItem="zEx-OA-M7Q" secondAttribute="leading" constant="273" id="H03-lo-eOO"/>
-                            <constraint firstItem="9Y3-iK-WbG" firstAttribute="top" secondItem="pVp-Dm-a3L" secondAttribute="bottom" constant="24" id="IGZ-qU-Tzz"/>
-                            <constraint firstItem="pVp-Dm-a3L" firstAttribute="top" secondItem="7vM-pU-0U0" secondAttribute="bottom" constant="90" id="KW4-ol-YP3"/>
-                            <constraint firstItem="7vM-pU-0U0" firstAttribute="leading" secondItem="zEx-OA-M7Q" secondAttribute="leading" constant="323" id="OwS-m6-rIU"/>
-                            <constraint firstItem="lXC-UL-FgB" firstAttribute="leading" secondItem="D8i-Bg-fZS" secondAttribute="trailing" constant="8" symbolic="YES" id="QbK-WR-Xbk"/>
-                            <constraint firstItem="fYn-Rd-bXz" firstAttribute="centerX" secondItem="7vM-pU-0U0" secondAttribute="centerX" id="SaP-UO-yOx"/>
-                            <constraint firstItem="7vM-pU-0U0" firstAttribute="centerX" secondItem="pVp-Dm-a3L" secondAttribute="centerX" id="Sy1-ml-z2U"/>
-                            <constraint firstItem="fYn-Rd-bXz" firstAttribute="leading" secondItem="zEx-OA-M7Q" secondAttribute="leading" constant="80" id="WBa-6D-ah1"/>
-                            <constraint firstItem="D8i-Bg-fZS" firstAttribute="bottom" secondItem="lXC-UL-FgB" secondAttribute="bottom" id="WpX-Yf-vRF"/>
-                            <constraint firstItem="UFV-1a-Fo3" firstAttribute="centerY" secondItem="lXC-UL-FgB" secondAttribute="centerY" id="hLT-ei-AeH"/>
-                            <constraint firstAttribute="trailing" secondItem="UFV-1a-Fo3" secondAttribute="trailing" id="iGQ-se-7YD"/>
-                            <constraint firstItem="UFV-1a-Fo3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h0z-zx-9vJ" secondAttribute="leading" id="jOv-KA-ltt"/>
-                            <constraint firstItem="pVp-Dm-a3L" firstAttribute="leading" secondItem="zEx-OA-M7Q" secondAttribute="leading" constant="224" id="jbs-Lt-f67"/>
-                            <constraint firstItem="UFV-1a-Fo3" firstAttribute="bottom" secondItem="zEx-OA-M7Q" secondAttribute="bottom" id="r2l-KB-qh8"/>
-                            <constraint firstItem="7vM-pU-0U0" firstAttribute="top" secondItem="fYn-Rd-bXz" secondAttribute="bottom" constant="16" id="rfA-VO-Xul"/>
-                            <constraint firstItem="fYn-Rd-bXz" firstAttribute="top" secondItem="zEx-OA-M7Q" secondAttribute="top" constant="254" id="sB9-PN-vHf"/>
-                            <constraint firstItem="9Y3-iK-WbG" firstAttribute="centerX" secondItem="UFV-1a-Fo3" secondAttribute="centerX" id="zKo-uX-2oh"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="zEx-OA-M7Q"/>
                     </view>
                     <navigationItem key="navigationItem" id="VVn-Kn-zuy"/>

@@ -40,6 +40,9 @@ var currentRegisteringJobTitle: String?
 var token: String?
 var orgID: String?
 
+// For animation
+var isLoadedLoginPage = false
+
 // For Loading Sample Data and Debugging (Deleted after deployment)
 var isLoadSampleStaff = true
 var isLoadSampleDetectedData = true
