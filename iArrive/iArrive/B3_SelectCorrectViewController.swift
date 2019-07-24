@@ -190,7 +190,6 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
         cell.jobTitleLabel.text = staff!.jobTitle
         cell.selectionStyle = .none
-//        cell.layer.cornerRadius = 4.0
         // When the cell is first selected
         if !cell.didSelectedRow {
             cell.nameLabel.textColor = UIColor.black
