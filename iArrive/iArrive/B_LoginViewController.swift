@@ -93,15 +93,13 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         loginButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
             x: 0,
-            y: 6,
+            y: 3,
             blur: 6,
             spread: 0)
         
         // Set up English/Chinese Segmented Control
         engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
         view.addSubview(engChinSegmentedControl)
-        
-        setUpGreetingLabelLogoutButtonAddMemberButton()
         
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -124,6 +122,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         for item in [self.appearingGreetingLabel, self.appearingLogoutButton, self.appearingAddMemberButton] {
             item!.layer.opacity = 0.0
         }
+        loginButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0)
         // For first-time open the app
         if !isLoadedLoginPage {
             iArriveImage.center.y += 267.0
@@ -298,7 +297,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             normalText = "Good night "
         }
         let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
-        let boldText = (companyName ?? UserDefaults.standard.string(forKey: "companyName")!) + " !"
+        let boldText = (companyName ?? "") + " !"
         let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
         let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
@@ -309,7 +308,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         appearingLogoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
         
         // Set up Add Member Button
-        appearingAddMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
+        appearingAddMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         appearingAddMemberButton.layer.cornerRadius = 4.0
     }
 
@@ -343,6 +342,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         API().LogInAPI(username: userNameTextField.text!, password: passwordTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
+                self.setUpGreetingLabelLogoutButtonAddMemberButton()
                 if self.keepMeLoginButton.isChecked {
                     UserDefaults.standard.set(companyName, forKey: "companyName")
                     UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
@@ -360,10 +360,9 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     self.loginButton.center.y = 464.0
                     self.loginButton.setTitle("Check in /Out", for: .normal)
                 }, completion: { finished in
-                    for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton, self.iArriveImage] {
+                    for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.iArriveImage] {
                         item!.isHidden = true
                     }
-                    self.loginButton.center.y += 164.0
                     self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
                 })
             } else {

@@ -11,6 +11,7 @@ import UIKit
 class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     // MARK: Properties
+    @IBOutlet weak var registerLabel: UILabel!
     @IBOutlet weak var firstNameTextField: FloatLabelTextField!
     @IBOutlet weak var lastNameTextField: FloatLabelTextField!
     @IBOutlet weak var jobTitleTextField: FloatLabelTextField!
@@ -19,6 +20,13 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var bottomBar: UILabel!
     
+    var backgroundColorView: UIView!
+    
+    // MARK: Properties (for animation)
+    let greetingLabel = UILabel()
+    let logoutButton = UIButton()
+    let checkInOutButton = UIButton()
+    let addMemberLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,51 +39,15 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         
         // Set up Background and Bottom Bar Color
         addBackgroundGradientColors()
+        backgroundColorView = UIView()
+        backgroundColorView.frame = self.view.frame
+        backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.1)
+        backgroundColorView.isUserInteractionEnabled = false
+        self.view.insertSubview(backgroundColorView, at: 1)
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
-        // Set up Text Fields with stored data, placeholders and required format
-        firstNameTextField.text = currentRegisteringFirstName
-        lastNameTextField.text = currentRegisteringLastName
-        jobTitleTextField.text = currentRegisteringJobTitle
-        firstNameTextField.attributedPlaceholder = NSAttributedString(string: "First Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        lastNameTextField.attributedPlaceholder = NSAttributedString(string: "Last Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        jobTitleTextField.attributedPlaceholder = NSAttributedString(string: "Job Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        for i in [firstNameTextField, lastNameTextField, jobTitleTextField] {
-            i?.layer.borderColor = UIColor.white.cgColor
-            i?.layer.borderWidth = 2.0
-            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
-            i?.leftViewMode = .always
-        }
-        
-        // Set up Next Button
-        nextButton.layer.cornerRadius = 4.0
-        nextButton.layer.applySketchShadow(
-            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
-            x: 0,
-            y: 3,
-            blur: 6,
-            spread: 0)
-        
-        // Set up Text View with Required Fonts and URLs
-        let labelText = """
-        By registering, you agree to the iArrive
-        Terms of Service and Privacy Policy
-        """
-        let stringAttribute = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Regular", size: 16)!, .foregroundColor : UIColor.white]
-        let string = NSMutableAttributedString(string: labelText, attributes: stringAttribute)
-        var textRange = string.mutableString.range(of: "Terms of Service")
-        string.addAttribute(.link, value: termOfServiceLink, range: textRange)
-        textRange = string.mutableString.range(of: "Privacy Policy")
-        string.addAttribute(.link, value: privacyPolicyLink, range: textRange)
-        let linkAttribute = [NSAttributedString.Key.font: UIFont(name: "NotoSans-Medium", size: 16)!, .foregroundColor : publicFunctions().hexStringToUIColor(hex: "#C9F4FF"), .underlineStyle: 1] as [NSAttributedString.Key : Any]
-        explainTextView.isEditable = false
-        explainTextView.dataDetectorTypes = .link
-        explainTextView.attributedText = string
-        explainTextView.linkTextAttributes = linkAttribute
-        explainTextView.textAlignment = .center
-        
-        // Set up Cancel Button
-        cancelButton.setTitleColor(UIColor.darkGray.withAlphaComponent(0.5), for: .highlighted)
+        configurateElements()
+        configurateAppearingElements()
         
         // Set up English/Chinese Segmented Control
         let engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
@@ -209,6 +181,52 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         nextButton.layer.hideShadow()
     }
     
+    private func configurateElements() {
+        // Set up Text Fields with stored data, placeholders and required format
+        firstNameTextField.text = currentRegisteringFirstName
+        lastNameTextField.text = currentRegisteringLastName
+        jobTitleTextField.text = currentRegisteringJobTitle
+        firstNameTextField.attributedPlaceholder = NSAttributedString(string: "First Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        lastNameTextField.attributedPlaceholder = NSAttributedString(string: "Last Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        jobTitleTextField.attributedPlaceholder = NSAttributedString(string: "Job Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        for i in [firstNameTextField, lastNameTextField, jobTitleTextField] {
+            i?.layer.borderColor = UIColor.white.cgColor
+            i?.layer.borderWidth = 2.0
+            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
+            i?.leftViewMode = .always
+        }
+        
+        // Set up Next Button
+        nextButton.layer.cornerRadius = 4.0
+        nextButton.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
+            x: 0,
+            y: 3,
+            blur: 6,
+            spread: 0)
+        
+        // Set up Text View with Required Fonts and URLs
+        let labelText = """
+        By registering, you agree to the iArrive
+        Terms of Service and Privacy Policy
+        """
+        let stringAttribute = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Regular", size: 16)!, .foregroundColor : UIColor.white]
+        let string = NSMutableAttributedString(string: labelText, attributes: stringAttribute)
+        var textRange = string.mutableString.range(of: "Terms of Service")
+        string.addAttribute(.link, value: termOfServiceLink, range: textRange)
+        textRange = string.mutableString.range(of: "Privacy Policy")
+        string.addAttribute(.link, value: privacyPolicyLink, range: textRange)
+        let linkAttribute = [NSAttributedString.Key.font: UIFont(name: "NotoSans-Medium", size: 16)!, .foregroundColor : publicFunctions().hexStringToUIColor(hex: "#C9F4FF"), .underlineStyle: 1] as [NSAttributedString.Key : Any]
+        explainTextView.isEditable = false
+        explainTextView.dataDetectorTypes = .link
+        explainTextView.attributedText = string
+        explainTextView.linkTextAttributes = linkAttribute
+        explainTextView.textAlignment = .center
+        
+        // Set up Cancel Button
+        cancelButton.setTitleColor(UIColor.darkGray.withAlphaComponent(0.5), for: .highlighted)
+    }
+    
     
     
     // MARK: Navigation
@@ -218,7 +236,18 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         currentRegisteringFirstName = nil
         currentRegisteringLastName = nil
         currentRegisteringJobTitle = nil
-        dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [], animations: {
+            for item in [self.registerLabel, self.firstNameTextField, self.lastNameTextField, self.jobTitleTextField, self.nextButton, self.explainTextView, self.cancelButton] {
+                item!.layer.opacity = 0.0
+            }
+            for item in [self.greetingLabel, self.logoutButton, self.checkInOutButton, self.addMemberLabel] {
+                item.layer.opacity = 1.0
+            }
+            self.backgroundColorView.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0)
+            self.backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
+        }, completion: { finished in
+            self.dismiss(animated: false, completion: nil)
+        })
     }
     
     // Go to Camera Register Page when user presses Next button if there is no repeating name in the database (otherwise an alert message appears)
@@ -234,5 +263,67 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         }
     }
     
-  
+    private func configurateAppearingElements() {
+        greetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0)
+        logoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0)
+        checkInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0)
+        addMemberLabel.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0)
+        
+        // Set up Greeting Label (with time conditions and username)
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        var normalText = ""
+        if (currentHour >= 6 && currentHour < 12) {
+            normalText = "Good morning "
+        } else if (currentHour >= 12 && currentHour < 18) {
+            normalText = "Good afternoon "
+        } else if (currentHour >= 18 && currentHour < 24) {
+            normalText = "Good evening "
+        } else {
+            normalText = "Good night "
+        }
+        let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
+        let boldText = (companyName ?? UserDefaults.standard.string(forKey: "companyName")!) + " !"
+        let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
+        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
+        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
+        greetingLabel.attributedText = attributedString
+        greetingLabel.textColor = .white
+        greetingLabel.textAlignment = .center
+        
+        // Set up Logout Button
+        logoutButton.setTitle("   Logout", for: .normal)
+        logoutButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24)
+        logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+        logoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
+        logoutButton.setImage(UIImage(named: "Logout"), for: .normal)
+        logoutButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: -10.0)
+        logoutButton.contentHorizontalAlignment = .fill
+        logoutButton.contentVerticalAlignment = .fill
+        
+        // Set up Check In/Out Button
+        checkInOutButton.setTitle("Check in /Out", for: .normal)
+        checkInOutButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24.0)
+        checkInOutButton.layer.cornerRadius = 4.0
+        checkInOutButton.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
+            x: 0,
+            y: 3,
+            blur: 6,
+            spread: 0)
+        checkInOutButton.layer.showShadow()
+        checkInOutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1.0), for: .normal)
+        checkInOutButton.backgroundColor = UIColor.white
+        
+        // Set up Add Member Button
+        addMemberLabel.textAlignment = .center
+        addMemberLabel.font = UIFont(name: "NotoSans-Medium", size: 24.0)
+        addMemberLabel.textColor = .white
+        addMemberLabel.text = "Add Member"
+        
+        for item in [greetingLabel, logoutButton, checkInOutButton, addMemberLabel] {
+            self.view.addSubview(item)
+            self.view.bringSubviewToFront(item)
+            item.layer.opacity = 0.0
+        }
+    }
 }

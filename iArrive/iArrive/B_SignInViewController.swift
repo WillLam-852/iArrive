@@ -17,6 +17,14 @@ class B_SignInViewController: UIViewController {
     @IBOutlet weak var addMemberButton: UIButton!
     @IBOutlet weak var bottomBar: UILabel!
     
+    // MARK: Properties (for animation)
+    let registerLabel = UILabel()
+    let firstNameTextField = UITextField()
+    let lastNameTextField = UITextField()
+    let jobTitleTextField = UITextField()
+    let nextButton = UIButton()
+    let explainTextView = UITextView()
+    let cancelButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,12 +59,22 @@ class B_SignInViewController: UIViewController {
         addMemberButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        for item in [greetingLabel, logoutButton, addMemberButton] {
-//            item!.layer.opacity = 0.0
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        for item in [greetingLabel, logoutButton, checkInOutButton] {
+            item!.layer.opacity = 1.0
+        }
+        configurateAppearingElements()
+        for item in [registerLabel, firstNameTextField, lastNameTextField, jobTitleTextField, nextButton, explainTextView, cancelButton] {
+            item.layer.opacity = 0.0
+        }
+        // Set up Add Member Button
+        addMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0)
+        addMemberButton.setTitle("Add Member", for: .normal)
+        addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
+        addMemberButton.layer.cornerRadius = 4.0
+        addMemberButton.layer.opacity = 1.0
+    }
 //
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
@@ -87,7 +105,7 @@ class B_SignInViewController: UIViewController {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.showShadow()
         } else if sender === addMemberButton {
-            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
+            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         }
     }
     
@@ -105,7 +123,7 @@ class B_SignInViewController: UIViewController {
             checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(1.0)
             checkInOutButton.layer.showShadow()
         } else if sender === addMemberButton {
-            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
+            addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         }
     }
     
@@ -146,7 +164,7 @@ class B_SignInViewController: UIViewController {
         logoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
         
         // Set up Add Member Button
-        addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.4)
+        addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         addMemberButton.layer.cornerRadius = 4.0
     }
 
@@ -165,4 +183,88 @@ class B_SignInViewController: UIViewController {
         UserDefaults.standard.synchronize()
     }
     
+    @IBAction func pressedAddMemberButton(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [], animations: {
+            for item in [self.greetingLabel, self.logoutButton, self.checkInOutButton] {
+                item!.layer.opacity = 0.0
+            }
+            for item in [self.registerLabel, self.firstNameTextField, self.lastNameTextField, self.jobTitleTextField, self.nextButton, self.explainTextView, self.cancelButton] {
+                item.layer.opacity = 1.0
+            }
+            self.addMemberButton.setTitle("", for: .normal)
+            self.addMemberButton.frame = self.view.frame
+            self.addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.1)
+            self.addMemberButton.layer.opacity = 0.5
+        }, completion: { finished in
+            self.performSegue(withIdentifier: "SignIntoRegisterSegue", sender: self)
+        })
+    }
+    
+    private func configurateAppearingElements() {
+        registerLabel.frame = CGRect(x: 297.0, y: 154.0, width: 174.0, height: 43.0)
+        firstNameTextField.frame = CGRect(x: 224.0, y: 260.0, width: 320.0, height: 64.0)
+        lastNameTextField.frame = CGRect(x: 224.0, y: 340.0, width: 320.0, height: 64.0)
+        jobTitleTextField.frame = CGRect(x: 224.0, y: 420.0, width: 320.0, height: 64.0)
+        nextButton.frame = CGRect(x: 224.0, y: 554.0, width: 320.0, height: 56.0)
+        explainTextView.frame = CGRect(x: 224.0, y: 618.0, width: 320.0, height: 61.0)
+        cancelButton.frame = CGRect(x: 175.0, y: 736.0, width: 158.0, height: 33.0)
+        
+        registerLabel.font = UIFont(name: "NotoSans-Regular", size: 32.0)
+        registerLabel.textColor = .white
+        registerLabel.textAlignment = .center
+        registerLabel.text = "Register"
+        // Set up Text Fields with stored data, placeholders and required format
+        firstNameTextField.font = UIFont(name: "NotoSans-Regular", size: 24.0)
+        lastNameTextField.font = UIFont(name: "NotoSans-Regular", size: 24.0)
+        jobTitleTextField.font = UIFont(name: "NotoSans-Regular", size: 24.0)
+        firstNameTextField.attributedPlaceholder = NSAttributedString(string: "First Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        lastNameTextField.attributedPlaceholder = NSAttributedString(string: "Last Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        jobTitleTextField.attributedPlaceholder = NSAttributedString(string: "Job Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        for i in [firstNameTextField, lastNameTextField, jobTitleTextField] {
+            i.layer.borderColor = UIColor.white.cgColor
+            i.layer.borderWidth = 2.0
+            i.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
+            i.leftViewMode = .always
+        }
+        
+        // Set up Next Button
+        nextButton.setTitle("Next", for: .normal)
+        nextButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24.0)
+        nextButton.layer.cornerRadius = 4.0
+        nextButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.3), for: .normal)
+        nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        
+        // Set up Text View with Required Fonts and URLs
+        let labelText = """
+        By registering, you agree to the iArrive
+        Terms of Service and Privacy Policy
+        """
+        let stringAttribute = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Regular", size: 16)!, .foregroundColor : UIColor.white]
+        let string = NSMutableAttributedString(string: labelText, attributes: stringAttribute)
+        var textRange = string.mutableString.range(of: "Terms of Service")
+        string.addAttribute(.link, value: termOfServiceLink, range: textRange)
+        textRange = string.mutableString.range(of: "Privacy Policy")
+        string.addAttribute(.link, value: privacyPolicyLink, range: textRange)
+        let linkAttribute = [NSAttributedString.Key.font: UIFont(name: "NotoSans-Medium", size: 16)!, .foregroundColor : publicFunctions().hexStringToUIColor(hex: "#C9F4FF"), .underlineStyle: 1] as [NSAttributedString.Key : Any]
+        explainTextView.isEditable = false
+        explainTextView.dataDetectorTypes = .link
+        explainTextView.attributedText = string
+        explainTextView.linkTextAttributes = linkAttribute
+        explainTextView.textAlignment = .center
+        explainTextView.backgroundColor = .clear
+        
+        // Set up Cancel Button
+        cancelButton.setTitle("     Cancel", for: .normal)
+        cancelButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24.0)
+        cancelButton.setTitleColor(UIColor.darkGray.withAlphaComponent(0.5), for: .highlighted)
+        cancelButton.setImage(UIImage(named: "Back_2"), for: .normal)
+        cancelButton.contentVerticalAlignment = .fill
+        cancelButton.contentHorizontalAlignment = .fill
+        cancelButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
+        
+        for item in [registerLabel, firstNameTextField, lastNameTextField, jobTitleTextField, nextButton, explainTextView, cancelButton] {
+            self.view.insertSubview(item, at: 1)
+            self.view.bringSubviewToFront(item)
+        }
+    }
 }
