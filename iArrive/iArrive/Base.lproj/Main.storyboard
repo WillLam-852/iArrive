@@ -261,15 +261,15 @@ Terms of Service and Privacy Policy</string>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Y3-iK-WbG">
                                 <rect key="frame" x="224" y="516" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1803921568627451" green="0.2627450980392157" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1803921568627451" green="0.2627450980392157" blue="0.396078431372549" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <state key="normal" title="Add Member">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="pressedAddMemberButton:" destination="kc3-S3-wjp" eventType="touchUpInside" id="XBM-8Q-VBm"/>
                                     <action selector="pressedLoginButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="0cx-3r-WOt"/>
-                                    <segue destination="n89-Kq-gXM" kind="presentation" id="w7n-H4-x1z"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Large_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="lXC-UL-FgB">
@@ -307,6 +307,7 @@ Terms of Service and Privacy Policy</string>
                         <outlet property="greetingLabel" destination="fYn-Rd-bXz" id="J6h-3Q-h5m"/>
                         <outlet property="logoutButton" destination="7vM-pU-0U0" id="lSe-yw-DJX"/>
                         <segue destination="7cn-WA-HRt" kind="show" identifier="SignIntoLogInSegue" id="F7L-43-YCx"/>
+                        <segue destination="n89-Kq-gXM" kind="presentation" identifier="SignIntoRegisterSegue" animates="NO" modalPresentationStyle="fullScreen" id="jxc-aP-Knc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EOQ-1a-aE7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -349,7 +350,6 @@ Terms of Service and Privacy Policy</string>
                                     <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressedCheckInOutButton:" destination="kc3-S3-wjp" eventType="touchUpInside" id="EuV-BE-pwz"/>
                                     <action selector="pressedConfirmButton:" destination="jjP-IL-4vz" eventType="touchUpInside" id="f5b-Ob-4KS"/>
                                     <action selector="pressedLoginButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="JSD-pG-fP5"/>
                                 </connections>
@@ -832,6 +832,7 @@ Terms of Service and Privacy Policy</string>
                         <outlet property="jobTitleTextField" destination="Loh-8s-O4U" id="RJz-Gb-hi0"/>
                         <outlet property="lastNameTextField" destination="b7i-eD-6RR" id="rX9-qQ-dBT"/>
                         <outlet property="nextButton" destination="cfp-12-HRd" id="OBs-wH-dix"/>
+                        <outlet property="registerLabel" destination="gVg-id-eIJ" id="Y7q-fX-dXh"/>
                         <segue destination="RnR-os-9Zo" kind="presentation" identifier="RegistertoCameraSegue" id="Re3-gM-lJf"/>
                     </connections>
                 </viewController>
