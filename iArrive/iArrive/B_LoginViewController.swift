@@ -42,10 +42,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TO BE DELETED
-        userNameTextField.text = "richard.zhang@apptech.com.hk"
-        passwordTextField.text = "123456"
-        
         // Update delegate
         userNameTextField.delegate = self
         passwordTextField.delegate = self
@@ -116,6 +112,13 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        userNameTextField.text = ""
+        passwordTextField.text = ""
+        
+        // TO BE DELETED
+        userNameTextField.text = "richard.zhang@apptech.com.hk"
+        passwordTextField.text = "123456"
+        
         for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton, self.iArriveImage] {
             item!.isHidden = false
         }
@@ -165,12 +168,26 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                             for item in [self.appearingApptechImage, self.explainTextView, self.engChinSegmentedControl, self.bottomBar, self.poweredByLabel, self.bottomBarLogoImage] {
                                 item!.layer.opacity = 1.0
                             }
-                            for item in [self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton, self.forgotPasswordButton] {
-                                item!.center.x -= 250
-                                item!.layer.opacity = 1.0
-                            }
             },
                            completion: nil)
+            UIView.animate(withDuration: 1.0, delay: 1.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+                self.userNameTextField.center.x -= 250
+                self.userNameTextField.layer.opacity = 1.0
+            }, completion: nil)
+            UIView.animate(withDuration: 1.0, delay: 1.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+                self.passwordTextField.center.x -= 250
+                self.passwordTextField.layer.opacity = 1.0
+            }, completion: nil)
+            UIView.animate(withDuration: 1.0, delay: 1.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+                self.keepMeLoginButton.center.x -= 250
+                self.forgotPasswordButton.center.x -= 250
+                self.keepMeLoginButton.layer.opacity = 1.0
+                self.forgotPasswordButton.layer.opacity = 1.0
+            }, completion: nil)
+            UIView.animate(withDuration: 1.0, delay: 1.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+                self.loginButton.center.x -= 250
+                self.loginButton.layer.opacity = 1.0
+            }, completion: nil)
             isLoadedLoginPage = true
         }
     }
@@ -348,8 +365,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
                     UserDefaults.standard.synchronize()
                 }
-                self.userNameTextField.text = ""
-                self.passwordTextField.text = ""
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
                     for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.iArriveImage] {
                         item!.layer.opacity = 0.0

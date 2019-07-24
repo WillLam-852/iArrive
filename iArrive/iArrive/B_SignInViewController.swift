@@ -19,9 +19,6 @@ class B_SignInViewController: UIViewController {
     
     // MARK: Properties (for animation)
     let registerLabel = UILabel()
-    let firstNameTextField = UITextField()
-    let lastNameTextField = UITextField()
-    let jobTitleTextField = UITextField()
     let nextButton = UIButton()
     let explainTextView = UITextView()
     let cancelButton = UIButton()
@@ -65,7 +62,7 @@ class B_SignInViewController: UIViewController {
             item!.layer.opacity = 1.0
         }
         configurateAppearingElements()
-        for item in [registerLabel, firstNameTextField, lastNameTextField, jobTitleTextField, nextButton, explainTextView, cancelButton] {
+        for item in [registerLabel, nextButton, explainTextView, cancelButton] {
             item.layer.opacity = 0.0
         }
         // Set up Add Member Button
@@ -188,7 +185,7 @@ class B_SignInViewController: UIViewController {
             for item in [self.greetingLabel, self.logoutButton, self.checkInOutButton] {
                 item!.layer.opacity = 0.0
             }
-            for item in [self.registerLabel, self.firstNameTextField, self.lastNameTextField, self.jobTitleTextField, self.nextButton, self.explainTextView, self.cancelButton] {
+            for item in [self.registerLabel, self.nextButton, self.explainTextView, self.cancelButton] {
                 item.layer.opacity = 1.0
             }
             self.addMemberButton.setTitle("", for: .normal)
@@ -202,9 +199,6 @@ class B_SignInViewController: UIViewController {
     
     private func configurateAppearingElements() {
         registerLabel.frame = CGRect(x: 297.0, y: 154.0, width: 174.0, height: 43.0)
-        firstNameTextField.frame = CGRect(x: 224.0, y: 260.0, width: 320.0, height: 64.0)
-        lastNameTextField.frame = CGRect(x: 224.0, y: 340.0, width: 320.0, height: 64.0)
-        jobTitleTextField.frame = CGRect(x: 224.0, y: 420.0, width: 320.0, height: 64.0)
         nextButton.frame = CGRect(x: 224.0, y: 554.0, width: 320.0, height: 56.0)
         explainTextView.frame = CGRect(x: 224.0, y: 618.0, width: 320.0, height: 61.0)
         cancelButton.frame = CGRect(x: 175.0, y: 736.0, width: 158.0, height: 33.0)
@@ -213,19 +207,6 @@ class B_SignInViewController: UIViewController {
         registerLabel.textColor = .white
         registerLabel.textAlignment = .center
         registerLabel.text = "Register"
-        // Set up Text Fields with stored data, placeholders and required format
-        firstNameTextField.font = UIFont(name: "NotoSans-Regular", size: 24.0)
-        lastNameTextField.font = UIFont(name: "NotoSans-Regular", size: 24.0)
-        jobTitleTextField.font = UIFont(name: "NotoSans-Regular", size: 24.0)
-        firstNameTextField.attributedPlaceholder = NSAttributedString(string: "First Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        lastNameTextField.attributedPlaceholder = NSAttributedString(string: "Last Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        jobTitleTextField.attributedPlaceholder = NSAttributedString(string: "Job Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        for i in [firstNameTextField, lastNameTextField, jobTitleTextField] {
-            i.layer.borderColor = UIColor.white.cgColor
-            i.layer.borderWidth = 2.0
-            i.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
-            i.leftViewMode = .always
-        }
         
         // Set up Next Button
         nextButton.setTitle("Next", for: .normal)
@@ -262,7 +243,7 @@ class B_SignInViewController: UIViewController {
         cancelButton.contentHorizontalAlignment = .fill
         cancelButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
         
-        for item in [registerLabel, firstNameTextField, lastNameTextField, jobTitleTextField, nextButton, explainTextView, cancelButton] {
+        for item in [registerLabel, nextButton, explainTextView, cancelButton] {
             self.view.insertSubview(item, at: 1)
             self.view.bringSubviewToFront(item)
         }

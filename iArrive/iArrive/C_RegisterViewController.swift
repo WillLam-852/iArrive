@@ -68,6 +68,30 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         updatedNextButtonState()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        for item in [firstNameTextField, lastNameTextField, jobTitleTextField] {
+            item!.center.x += 200
+            item!.layer.opacity = 0.0
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+            self.firstNameTextField.center.x -= 200
+            self.firstNameTextField.layer.opacity = 1.0
+        }, completion: nil)
+        UIView.animate(withDuration: 1.0, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+            self.lastNameTextField.center.x -= 200
+            self.lastNameTextField.layer.opacity = 1.0
+        }, completion: nil)
+        UIView.animate(withDuration: 1.0, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+            self.jobTitleTextField.center.x -= 200
+            self.jobTitleTextField.layer.opacity = 1.0
+        }, completion: nil)
+    }
+    
     // Hide keyboard when user tap space outside text field
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
