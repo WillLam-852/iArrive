@@ -43,6 +43,9 @@ var orgID: String?
 // For animation
 var isLoadedLoginPage = false
 
+// For avoiding loading the EngChinSegmentedControl repeatedly
+var isengChinSegmentedControl = false
+
 // For Loading Sample Data and Debugging (Deleted after deployment)
 var isLoadSampleStaff = true
 var isLoadSampleDetectedData = true

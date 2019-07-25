@@ -77,3 +77,17 @@ extension String: ParameterEncoding {
         return request
     }
 }
+
+
+// Extension on CGRect to make a flexible size for different screensize devices
+extension CGRect {
+    func fixedToScreenRatio() -> CGRect {
+        var newPosition = CGRect()
+        let newX = minX / 768.0 * UIScreen.main.bounds.width
+        let newY = minY / 1024.0 * UIScreen.main.bounds.height
+        let newWidth = width / 768.0 * UIScreen.main.bounds.width
+        let newHeight = height / 1024.0 * UIScreen.main.bounds.height
+        newPosition = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
+        return newPosition
+    }
+}

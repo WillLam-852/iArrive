@@ -68,30 +68,6 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         updatedNextButtonState()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        for item in [firstNameTextField, lastNameTextField, jobTitleTextField] {
-            item!.center.x += 200
-            item!.layer.opacity = 0.0
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
-            self.firstNameTextField.center.x -= 200
-            self.firstNameTextField.layer.opacity = 1.0
-        }, completion: nil)
-        UIView.animate(withDuration: 1.0, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
-            self.lastNameTextField.center.x -= 200
-            self.lastNameTextField.layer.opacity = 1.0
-        }, completion: nil)
-        UIView.animate(withDuration: 1.0, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
-            self.jobTitleTextField.center.x -= 200
-            self.jobTitleTextField.layer.opacity = 1.0
-        }, completion: nil)
-    }
-    
     // Hide keyboard when user tap space outside text field
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -216,7 +192,7 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         for i in [firstNameTextField, lastNameTextField, jobTitleTextField] {
             i?.layer.borderColor = UIColor.white.cgColor
             i?.layer.borderWidth = 2.0
-            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
+            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20).fixedToScreenRatio())
             i?.leftViewMode = .always
         }
         
@@ -267,7 +243,7 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
             for item in [self.greetingLabel, self.logoutButton, self.checkInOutButton, self.addMemberLabel] {
                 item.layer.opacity = 1.0
             }
-            self.backgroundColorView.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0)
+            self.backgroundColorView.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio()
             self.backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         }, completion: { finished in
             self.dismiss(animated: false, completion: nil)
@@ -288,10 +264,10 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     }
     
     private func configurateAppearingElements() {
-        greetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0)
-        logoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0)
-        checkInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0)
-        addMemberLabel.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0)
+        greetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio()
+        logoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio()
+        checkInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+        addMemberLabel.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio()
         
         // Set up Greeting Label (with time conditions and username)
         let currentHour = Calendar.current.component(.hour, from: Date())

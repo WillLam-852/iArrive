@@ -12,11 +12,9 @@ import SwiftyJSON
 
 class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
-    // MARK: Properties
-    @IBOutlet weak var disappearingApptechImage: UIImageView!
-    @IBOutlet weak var disappearingAppIconImage: UIImageView!
     
-    @IBOutlet weak var appearingApptechImage: UIImageView!
+    // MARK: Properties
+    @IBOutlet weak var ApptechImage: UIImageView!
     @IBOutlet weak var iArriveImage: UILabel!
     @IBOutlet weak var userNameTextField: FloatLabelTextField!
     @IBOutlet weak var passwordTextField: FloatLabelTextField!
@@ -29,13 +27,15 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var poweredByLabel: UILabel!
     @IBOutlet weak var bottomBarLogoImage: UIImageView!
     
-    @IBOutlet weak var appearingGreetingLabel: UILabel!
-    @IBOutlet weak var appearingLogoutButton: UIButton!
-    @IBOutlet weak var appearingAddMemberButton: UIButton!
-    
+    // MARK: Properties (for animation)
+    let disappearingApptechImage = UIImageView()
+    let disappearingAppIconImage = UIImageView()
+    let appearingGreetingLabel = UILabel()
+    let appearingLogoutButton = UIButton()
+    let appearingAddMemberButton = UIButton()
     
     // MARK: Local Variable
-    var engChinSegmentedControl: UIView!
+    var engChinSegmentedControl = UIView()
     var isShownPassword = false
     
     
@@ -46,56 +46,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         explainTextView.delegate = self
-        
-        // Set up Background and Bottom Bar Color
-        addBackgroundGradientColors()
-        bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
-        
-        // Set up UserNameTextField and PasswordTextField
-        passwordTextField.setRightPaddingPoints(45)
-        userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        for i in [userNameTextField, passwordTextField] {
-            i?.layer.borderColor = UIColor.white.cgColor
-            i?.layer.borderWidth = 2.0
-            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
-            i?.leftViewMode = .always
-        }
-        
-        // Set up Show Password Button
-        showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 35, left: 35, bottom: 35, right: 35);
-        showPasswordButton.isHidden = true
-        
-        // Set up Text View with Required Fonts and URLs
-        let labelText = """
-        By Logging in, you agree to the iArrive
-        Terms of Service and Privacy Policy
-        """
-        let stringAttribute = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Regular", size: 16)!, .foregroundColor : UIColor.white]
-        let string = NSMutableAttributedString(string: labelText, attributes: stringAttribute)
-        var textRange = string.mutableString.range(of: "Terms of Service")
-        string.addAttribute(.link, value: termOfServiceLink, range: textRange)
-        textRange = string.mutableString.range(of: "Privacy Policy")
-        string.addAttribute(.link, value: privacyPolicyLink, range: textRange)
-        let linkAttribute = [NSAttributedString.Key.font: UIFont(name: "NotoSans-Medium", size: 16)!, .foregroundColor: publicFunctions().hexStringToUIColor(hex: "#C9F4FF"), .underlineStyle: 1] as [NSAttributedString.Key : Any]
-        explainTextView.isEditable = false
-        explainTextView.dataDetectorTypes = .link
-        explainTextView.attributedText = string
-        explainTextView.linkTextAttributes = linkAttribute
-        explainTextView.textAlignment = .center
-        
-        // Set up Login Button
-        loginButton.layer.cornerRadius = 4.0
-        loginButton.layer.applySketchShadow(
-            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
-            x: 0,
-            y: 3,
-            blur: 6,
-            spread: 0)
-        
-        // Set up English/Chinese Segmented Control
-        engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
-        view.addSubview(engChinSegmentedControl)
         
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -110,6 +60,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         loginButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         userNameTextField.text = ""
@@ -119,31 +70,23 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         userNameTextField.text = "richard.zhang@apptech.com.hk"
         passwordTextField.text = "123456"
         
-        for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.loginButton, self.iArriveImage] {
-            item!.isHidden = false
-        }
-        for item in [self.appearingGreetingLabel, self.appearingLogoutButton, self.appearingAddMemberButton] {
-            item!.layer.opacity = 0.0
-        }
-        loginButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0)
+        configurateElements()
+        configurateDisappearingElements()
+        
         // For first-time open the app
         if !isLoadedLoginPage {
-            iArriveImage.center.y += 267.0
-            for item in [appearingApptechImage, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage] {
+            iArriveImage.frame = CGRect(x: 322.0, y: 546.0, width: 124.0, height: 44.0).fixedToScreenRatio()
+            for item in [ApptechImage, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage] {
                 item!.layer.opacity = 0.0
             }
             for item in [userNameTextField, passwordTextField, keepMeLoginButton, forgotPasswordButton, loginButton] {
                 item!.center.x += 250
                 item!.layer.opacity = 0.0
             }
-        // For showing the view after logging out
-        } else {
-            for item in [appearingApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage, userNameTextField, passwordTextField, keepMeLoginButton, loginButton, iArriveImage] {
-                item!.layer.opacity = 1.0
+        } else { // For showing the view after logging out
+            for item in [disappearingApptechImage, disappearingAppIconImage, appearingGreetingLabel, appearingLogoutButton, appearingAddMemberButton] {
+                item.layer.opacity = 0.0
             }
-            loginButton.setTitle("Login", for: .normal)
-            disappearingApptechImage.layer.opacity = 0.0
-            disappearingAppIconImage.layer.opacity = 0.0
         }
         updatedLoginButtonState()
     }
@@ -152,39 +95,39 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         super.viewDidAppear(animated)
         // Set up Fade-in animation
         if !isLoadedLoginPage {
-            UIView.animate(withDuration: 0.5, delay: 0.5, options: [],
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
                            animations: {
                 self.disappearingApptechImage.layer.opacity = 0.0
                 self.disappearingAppIconImage.layer.opacity = 0.0
             },
                            completion: nil)
-            UIView.animate(withDuration: 1.0, delay: 0.5, options: [],
+            UIView.animate(withDuration: 0.8, delay: 0.0, options: [],
                            animations: {
-                            self.iArriveImage.center.y -= 267.0
+                            self.iArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).fixedToScreenRatio()
             },
                            completion: nil)
-            UIView.animate(withDuration: 0.5, delay: 1.0, options: .curveEaseInOut,
+            UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut,
                            animations: {
-                            for item in [self.appearingApptechImage, self.explainTextView, self.engChinSegmentedControl, self.bottomBar, self.poweredByLabel, self.bottomBarLogoImage] {
+                            for item in [self.ApptechImage, self.explainTextView, self.engChinSegmentedControl, self.bottomBar, self.poweredByLabel, self.bottomBarLogoImage] {
                                 item!.layer.opacity = 1.0
                             }
             },
                            completion: nil)
-            UIView.animate(withDuration: 1.0, delay: 1.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 0.5, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.userNameTextField.center.x -= 250
                 self.userNameTextField.layer.opacity = 1.0
             }, completion: nil)
-            UIView.animate(withDuration: 1.0, delay: 1.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 0.6, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.passwordTextField.center.x -= 250
                 self.passwordTextField.layer.opacity = 1.0
             }, completion: nil)
-            UIView.animate(withDuration: 1.0, delay: 1.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 0.7, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.keepMeLoginButton.center.x -= 250
                 self.forgotPasswordButton.center.x -= 250
                 self.keepMeLoginButton.layer.opacity = 1.0
                 self.forgotPasswordButton.layer.opacity = 1.0
             }, completion: nil)
-            UIView.animate(withDuration: 1.0, delay: 1.3, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 0.8, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.loginButton.center.x -= 250
                 self.loginButton.layer.opacity = 1.0
             }, completion: nil)
@@ -300,36 +243,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         loginButton.layer.hideShadow()
     }
     
-    private func setUpGreetingLabelLogoutButtonAddMemberButton() {
-        // Set up Greeting Label (with time conditions and username)
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        var normalText = ""
-        if (currentHour >= 6 && currentHour < 12) {
-            normalText = "Good morning "
-        } else if (currentHour >= 12 && currentHour < 18) {
-            normalText = "Good afternoon "
-        } else if (currentHour >= 18 && currentHour < 24) {
-            normalText = "Good evening "
-        } else {
-            normalText = "Good night "
-        }
-        let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
-        let boldText = (companyName ?? "") + " !"
-        let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
-        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
-        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
-        appearingGreetingLabel.attributedText = attributedString
-        
-        // Set up Logout Button
-        appearingLogoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
-        appearingLogoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
-        
-        // Set up Add Member Button
-        appearingAddMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
-        appearingAddMemberButton.layer.cornerRadius = 4.0
-    }
-
-    
     
     // MARK: Actions
     
@@ -359,25 +272,25 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         API().LogInAPI(username: userNameTextField.text!, password: passwordTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
-                self.setUpGreetingLabelLogoutButtonAddMemberButton()
+                self.configurateAppearingElements()
                 if self.keepMeLoginButton.isChecked {
                     UserDefaults.standard.set(companyName, forKey: "companyName")
                     UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
                     UserDefaults.standard.synchronize()
                 }
-                UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
-                    for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.iArriveImage] {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.53) {
+                    self.loginButton.setTitle("Login", for: .normal)
+                }
+                UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
+                    for item in [self.ApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.iArriveImage] {
                         item!.layer.opacity = 0.0
                     }
                     for item in [self.appearingGreetingLabel, self.appearingLogoutButton, self.appearingAddMemberButton] {
-                        item!.layer.opacity = 1.0
+                        item.layer.opacity = 1.0
                     }
                     self.loginButton.center.y = 464.0
                     self.loginButton.setTitle("Check in /Out", for: .normal)
                 }, completion: { finished in
-                    for item in [self.appearingApptechImage, self.forgotPasswordButton, self.explainTextView, self.userNameTextField, self.passwordTextField, self.keepMeLoginButton, self.iArriveImage] {
-                        item!.isHidden = true
-                    }
                     self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
                 })
             } else {
@@ -388,6 +301,136 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                 alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
                 self.present(alert, animated: true)
             }
+        }
+    }
+    
+    
+    
+    
+    // MARK: Configurate Elements
+    
+    private func configurateElements() {
+        // Set up Background and Bottom Bar Color
+        addBackgroundGradientColors()
+        bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        
+        // Set up UserNameTextField and PasswordTextField
+        passwordTextField.setRightPaddingPoints(45)
+        userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        for i in [userNameTextField, passwordTextField] {
+            i?.layer.borderColor = UIColor.white.cgColor
+            i?.layer.borderWidth = 2.0
+            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20).fixedToScreenRatio())
+            i?.leftViewMode = .always
+        }
+        
+        // Set up Show Password Button
+        showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 35, left: 35, bottom: 35, right: 35);
+        showPasswordButton.isHidden = true
+        
+        // Set up Text View with Required Fonts and URLs
+        let labelText = """
+        By Logging in, you agree to the iArrive
+        Terms of Service and Privacy Policy
+        """
+        let stringAttribute = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Regular", size: 16)!, .foregroundColor : UIColor.white]
+        let string = NSMutableAttributedString(string: labelText, attributes: stringAttribute)
+        var textRange = string.mutableString.range(of: "Terms of Service")
+        string.addAttribute(.link, value: termOfServiceLink, range: textRange)
+        textRange = string.mutableString.range(of: "Privacy Policy")
+        string.addAttribute(.link, value: privacyPolicyLink, range: textRange)
+        let linkAttribute = [NSAttributedString.Key.font: UIFont(name: "NotoSans-Medium", size: 16)!, .foregroundColor: publicFunctions().hexStringToUIColor(hex: "#C9F4FF"), .underlineStyle: 1] as [NSAttributedString.Key : Any]
+        explainTextView.isEditable = false
+        explainTextView.dataDetectorTypes = .link
+        explainTextView.attributedText = string
+        explainTextView.linkTextAttributes = linkAttribute
+        explainTextView.textAlignment = .center
+        
+        // Set up Login Button
+        loginButton.layer.cornerRadius = 4.0
+        loginButton.layer.applySketchShadow(
+            color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
+            x: 0,
+            y: 3,
+            blur: 6,
+            spread: 0)
+        
+        // Set up English/Chinese Segmented Control
+        if !isengChinSegmentedControl {
+            engChinSegmentedControl = publicFunctions().addEngChinSegmentedControl()
+            view.addSubview(engChinSegmentedControl)
+            isengChinSegmentedControl = true
+        }
+        
+        loginButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+        
+        for item in [ApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage, userNameTextField, passwordTextField, keepMeLoginButton, loginButton, iArriveImage] {
+            item!.layer.opacity = 1.0
+        }
+    }
+    
+    private func configurateDisappearingElements() {
+        disappearingApptechImage.frame = CGRect(x: 248.0, y: 266.0, width: 272.0, height: 58.0).fixedToScreenRatio()
+        disappearingAppIconImage.frame = CGRect(x: 319.0, y: 399.0, width: 130.0, height: 128.0).fixedToScreenRatio()
+        disappearingApptechImage.image = UIImage(named: "Large_Logo")
+        disappearingAppIconImage.image = UIImage(named: "Logo")
+        disappearingAppIconImage.contentMode = .scaleAspectFit
+        for item in [disappearingAppIconImage, disappearingAppIconImage] {
+            self.view.addSubview(item)
+            self.view.bringSubviewToFront(item)
+            item.layer.opacity = 1.0
+        }
+    }
+    
+    private func configurateAppearingElements() {
+        appearingGreetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio()
+        appearingLogoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio()
+        appearingAddMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+        
+        // Set up Greeting Label (with time conditions and username)
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        var normalText = ""
+        if (currentHour >= 6 && currentHour < 12) {
+            normalText = "Good morning "
+        } else if (currentHour >= 12 && currentHour < 18) {
+            normalText = "Good afternoon "
+        } else if (currentHour >= 18 && currentHour < 24) {
+            normalText = "Good evening "
+        } else {
+            normalText = "Good night "
+        }
+        let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
+        let boldText = (companyName ?? UserDefaults.standard.string(forKey: "companyName")!) + " !"
+        let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
+        let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
+        attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
+        appearingGreetingLabel.attributedText = attributedString
+        appearingGreetingLabel.textColor = .white
+        appearingGreetingLabel.textAlignment = .center
+        
+        // Set up Logout Button
+        appearingLogoutButton.setTitle("   Logout", for: .normal)
+        appearingLogoutButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24)
+        appearingLogoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+        appearingLogoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
+        appearingLogoutButton.setImage(UIImage(named: "Logout"), for: .normal)
+        appearingLogoutButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: -10.0)
+        appearingLogoutButton.contentHorizontalAlignment = .fill
+        appearingLogoutButton.contentVerticalAlignment = .fill
+        
+        // Set up Add Member Button
+        appearingAddMemberButton.setTitle("Add Member", for: .normal)
+        appearingAddMemberButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24.0)
+        appearingAddMemberButton.titleLabel?.textColor = .white
+        appearingAddMemberButton.titleLabel?.textAlignment = .center
+        appearingAddMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
+        appearingAddMemberButton.layer.cornerRadius = 4.0
+        
+        for item in [appearingGreetingLabel, appearingLogoutButton, appearingAddMemberButton] {
+            self.view.addSubview(item)
+            self.view.bringSubviewToFront(item)
+            item.layer.opacity = 0.0
         }
     }
 }

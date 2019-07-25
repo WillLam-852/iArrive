@@ -143,46 +143,6 @@ Terms of Service and Privacy Policy</string>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="-8" maxY="5"/>
                                 <state key="normal" title="    Keep Me Login" image="ic_check_box_outline_blank"/>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Large_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="StA-6j-MPK">
-                                <rect key="frame" x="248" y="266" width="272" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="n9u-CC-Qnk">
-                                <rect key="frame" x="319" y="399" width="130" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dd7-OX-OJ7">
-                                <rect key="frame" x="224" y="516" width="320" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.18039215689999999" green="0.26274509800000001" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
-                                <state key="normal" title="Add Member">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="pressedLoginButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="ZWn-cg-OLU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4f-nQ-o0f">
-                                <rect key="frame" x="323" y="318" width="122" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-10" maxY="0.0"/>
-                                <state key="normal" title="   Logout" image="Logout">
-                                    <color key="titleColor" red="0.23137254900000001" green="0.67450980390000004" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="pressedLogoutButton:" destination="kc3-S3-wjp" eventType="touchUpInside" id="tNn-81-7RA"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Good morning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKz-dd-WxC">
-                                <rect key="frame" x="80" y="274" width="608" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="iArrive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92W-vv-Ge4">
                                 <rect key="frame" x="322" y="279" width="124" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -196,14 +156,9 @@ Terms of Service and Privacy Policy</string>
                     </view>
                     <navigationItem key="navigationItem" id="AC7-aX-ICO"/>
                     <connections>
-                        <outlet property="appearingAddMemberButton" destination="dd7-OX-OJ7" id="Zp8-kb-0Xj"/>
-                        <outlet property="appearingApptechImage" destination="rhh-2v-KUf" id="Zuo-fs-lIn"/>
-                        <outlet property="appearingGreetingLabel" destination="pKz-dd-WxC" id="nPN-Fe-f5f"/>
-                        <outlet property="appearingLogoutButton" destination="C4f-nQ-o0f" id="OYV-jW-gXm"/>
+                        <outlet property="ApptechImage" destination="rhh-2v-KUf" id="Zuo-fs-lIn"/>
                         <outlet property="bottomBar" destination="Iik-7X-uQn" id="yIQ-q2-lwu"/>
                         <outlet property="bottomBarLogoImage" destination="LLg-GG-vKE" id="Kn0-jW-PBH"/>
-                        <outlet property="disappearingAppIconImage" destination="n9u-CC-Qnk" id="aoN-Ik-6Tl"/>
-                        <outlet property="disappearingApptechImage" destination="StA-6j-MPK" id="2q2-oQ-xB2"/>
                         <outlet property="explainTextView" destination="XfH-gz-1Yf" id="bKg-4k-Ai1"/>
                         <outlet property="forgotPasswordButton" destination="BlL-b5-9gd" id="yAk-Ok-CDH"/>
                         <outlet property="iArriveImage" destination="92W-vv-Ge4" id="9JW-Qi-ujP"/>
@@ -306,7 +261,7 @@ Terms of Service and Privacy Policy</string>
                         <outlet property="checkInOutButton" destination="pVp-Dm-a3L" id="HD2-sr-BMh"/>
                         <outlet property="greetingLabel" destination="fYn-Rd-bXz" id="J6h-3Q-h5m"/>
                         <outlet property="logoutButton" destination="7vM-pU-0U0" id="lSe-yw-DJX"/>
-                        <segue destination="7cn-WA-HRt" kind="show" identifier="SignIntoLogInSegue" id="F7L-43-YCx"/>
+                        <segue destination="7cn-WA-HRt" kind="show" identifier="SignIntoLogInSegue" animates="NO" id="F7L-43-YCx"/>
                         <segue destination="n89-Kq-gXM" kind="presentation" identifier="SignIntoRegisterSegue" animates="NO" modalPresentationStyle="fullScreen" id="jxc-aP-Knc"/>
                     </connections>
                 </viewController>
@@ -662,7 +617,7 @@ Time</string>
         <!--Register View Controller-->
         <scene sceneID="LKO-ha-Cg8">
             <objects>
-                <viewController id="n89-Kq-gXM" customClass="C_RegisterViewController" customModule="iArrive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="C_RegisterViewController" id="n89-Kq-gXM" customClass="C_RegisterViewController" customModule="iArrive" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jwp-dx-Tsp">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
