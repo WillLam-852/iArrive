@@ -42,38 +42,6 @@
                                 <rect key="frame" x="319" y="130" width="130" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="ZSR-ko-2Yb" customClass="FloatLabelTextField" customModule="iArrive" customModuleProvider="target">
-                                <rect key="frame" x="224" y="454" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="userNameTextField:" destination="17m-L3-GNa" eventType="editingDidEnd" id="1en-7q-eJj"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="User Name" textAlignment="natural" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="ejU-cm-6R0" customClass="FloatLabelTextField" customModule="iArrive" customModuleProvider="target">
-                                <rect key="frame" x="224" y="374" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="username"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTextColour">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="userNameTextField:" destination="17m-L3-GNa" eventType="editingDidEnd" id="LPA-6l-8xX"/>
-                                </connections>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlL-b5-9gd">
                                 <rect key="frame" x="398" y="530" width="146" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -117,10 +85,11 @@
                                 <rect key="frame" x="394" y="980" width="112" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3o-FY-jaa">
-                                <rect key="frame" x="493" y="466" width="40" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3o-FY-jaa">
+                                <rect key="frame" x="485" y="460" width="59" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                 <state key="normal" image="Unshow"/>
                                 <connections>
                                     <action selector="pressedShowPasswordButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="m3k-wO-Q7n"/>
@@ -150,6 +119,16 @@ Terms of Service and Privacy Policy</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ea5-wj-lUv" customClass="animatedTextField" customModule="iArrive" customModuleProvider="target">
+                                <rect key="frame" x="224" y="378" width="320" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJq-HI-ltU" customClass="animatedTextField" customModule="iArrive" customModuleProvider="target">
+                                <rect key="frame" x="224" y="460" width="320" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.21960784310000001" green="0.78823529410000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="cWM-nG-raW"/>
@@ -164,10 +143,10 @@ Terms of Service and Privacy Policy</string>
                         <outlet property="iArriveImage" destination="92W-vv-Ge4" id="9JW-Qi-ujP"/>
                         <outlet property="keepMeLoginButton" destination="9xH-s2-DkD" id="FK7-rr-0kl"/>
                         <outlet property="loginButton" destination="5Mf-3j-MiC" id="xUE-5W-T1u"/>
-                        <outlet property="passwordTextField" destination="ZSR-ko-2Yb" id="bF8-aE-xhr"/>
+                        <outlet property="passwordTextField" destination="bJq-HI-ltU" id="gSo-nz-ar5"/>
                         <outlet property="poweredByLabel" destination="nEF-It-bW6" id="J8H-Om-P34"/>
                         <outlet property="showPasswordButton" destination="O3o-FY-jaa" id="H2S-j1-LQo"/>
-                        <outlet property="userNameTextField" destination="ejU-cm-6R0" id="fFq-U0-EJM"/>
+                        <outlet property="userNameTextField" destination="ea5-wj-lUv" id="a3v-ad-P0E"/>
                         <segue destination="kc3-S3-wjp" kind="showDetail" identifier="LogintoSignInSegue" animates="NO" id="FJQ-zf-QEl"/>
                     </connections>
                 </viewController>
