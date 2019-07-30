@@ -12,10 +12,11 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
 
     // MARK: Properties
     @IBOutlet weak var registerLabel: UILabel!
-    @IBOutlet weak var firstNameTextField: FloatLabelTextField!
-    @IBOutlet weak var lastNameTextField: FloatLabelTextField!
-    @IBOutlet weak var jobTitleTextField: FloatLabelTextField!
+    
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var firstNameTextField: animatedTextField!
+    @IBOutlet weak var lastNameTextField: animatedTextField!
+    @IBOutlet weak var jobTitleTextField: animatedTextField!
     @IBOutlet weak var explainTextView: UITextView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var bottomBar: UILabel!
@@ -32,9 +33,9 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         super.viewDidLoad()
 
         // Update delegate
-        firstNameTextField.delegate = self
-        lastNameTextField.delegate = self
-        jobTitleTextField.delegate = self
+        firstNameTextField.mainTextField.delegate = self
+        lastNameTextField.mainTextField.delegate = self
+        jobTitleTextField.mainTextField.delegate = self
         explainTextView.delegate = self
         
         // Set up Background and Bottom Bar Color
@@ -54,9 +55,9 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         view.addSubview(engChinSegmentedControl)
         
         // Associate Text Field objects with action methods (For updating Next button state)
-        firstNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        lastNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        jobTitleTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        firstNameTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        lastNameTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        jobTitleTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
         // Associate Button objects with action methods (For updating button background colors and shadows)
         nextButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
@@ -158,9 +159,9 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     
     // Update Next Button State
     private func updatedNextButtonState() {
-        let firstNameText = firstNameTextField.text ?? ""
-        let lastNameText = lastNameTextField.text ?? ""
-        let jobTitleText = jobTitleTextField.text ?? ""
+        let firstNameText = firstNameTextField.mainTextField.text ?? ""
+        let lastNameText = lastNameTextField.mainTextField.text ?? ""
+        let jobTitleText = jobTitleTextField.mainTextField.text ?? ""
         nextButton.isEnabled = !firstNameText.isEmpty && !lastNameText.isEmpty && !jobTitleText.isEmpty
         if nextButton.isEnabled {
             enableNextButton()
@@ -183,17 +184,18 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     
     private func configurateElements() {
         // Set up Text Fields with stored data, placeholders and required format
+        firstNameTextField.placeholderText = "First Name"
+        lastNameTextField.placeholderText = "Last Name"
+        jobTitleTextField.placeholderText = "Job Title"
         firstNameTextField.text = currentRegisteringFirstName
         lastNameTextField.text = currentRegisteringLastName
         jobTitleTextField.text = currentRegisteringJobTitle
-        firstNameTextField.attributedPlaceholder = NSAttributedString(string: "First Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        lastNameTextField.attributedPlaceholder = NSAttributedString(string: "Last Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        jobTitleTextField.attributedPlaceholder = NSAttributedString(string: "Job Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        for i in [firstNameTextField, lastNameTextField, jobTitleTextField] {
-            i?.layer.borderColor = UIColor.white.cgColor
-            i?.layer.borderWidth = 2.0
-            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20).fixedToScreenRatio())
-            i?.leftViewMode = .always
+        firstNameTextField.mainTextField.textContentType = .name
+        lastNameTextField.mainTextField.textContentType = .name
+        jobTitleTextField.mainTextField.textContentType = .jobTitle
+        for textfield in [firstNameTextField, lastNameTextField, jobTitleTextField] {
+            textfield?.mainTextField.autocapitalizationType = .words
+            textfield?.mainTextField.autocorrectionType = .no
         }
         
         // Set up Next Button

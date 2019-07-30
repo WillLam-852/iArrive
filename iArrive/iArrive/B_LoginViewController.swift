@@ -72,8 +72,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         passwordTextField.text = ""
         
         // TO BE DELETED
-        userNameTextField.text = "richard.zhang@apptech.com.hk"
-        passwordTextField.text = "123456"
+//        userNameTextField.text = "richard.zhang@apptech.com.hk"
+//        passwordTextField.text = "123456"
         
         // For first-time open the app
         if !isLoadedLoginPage {
@@ -117,11 +117,19 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                            completion: nil)
             UIView.animate(withDuration: 0.7, delay: 0.5, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.userNameTextField.center.x -= 250
-                self.userNameTextField.layer.opacity = 1.0
+                if self.userNameTextField.mainTextField.text == "" {
+                    self.userNameTextField.layer.opacity = 0.5
+                } else {
+                    self.userNameTextField.layer.opacity = 1.0
+                }
             }, completion: nil)
             UIView.animate(withDuration: 0.7, delay: 0.6, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.passwordTextField.center.x -= 250
-                self.passwordTextField.layer.opacity = 1.0
+                if self.passwordTextField.mainTextField.text == "" {
+                    self.passwordTextField.layer.opacity = 0.5
+                } else {
+                    self.passwordTextField.layer.opacity = 1.0
+                }
             }, completion: nil)
             UIView.animate(withDuration: 0.7, delay: 0.7, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.keepMeLoginButton.center.x -= 250
@@ -277,13 +285,15 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         API().LogInAPI(username: userNameTextField.mainTextField.text!, password: passwordTextField.mainTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
+                self.userNameTextField.mainTextField.text = ""
+                self.passwordTextField.mainTextField.text = ""
                 self.configurateAppearingElements()
                 if self.keepMeLoginButton.isChecked {
                     UserDefaults.standard.set(companyName, forKey: "companyName")
                     UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
                     UserDefaults.standard.synchronize()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.53) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
                     self.loginButton.setTitle("Login", for: .normal)
                 }
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
@@ -322,6 +332,10 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         // Set up UserNameTextField and PasswordTextField
         userNameTextField.placeholderText = "User Name"
         passwordTextField.placeholderText = "Password"
+        userNameTextField.mainTextField.textContentType = .username
+        userNameTextField.mainTextField.autocapitalizationType = .none
+        userNameTextField.mainTextField.autocorrectionType = .no
+        passwordTextField.mainTextField.textContentType = .password
         passwordTextField.mainTextField.isSecureTextEntry = true
         
         // Set up Show Password Button
@@ -364,7 +378,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         
         loginButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio()
         
-        for item in [ApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage, userNameTextField, passwordTextField, keepMeLoginButton, loginButton, iArriveImage] {
+        for item in [ApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage, keepMeLoginButton, loginButton, iArriveImage] {
             item!.layer.opacity = 1.0
         }
     }
