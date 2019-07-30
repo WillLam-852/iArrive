@@ -24,6 +24,7 @@ class animatedTextField: UIView {
     let rightlineView = UIView()
     var borderStatus = 0                // 0 for underline, 1 for whole borders
     var placeholderLabelStatus = 0      // 0 for minified, 1 for magnified
+    var isPlaceholderSetup = false      // For avoiding setting up placeholderlabel repeatedly
     
     // MARK: Properties
     var placeholderText: String? {
@@ -71,13 +72,11 @@ class animatedTextField: UIView {
         mainTextField.textColor = .white
         mainTextField.font = UIFont(name: "NotoSans-SemiBold", size: 20.0)
         
-        placeholderLabel.textColor = .white
+        setupPlaceholder()
         
         if mainTextField.text == "" {
-            setupMagnifiedPlaceholder()
             setupFullBorders()
         } else {
-            setupMinifiedPlaceholder()
             setupUnderlineBorder()
         }
     
@@ -116,12 +115,10 @@ class animatedTextField: UIView {
         }
         
         if mainTextField.text == "" && !mainTextField.isFirstResponder {
-            print("NO")
             if placeholderLabelStatus == 0 {
                 magnifyingPlaceholder()
             }
         } else {
-            print("Yes")
             if placeholderLabelStatus == 1 {
                 minifyingPlaceholder()
             }
@@ -130,9 +127,8 @@ class animatedTextField: UIView {
     
     
     private func magnifyingPlaceholder() {
-        print("magnifying")
         UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-            self.placeholderLabel.transform = self.scaleTransform(from: self.minifiedPlaceholderLabel.frame.size, to: self.magnifiedPlaceholderLabel.frame.size).concatenating(self.translateTransform(from: self.minifiedPlaceholderLabel.center, to: self.magnifiedPlaceholderLabel.center))
+            self.placeholderLabel.transform = .identity
             self.backgroundColor = .clear
             self.layer.opacity = 0.5
         }, completion: { finished in
@@ -141,7 +137,6 @@ class animatedTextField: UIView {
     }
     
     private func minifyingPlaceholder() {
-        print("minifying")
         UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
             self.placeholderLabel.transform = self.scaleTransform(from: self.magnifiedPlaceholderLabel.frame.size, to: self.minifiedPlaceholderLabel.frame.size).concatenating(self.translateTransform(from: self.magnifiedPlaceholderLabel.center, to: self.minifiedPlaceholderLabel.center))
             self.backgroundColor = UIColor.black.withAlphaComponent(0.05)
@@ -151,24 +146,29 @@ class animatedTextField: UIView {
         })
     }
     
-    private func setupMagnifiedPlaceholder() {
+    private func setupPlaceholder() {
         layer.opacity = 0.5
         magnifiedPlaceholderLabel.text = placeholderText
-        magnifiedPlaceholderLabel.font = UIFont(name: "NotoSans-Regular", size: 24.0)
-        magnifiedPlaceholderLabel.frame = CGRect(x: 15.0, y: 20.0, width: magnifiedPlaceholderLabel.intrinsicContentSize.width, height: magnifiedPlaceholderLabel.intrinsicContentSize.height)
-        placeholderLabel.font = magnifiedPlaceholderLabel.font
-        placeholderLabel.frame = magnifiedPlaceholderLabel.frame
-        placeholderLabelStatus = 1
-    }
-    
-    private func setupMinifiedPlaceholder() {
-        layer.opacity = 1.0
+        magnifiedPlaceholderLabel.font = UIFont(name: "NotoSans-SemiBold", size: 24.0)
+        magnifiedPlaceholderLabel.frame = CGRect(x: 15.0, y: 15.0, width: magnifiedPlaceholderLabel.intrinsicContentSize.width, height: magnifiedPlaceholderLabel.intrinsicContentSize.height)
+        magnifiedPlaceholderLabel.textColor = .white
+        
         minifiedPlaceholderLabel.text = placeholderText
-        minifiedPlaceholderLabel.font = UIFont(name: "NotoSans-Bold", size: 12.0)
+        minifiedPlaceholderLabel.font = UIFont(name: "NotoSans-SemiBold", size: 12.0)
         minifiedPlaceholderLabel.frame = CGRect(x: 15.0, y: 10.0, width: minifiedPlaceholderLabel.intrinsicContentSize.width, height: minifiedPlaceholderLabel.intrinsicContentSize.height)
-        placeholderLabel.font = minifiedPlaceholderLabel.font
-        placeholderLabel.frame = minifiedPlaceholderLabel.frame
-        placeholderLabelStatus = 0
+        
+        if !isPlaceholderSetup {
+            placeholderLabel = magnifiedPlaceholderLabel.copyLabel()
+            isPlaceholderSetup = true
+        }
+        
+        if mainTextField.text == "" {   // Large Label
+            placeholderLabelStatus = 1
+        } else {                        // Small Label
+            layer.opacity = 1.0
+            placeholderLabelStatus = 0
+            placeholderLabel.transform = scaleTransform(from: magnifiedPlaceholderLabel.frame.size, to: minifiedPlaceholderLabel.frame.size).concatenating(self.translateTransform(from: magnifiedPlaceholderLabel.center, to: minifiedPlaceholderLabel.center))
+        }
     }
     
     private func setupFullBorders() {
@@ -199,21 +199,13 @@ class animatedTextField: UIView {
     private func scaleTransform(from: CGSize, to: CGSize) -> CGAffineTransform {
         let scaleX = to.width / from.width
         let scaleY = to.height / from.height
-        if scaleX > 1.0 {
-            return CGAffineTransform(scaleX: scaleX, y: scaleY)
-        } else {
-            return CGAffineTransform(scaleX: scaleX*2.0, y: scaleY*2.0)
-        }
+        return CGAffineTransform(scaleX: scaleX, y: scaleY)
     }
     
     private func translateTransform(from: CGPoint, to: CGPoint) -> CGAffineTransform {
         let translateX = to.x - from.x
         let translateY = to.y - from.y
-        if translateY > 1.0 {
-            return CGAffineTransform(translationX: translateX, y: translateY)
-        } else {
-            return CGAffineTransform(translationX: translateX*0.25, y: translateY*0.25)
-        }
+        return CGAffineTransform(translationX: translateX, y: translateY)
     }
     
     

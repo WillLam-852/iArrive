@@ -16,8 +16,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     // MARK: Properties
     @IBOutlet weak var ApptechImage: UIImageView!
     @IBOutlet weak var iArriveImage: UILabel!
-    @IBOutlet weak var userNameTextField: FloatLabelTextField!
-    @IBOutlet weak var passwordTextField: FloatLabelTextField!
+    @IBOutlet weak var userNameTextField: animatedTextField!
+    @IBOutlet weak var passwordTextField: animatedTextField!
     @IBOutlet weak var showPasswordButton: UIButton!
     @IBOutlet weak var keepMeLoginButton: CheckBox!
     @IBOutlet weak var forgotPasswordButton: UIButton!
@@ -36,36 +36,23 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // MARK: Local Variable
     var engChinSegmentedControl = UIView()
-    var isShownPassword = false
-    
-    
-    
-    let testTextField = animatedTextField(frame: CGRect(x: 50, y: 50, width: 320, height: 64))
-    
-    private func setUpTestTextField() {
-        testTextField.placeholderText = "Password"
-        testTextField.text = "k"
-        
-        self.view.addSubview(testTextField)
-        self.view.bringSubviewToFront(testTextField)
-    }
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpTestTextField()
-        
         // Update delegate
-        userNameTextField.delegate = self
-        passwordTextField.delegate = self
+        userNameTextField.mainTextField.delegate = self
+        passwordTextField.mainTextField.delegate = self
         explainTextView.delegate = self
         
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
-        userNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        userNameTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
-        passwordTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
+        userNameTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        passwordTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        userNameTextField.mainTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
+        passwordTextField.mainTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
+        passwordTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
         
         // Associate Button objects with action methods (For updating button background colors and shadows)
         loginButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
@@ -77,15 +64,16 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        configurateElements()
+        configurateDisappearingElements()
+        
         userNameTextField.text = ""
         passwordTextField.text = ""
         
         // TO BE DELETED
         userNameTextField.text = "richard.zhang@apptech.com.hk"
         passwordTextField.text = "123456"
-        
-        configurateElements()
-        configurateDisappearingElements()
         
         // For first-time open the app
         if !isLoadedLoginPage {
@@ -160,12 +148,17 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     // MARK: Action Methods for Text Fields
     // For updating Login button and Show Password button states
     
+    @objc func tapped() {
+        passwordTextField.mainTextField.becomeFirstResponder()
+        showPasswordButton.isHidden = false
+    }
+    
     @objc private func textFieldDidChange(_ textField: UITextField) {
         updatedLoginButtonState()
     }
     
     @objc func textFieldTap(_ textField: UITextField) {
-        if textField === userNameTextField {
+        if textField === userNameTextField.mainTextField {
             showPasswordButton.isHidden = true
         } else {
             showPasswordButton.isHidden = false
@@ -235,8 +228,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // Update Login Button State
     private func updatedLoginButtonState() {
-        let userNameText = userNameTextField.text ?? ""
-        let passwordText = passwordTextField.text ?? ""
+        let userNameText = userNameTextField.mainTextField.text ?? ""
+        let passwordText = passwordTextField.mainTextField.text ?? ""
         loginButton.isEnabled = !userNameText.isEmpty && !passwordText.isEmpty
         if loginButton.isEnabled {
             enableLoginButton()
@@ -262,14 +255,12 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // Hide / Unhide Password when user presses Show Password Button
     @IBAction func pressedShowPasswordButton(_ sender: Any) {
-        if !isShownPassword {
-            passwordTextField.isSecureTextEntry = false
+        if !passwordTextField.mainTextField.isSecureTextEntry {
+            passwordTextField.mainTextField.isSecureTextEntry = true
             showPasswordButton.setImage(UIImage(named: "Unshow"), for: .normal)
-            isShownPassword = true
         } else {
-            passwordTextField.isSecureTextEntry = true
+            passwordTextField.mainTextField.isSecureTextEntry = false
             showPasswordButton.setImage(UIImage(named: "Show"), for: .normal)
-            isShownPassword = false
         }
     }
     
@@ -284,7 +275,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // Go to Sign In Page if the username and password are matched (otherwise an alert message appears)
     @IBAction func pressedLoginButton(_ sender: Any) {
-        API().LogInAPI(username: userNameTextField.text!, password: passwordTextField.text!) { (responseObject, error, isLogIn) in
+        API().LogInAPI(username: userNameTextField.mainTextField.text!, password: passwordTextField.mainTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
                 self.configurateAppearingElements()
                 if self.keepMeLoginButton.isChecked {
@@ -329,19 +320,13 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
         // Set up UserNameTextField and PasswordTextField
-        passwordTextField.setRightPaddingPoints(45)
-        userNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        for i in [userNameTextField, passwordTextField] {
-            i?.layer.borderColor = UIColor.white.cgColor
-            i?.layer.borderWidth = 2.0
-            i?.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20).fixedToScreenRatio())
-            i?.leftViewMode = .always
-        }
+        userNameTextField.placeholderText = "User Name"
+        passwordTextField.placeholderText = "Password"
+        passwordTextField.mainTextField.isSecureTextEntry = true
         
         // Set up Show Password Button
-        showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 35, left: 35, bottom: 35, right: 35);
         showPasswordButton.isHidden = true
+        self.view.bringSubviewToFront(showPasswordButton)
         
         // Set up Text View with Required Fonts and URLs
         let labelText = """
