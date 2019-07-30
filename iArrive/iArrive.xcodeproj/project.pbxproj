@@ -79,6 +79,7 @@
 		7942FCA122D6F5D7000E814F /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FCA022D6F5D7000E814F /* extension.swift */; };
 		79DD845322E0862D009FC7A0 /* TTSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79DD845222E0862C009FC7A0 /* TTSegmentedControl.framework */; };
 		79EEE8A622DDD807003265D6 /* usefulTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE8A522DDD807003265D6 /* usefulTools.swift */; };
+		79F3F2B822E984A800F1F164 /* animatedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F3F2B722E984A800F1F164 /* animatedTextField.swift */; };
 		EA5561651AFCB0EA83321B8A /* Pods_iArrive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C525A21E93AD5946B419B53D /* Pods_iArrive.framework */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +177,7 @@
 		7942FCA022D6F5D7000E814F /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		79DD845222E0862C009FC7A0 /* TTSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79EEE8A522DDD807003265D6 /* usefulTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = usefulTools.swift; sourceTree = "<group>"; };
+		79F3F2B722E984A800F1F164 /* animatedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = animatedTextField.swift; sourceTree = "<group>"; };
 		97C508D6B25C192FBC7F0417 /* Pods-iArrive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iArrive.debug.xcconfig"; path = "Target Support Files/Pods-iArrive/Pods-iArrive.debug.xcconfig"; sourceTree = "<group>"; };
 		B6C58065685A2D644636CF2D /* Pods-iArriveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iArriveTests.release.xcconfig"; path = "Target Support Files/Pods-iArriveTests/Pods-iArriveTests.release.xcconfig"; sourceTree = "<group>"; };
 		C525A21E93AD5946B419B53D /* Pods_iArrive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iArrive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -340,6 +342,7 @@
 				0DFC90F822C350C800B7A7B0 /* globalVariablesFunctions.swift */,
 				7942FCA022D6F5D7000E814F /* extension.swift */,
 				0DFC90F622C34EF700B7A7B0 /* staffMember.swift */,
+				79F3F2B722E984A800F1F164 /* animatedTextField.swift */,
 				0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */,
 				0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */,
 				0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */,
@@ -651,6 +654,7 @@
 				0DCF0F9622C4D3C5003CE196 /* photoCollectionViewCell.swift in Sources */,
 				0DFC90F922C350C900B7A7B0 /* globalVariablesFunctions.swift in Sources */,
 				791B2AAC22CE0C8E004E834F /* B1_1_PhotoDetectedViewController.swift in Sources */,
+				79F3F2B822E984A800F1F164 /* animatedTextField.swift in Sources */,
 				0D67BCF022C60BBA0035D181 /* B3_SelectCorrectViewController.swift in Sources */,
 				7900DB2D22D4813D00760DC7 /* API.swift in Sources */,
 				0D7F8A8322C2331400F0A280 /* A_LoadingViewController.swift in Sources */,

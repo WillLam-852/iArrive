@@ -172,7 +172,7 @@ class FloatLabelTextField: UITextField, UITextFieldDelegate {
 				var r = self.title.frame
 				r.origin.y = self.titleYPadding + 5
 				self.title.frame = r
-			}, completion:nil)
+			}, completion: nil)
 	}
 	
 	fileprivate func hideTitle(_ animated:Bool) {
