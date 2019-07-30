@@ -20,16 +20,16 @@ class B_SignInViewController: UIViewController {
     // MARK: Properties (for animation)
     let appearingApptechImage = UIImageView()
     let appearingiArriveImage = UILabel()
-    let appearingUserNameTextField = FloatLabelTextField()
-    let appearingPasswordTextField = FloatLabelTextField()
+    let appearingUserNameTextField = animatedTextField()
+    let appearingPasswordTextField = animatedTextField()
     let appearingKeepMeLoginButton = CheckBox()
     let appearingForgotPasswordButton = UIButton()
     let appearingExplainTextView = UITextView()
     
     let appearingRegisterLabel = UILabel()
-    let appearingFirstNameTextField = UITextField()
-    let appearingLastNameTextField = UITextField()
-    let appearingJobTitleTextField = UITextField()
+    let appearingFirstNameTextField = animatedTextField()
+    let appearingLastNameTextField = animatedTextField()
+    let appearingJobTitleTextField = animatedTextField()
     let appearingNextButton = UIButton()
     let appearingExplainTextView2 = UITextView()
     let appearingCancelButton = UIButton()
@@ -124,9 +124,13 @@ class B_SignInViewController: UIViewController {
             for item in [self.greetingLabel, self.logoutButton, self.addMemberButton] {
                 item!.layer.opacity = 0.0
             }
-            for item in [self.appearingApptechImage, self.appearingiArriveImage, self.appearingUserNameTextField, self.appearingPasswordTextField, self.appearingKeepMeLoginButton, self.appearingForgotPasswordButton, self.appearingExplainTextView] {
+            for item in [self.appearingApptechImage, self.appearingiArriveImage,  self.appearingKeepMeLoginButton, self.appearingForgotPasswordButton, self.appearingExplainTextView] {
                 item.layer.opacity = 1.0
             }
+            for item in [self.appearingUserNameTextField, self.appearingPasswordTextField, self.checkInOutButton] {
+                item?.layer.opacity = 0.5
+            }
+            self.checkInOutButton.layer.hideShadow()
             self.checkInOutButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio()
             self.checkInOutButton.setTitle("Login", for: .normal)
         }, completion: { finished in
@@ -158,15 +162,15 @@ class B_SignInViewController: UIViewController {
         }, completion: nil)
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
             self.appearingFirstNameTextField.center.x -= 200
-            self.appearingFirstNameTextField.layer.opacity = 1.0
+            self.appearingFirstNameTextField.layer.opacity = 0.5
         }, completion: nil)
         UIView.animate(withDuration: 1.0, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
             self.appearingLastNameTextField.center.x -= 200
-            self.appearingLastNameTextField.layer.opacity = 1.0
+            self.appearingLastNameTextField.layer.opacity = 0.5
         }, completion: nil)
         UIView.animate(withDuration: 1.0, delay: 0.2, usingSpringWithDamping: 0.7, initialSpringVelocity: 5.0, options: [.curveEaseOut], animations: {
             self.appearingJobTitleTextField.center.x -= 200
-            self.appearingJobTitleTextField.layer.opacity = 1.0
+            self.appearingJobTitleTextField.layer.opacity = 0.5
         }, completion: { finished in
             self.performSegue(withIdentifier: "SignIntoRegisterSegue", sender: self)
         })
@@ -227,8 +231,8 @@ class B_SignInViewController: UIViewController {
         // Set up Appearing elements positions
         appearingApptechImage.frame = CGRect(x: 319.0, y: 130.0, width: 130.0, height: 128.0).fixedToScreenRatio()
         appearingiArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).fixedToScreenRatio()
-        appearingUserNameTextField.frame = CGRect(x: 224.0, y: 374.0, width: 320.0, height: 64.0).fixedToScreenRatio()
-        appearingPasswordTextField.frame = CGRect(x: 224.0, y: 454.0, width: 320.0, height: 64.0).fixedToScreenRatio()
+        appearingUserNameTextField.frame = CGRect(x: 224.0, y: 356.0, width: 320.0, height: 64.0).fixedToScreenRatio()
+        appearingPasswordTextField.frame = CGRect(x: 224.0, y: 438.0, width: 320.0, height: 64.0).fixedToScreenRatio()
         appearingKeepMeLoginButton.frame = CGRect(x: 224.0, y: 530.0, width: 150.0, height: 34.0).fixedToScreenRatio()
         appearingForgotPasswordButton.frame = CGRect(x: 398.0, y: 530.0, width: 146.0, height: 34.0).fixedToScreenRatio()
         appearingExplainTextView.frame = CGRect(x: 224.0, y: 664.0, width: 320.0, height: 60.0).fixedToScreenRatio()
@@ -248,23 +252,19 @@ class B_SignInViewController: UIViewController {
         appearingiArriveImage.font = UIFont(name: "Montserrat-Bold", size: 36.0)
         appearingiArriveImage.textColor = .white
         
-        // TO BE DELETED
-        appearingUserNameTextField.text = "richard.zhang@apptech.com.hk"
-        appearingPasswordTextField.text = "123456"
-        
         // Set up UserNameTextField and PasswordTextField
-        appearingUserNameTextField.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        appearingPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        appearingPasswordTextField.isSecureTextEntry = true
-        for item in [appearingUserNameTextField, appearingPasswordTextField] {
-            item.font = UIFont(name: "NotoSans-Regular", size: 24.0)
-            item.textColor = .white
-            item.titleActiveTextColour = UIColor.white
-            item.layer.borderColor = UIColor.white.cgColor
-            item.layer.borderWidth = 2.0
-            item.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20).fixedToScreenRatio())
-            item.leftViewMode = .always
-        }
+        appearingUserNameTextField.placeholderText = "User Name"
+        appearingPasswordTextField.placeholderText = "Password"
+        appearingPasswordTextField.mainTextField.isSecureTextEntry = true
+        appearingUserNameTextField.isUserInteractionEnabled = false
+        appearingPasswordTextField.isUserInteractionEnabled = false
+        
+        appearingUserNameTextField.text = ""
+        appearingPasswordTextField.text = ""
+            
+        // TO BE DELETED
+//        appearingUserNameTextField.text = "richard.zhang@apptech.com.hk"
+//        appearingPasswordTextField.text = "123456"
         
         // Set up Keep Me Login and Forgot Password Buttons
         appearingKeepMeLoginButton.setTitle("    Keep Me Login", for: .normal)
@@ -305,15 +305,12 @@ class B_SignInViewController: UIViewController {
         appearingRegisterLabel.text = "Register"
         
         // Set up Text Fields
-        appearingFirstNameTextField.attributedPlaceholder = NSAttributedString(string: "First Name", attributes: [.foregroundColor: UIColor.white])
-        appearingLastNameTextField.attributedPlaceholder = NSAttributedString(string: "Last Name", attributes: [.foregroundColor: UIColor.white])
-        appearingJobTitleTextField.attributedPlaceholder = NSAttributedString(string: "Job Title", attributes: [.foregroundColor: UIColor.white])
-        for item in [appearingFirstNameTextField, appearingLastNameTextField, appearingJobTitleTextField] {
-            item.font = UIFont(name: "NotoSans-Regular", size: 24.0)
-            item.layer.borderColor = UIColor.white.cgColor
-            item.layer.borderWidth = 2.0
-            item.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20).fixedToScreenRatio())
-            item.leftViewMode = .always
+        appearingFirstNameTextField.placeholderText = "First Name"
+        appearingLastNameTextField.placeholderText = "Last Name"
+        appearingJobTitleTextField.placeholderText = "Job Title"
+        for appearingtextfield in [appearingFirstNameTextField, appearingLastNameTextField, appearingJobTitleTextField] {
+            appearingtextfield.text = ""
+            appearingtextfield.isUserInteractionEnabled = false
         }
         
         // Set up Next Button
