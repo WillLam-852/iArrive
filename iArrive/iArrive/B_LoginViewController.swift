@@ -39,8 +39,22 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     var isShownPassword = false
     
     
+    
+    let testTextField = animatedTextField(frame: CGRect(x: 50, y: 50, width: 320, height: 64))
+    
+    private func setUpTestTextField() {
+        testTextField.placeholderText = "Password"
+        testTextField.text = "k"
+        
+        self.view.addSubview(testTextField)
+        self.view.bringSubviewToFront(testTextField)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setUpTestTextField()
         
         // Update delegate
         userNameTextField.delegate = self

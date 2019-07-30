@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 import Alamofire
 
 
@@ -89,5 +90,19 @@ extension CGRect {
         let newHeight = height / 1024.0 * UIScreen.main.bounds.height
         newPosition = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
         return newPosition
+    }
+}
+
+
+// Extension on UILabel to make a duplicated label
+extension UILabel {
+    func copyLabel() -> UILabel {
+        let label = UILabel()
+        label.font = self.font
+        label.frame = self.frame
+        label.text = self.text
+        label.textColor = self.textColor
+        label.backgroundColor = self.backgroundColor
+        return label
     }
 }
