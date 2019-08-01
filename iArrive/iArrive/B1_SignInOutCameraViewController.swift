@@ -126,7 +126,11 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         // Wait for 0.2 second for the image being captured
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: {
             self.view.removeGestureRecognizer(self.tap)
-            self.loadingView = usefulTools().animatedLoadingView()
+            if self.imageView.getColor(at: CGPoint(x: self.view.center.x + 50, y: self.view.center.y - 50)).isDarkColor || self.imageView.getColor(at: CGPoint(x: self.view.center.x - 50, y: self.view.center.y - 50)).isDarkColor || self.imageView.getColor(at: CGPoint(x: self.view.center.x + 50, y: self.view.center.y + 50)).isDarkColor {
+                self.loadingView = usefulTools().animatedLoadingView(textColor: UIColor.white)
+            } else {
+                self.loadingView = usefulTools().animatedLoadingView(textColor: publicFunctions().hexStringToUIColor(hex: "#2E4365"))
+            }
             self.view.addSubview(self.loadingView)
             self.homeButton.isHidden = true
             self.timeLabel.isHidden = true

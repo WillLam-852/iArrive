@@ -24,7 +24,7 @@ class usefulTools {
     
     
     // For adding an animated loading view
-    public func animatedLoadingView() -> UIView {
+    public func animatedLoadingView(textColor: UIColor) -> UIView {
         let loadingView = UIView(frame: UIScreen.main.bounds)
         loadingView.contentMode = .scaleAspectFit
         loadingView.backgroundColor = UIColor.clear
@@ -75,7 +75,7 @@ class usefulTools {
             let loadingLabel = UILabel()
             loadingLabel.text = "Loading"
             loadingLabel.font = UIFont(name: "NotoSans-Medium", size: 24)
-            loadingLabel.textColor = publicFunctions().hexStringToUIColor(hex: "#2E4365")
+            loadingLabel.textColor = textColor
             loadingLabel.textAlignment = .center
             loadingLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
             loadingLabel.center = CGPoint(x: loadingView.center.x, y: loadingView.center.y-30)

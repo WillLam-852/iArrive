@@ -106,3 +106,36 @@ extension UILabel {
         return label
     }
 }
+
+
+// Extension on UIColor to determine if it is light or dark color
+extension UIColor
+{
+    var isDarkColor: Bool {
+        var r, g, b, a: CGFloat
+        (r, g, b, a) = (0, 0, 0, 0)
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        let lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        print(lum)
+        return  lum < 0.55 ? true : false
+    }
+}
+
+
+// Extension on UIView to get a color from a point
+extension UIView {
+    func getColor(at point: CGPoint) -> UIColor{
+        let pixel = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: 4)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: pixel, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+        context.translateBy(x: -point.x, y: -point.y)
+        self.layer.render(in: context)
+        let color = UIColor(red:   CGFloat(pixel[0]) / 255.0,
+                            green: CGFloat(pixel[1]) / 255.0,
+                            blue:  CGFloat(pixel[2]) / 255.0,
+                            alpha: CGFloat(pixel[3]) / 255.0)
+        pixel.deallocate()
+        return color
+    }
+}
