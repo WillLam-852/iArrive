@@ -19,6 +19,7 @@ class B1_1_PhotoDetectedViewController: UIViewController {
     @IBOutlet weak var checkInOutButton: UIButton!
     @IBOutlet weak var notMeButton: UIButton!
     @IBOutlet weak var tryAgainButton: UIButton!
+    var backgroundImageView : UIImageView!
     
     
     // MARK: Local Variables
@@ -56,13 +57,12 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         }
         
         // Set up Background Image with Blur Effect
-        var imageView : UIImageView!
-        imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = currentCheckingInOutPhoto
-        imageView.transform = CGAffineTransform(scaleX: -1, y: 1)
-        imageView.center = view.center
+        backgroundImageView = UIImageView(frame: view.bounds)
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.clipsToBounds = true
+        backgroundImageView.image = currentCheckingInOutPhoto
+        backgroundImageView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        backgroundImageView.center = view.center
         let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.alpha = 0.9
@@ -108,13 +108,20 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         notMeButton.layer.cornerRadius = 28
         
         // Set up Try Again Button
-        tryAgainButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365"), for: .normal)
-        tryAgainButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
-        tryAgainButton.setImage(UIImage(named: "TryAgainBack"), for: .normal)
-        tryAgainButton.setImage(UIImage(named: "HighlightedTryAgainArrow"), for: .highlighted)
+        if self.backgroundImageView.getColor(at: tryAgainButton.center).isDarkColor && (self.backgroundImageView.getColor(at: CGPoint(x: tryAgainButton.center.x - 50, y: tryAgainButton.center.y - 50)).isDarkColor || self.backgroundImageView.getColor(at: CGPoint(x: tryAgainButton.center.x + 50, y: tryAgainButton.center.y + 50)).isDarkColor) {
+            tryAgainButton.setTitleColor(UIColor.white, for: .normal)
+            tryAgainButton.setTitleColor(UIColor.white.withAlphaComponent(0.3), for: .highlighted)
+            tryAgainButton.setImage(UIImage(named: "WhiteTryAgainArrow"), for: .normal)
+            tryAgainButton.setImage(UIImage(named: "HighlightedWhiteTryAgainArrow"), for: .highlighted)
+        } else {
+            tryAgainButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365"), for: .normal)
+            tryAgainButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
+            tryAgainButton.setImage(UIImage(named: "TryAgainBack"), for: .normal)
+            tryAgainButton.setImage(UIImage(named: "HighlightedTryAgainArrow"), for: .highlighted)
+        }
         
         // Rearrange the order of Different layers
-        self.view.insertSubview(imageView, at: 0)
+        self.view.insertSubview(backgroundImageView, at: 0)
         self.view.insertSubview(blurEffectView, at: 1)
         self.view.insertSubview(upperLayerView, at: 2)
         upperLayerView.insertSubview(iconImageView, at: 3)

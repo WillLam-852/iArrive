@@ -68,8 +68,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         passwordTextField.text = ""
         
         // TO BE DELETED
-//        userNameTextField.text = "richard.zhang@apptech.com.hk"
-//        passwordTextField.text = "123456"
+        userNameTextField.text = "richard.zhang@apptech.com.hk"
+        passwordTextField.text = "123456"
         
         // For first-time open the app
         if !isLoadedLoginPage {

@@ -23,7 +23,6 @@ class animatedTextField: UIView {
     let leftlineView = UIView()
     let rightlineView = UIView()
     let showPasswordButton = UIButton()
-    var temp_no = 1
     var borderStatus = 0                // 0 for underline, 1 for whole borders
     var placeholderLabelStatus = 0      // 0 for minified, 1 for magnified
     var isPlaceholderSetup = false      // For avoiding setting up placeholderlabel repeatedly
@@ -203,8 +202,6 @@ class animatedTextField: UIView {
     }
     
     private func setupFullBorders() {
-        temp_no+=1
-        print("\(temp_no) setupFullBorders")
         layer.borderWidth = bordersWidth
         underlineView.frame = CGRect(x: bordersWidth*2, y: self.frame.height-bordersWidth, width: self.frame.width-bordersWidth*4, height: bordersWidth)
         upperlineView.frame = CGRect(x: bordersWidth*2, y: 0, width: self.frame.width-bordersWidth*4, height: bordersWidth)
@@ -214,8 +211,6 @@ class animatedTextField: UIView {
     }
     
     private func setupHalfBorders() {
-        temp_no+=1
-        print("\(temp_no) setupHalfBorders")
         underlineView.frame = CGRect(x: 0.0, y: self.frame.height-bordersWidth, width: self.frame.width, height: bordersWidth)
         upperlineView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: bordersWidth)
         leftlineView.frame = CGRect(x: 0.0, y: 0.0, width: bordersWidth, height: self.frame.height)
@@ -223,8 +218,6 @@ class animatedTextField: UIView {
     }
     
     private func setupUnderlineBorder() {
-        temp_no+=1
-        print("\(temp_no) setupUnderlineBorder")
         layer.borderWidth = 0.0
         underlineView.frame = CGRect(x: 0.0, y: self.frame.height-bordersWidth*1.5, width: self.frame.width, height: bordersWidth*1.5)
         upperlineView.frame = underlineView.frame
