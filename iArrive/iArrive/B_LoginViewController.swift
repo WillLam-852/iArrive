@@ -18,7 +18,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet weak var iArriveImage: UILabel!
     @IBOutlet weak var userNameTextField: animatedTextField!
     @IBOutlet weak var passwordTextField: animatedTextField!
-    @IBOutlet weak var showPasswordButton: UIButton!
     @IBOutlet weak var keepMeLoginButton: CheckBox!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
@@ -50,9 +49,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
         userNameTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         passwordTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        userNameTextField.mainTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
-        passwordTextField.mainTextField.addTarget(self, action: #selector(textFieldTap), for: .touchDown)
-        passwordTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
         
         // Associate Button objects with action methods (For updating button background colors and shadows)
         loginButton.addTarget(self, action: #selector(buttonPressing), for: .touchDown)
@@ -148,7 +144,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     // Hide keyboard when user tap space outside text field
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-        showPasswordButton.isHidden = true
+//        showPasswordButton.isHidden = true
     }
     
     
@@ -156,23 +152,9 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     // MARK: Action Methods for Text Fields
     // For updating Login button and Show Password button states
     
-    @objc func tapped() {
-        passwordTextField.mainTextField.becomeFirstResponder()
-        showPasswordButton.isHidden = false
-    }
-    
     @objc private func textFieldDidChange(_ textField: UITextField) {
         updatedLoginButtonState()
     }
-    
-    @objc func textFieldTap(_ textField: UITextField) {
-        if textField === userNameTextField.mainTextField {
-            showPasswordButton.isHidden = true
-        } else {
-            showPasswordButton.isHidden = false
-        }
-    }
-    
     
     
     // MARK: Action Methods for Buttons
@@ -261,17 +243,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // MARK: Actions
     
-    // Hide / Unhide Password when user presses Show Password Button
-    @IBAction func pressedShowPasswordButton(_ sender: Any) {
-        if !passwordTextField.mainTextField.isSecureTextEntry {
-            passwordTextField.mainTextField.isSecureTextEntry = true
-            showPasswordButton.setImage(UIImage(named: "Unshow"), for: .normal)
-        } else {
-            passwordTextField.mainTextField.isSecureTextEntry = false
-            showPasswordButton.setImage(UIImage(named: "Show"), for: .normal)
-        }
-    }
-    
     // Open URL when user presses Forgot Passord Button
     @IBAction func pressedForgotPassordButton(_ sender: Any) {
         UIApplication.shared.open(NSURL(string: forgotPasswordLink)! as URL)
@@ -336,11 +307,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         userNameTextField.mainTextField.autocapitalizationType = .none
         userNameTextField.mainTextField.autocorrectionType = .no
         passwordTextField.mainTextField.textContentType = .password
-        passwordTextField.mainTextField.isSecureTextEntry = true
-        
-        // Set up Show Password Button
-        showPasswordButton.isHidden = true
-        self.view.bringSubviewToFront(showPasswordButton)
+        passwordTextField.isSecureTextEntry = true
         
         // Set up Text View with Required Fonts and URLs
         let labelText = """

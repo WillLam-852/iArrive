@@ -114,20 +114,11 @@ Terms of Service and Privacy Policy</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3o-FY-jaa">
-                                <rect key="frame" x="480" y="438" width="64" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <inset key="imageEdgeInsets" minX="17" minY="17" maxX="17" maxY="17"/>
-                                <state key="normal" image="Unshow"/>
-                                <connections>
-                                    <action selector="pressedShowPasswordButton:" destination="7cn-WA-HRt" eventType="touchUpInside" id="m3k-wO-Q7n"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJq-HI-ltU" customClass="animatedTextField" customModule="iArrive" customModuleProvider="target">
                                 <rect key="frame" x="224" y="438" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.21960784310000001" green="0.78823529410000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -145,7 +136,6 @@ Terms of Service and Privacy Policy</string>
                         <outlet property="loginButton" destination="5Mf-3j-MiC" id="xUE-5W-T1u"/>
                         <outlet property="passwordTextField" destination="bJq-HI-ltU" id="gSo-nz-ar5"/>
                         <outlet property="poweredByLabel" destination="nEF-It-bW6" id="J8H-Om-P34"/>
-                        <outlet property="showPasswordButton" destination="O3o-FY-jaa" id="H2S-j1-LQo"/>
                         <outlet property="userNameTextField" destination="ea5-wj-lUv" id="a3v-ad-P0E"/>
                         <segue destination="kc3-S3-wjp" kind="showDetail" identifier="LogintoSignInSegue" animates="NO" id="FJQ-zf-QEl"/>
                     </connections>
@@ -406,7 +396,7 @@ Terms of Service and Privacy Policy</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHG-8y-UYm">
-                                <rect key="frame" x="20" y="40" width="175" height="44"/>
+                                <rect key="frame" x="20" y="40" width="175" height="49"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="13" maxY="0.0"/>
                                 <state key="normal" title="      HOME" image="HomeArrow">
@@ -418,13 +408,13 @@ Terms of Service and Privacy Policy</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TimeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIj-hT-FaE">
-                                <rect key="frame" x="164" y="35" width="442" height="54"/>
+                                <rect key="frame" x="164" y="35" width="442" height="59"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="56"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbr-7J-lLd">
-                                <rect key="frame" x="164" y="98" width="442" height="33"/>
+                                <rect key="frame" x="164" y="103" width="442" height="28"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -880,7 +870,6 @@ Terms of Service and Privacy Policy</string>
         <image name="PaleBlueBack" width="16" height="16"/>
         <image name="RegisterCameraView" width="140" height="140"/>
         <image name="TryAgainBack" width="16" height="16"/>
-        <image name="Unshow" width="16" height="16"/>
         <image name="ic_check_box_outline_blank" width="12" height="12"/>
     </resources>
 </document>

@@ -22,6 +22,8 @@ class animatedTextField: UIView {
     let upperlineView = UIView()
     let leftlineView = UIView()
     let rightlineView = UIView()
+    let showPasswordButton = UIButton()
+    var temp_no = 1
     var borderStatus = 0                // 0 for underline, 1 for whole borders
     var placeholderLabelStatus = 0      // 0 for minified, 1 for magnified
     var isPlaceholderSetup = false      // For avoiding setting up placeholderlabel repeatedly
@@ -48,6 +50,16 @@ class animatedTextField: UIView {
         }
     }
     
+    var isSecureTextEntry: Bool? {
+        didSet {
+            if isSecureTextEntry == true {
+                setupShowPasswordButton()
+                mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-30.0-self.frame.height, height: frame.height-20.0)
+                mainTextField.isSecureTextEntry = true
+            }
+        }
+    }
+    
     // MARK: Initialization
     required init?(coder aDecoder:NSCoder) {
         super.init(coder:aDecoder)
@@ -68,7 +80,11 @@ class animatedTextField: UIView {
             borderSubview.backgroundColor = .white
         }
         
-        mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-30.0, height: frame.height-20.0)
+        if isSecureTextEntry == true {
+            mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-30.0-self.frame.height, height: frame.height-20.0)
+        } else {
+            mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-30.0, height: frame.height-20.0)
+        }
         mainTextField.textColor = .white
         mainTextField.font = UIFont(name: "NotoSans-SemiBold", size: 20.0)
         
@@ -91,6 +107,18 @@ class animatedTextField: UIView {
         mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         mainTextField.addTarget(self, action: #selector(textFieldCancel), for: .editingDidEnd)
     }
+    
+    private func setupShowPasswordButton() {
+        showPasswordButton.frame = CGRect(x: self.frame.width - self.frame.height, y: 0, width: self.frame.height, height: self.frame.height)
+        showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 19, left: 19, bottom: 19, right: 19)
+        showPasswordButton.setImage(UIImage(named: "Unshow"), for: .normal)
+        showPasswordButton.contentHorizontalAlignment = .fill
+        showPasswordButton.contentVerticalAlignment = .fill
+        showPasswordButton.isHidden = true
+        showPasswordButton.addTarget(self, action: #selector(showPasswordButtonAction), for: .touchUpInside)
+        self.addSubview(showPasswordButton)
+        self.bringSubviewToFront(showPasswordButton)
+    }
 
     
     private func updateTextFieldStatus() {
@@ -111,6 +139,9 @@ class animatedTextField: UIView {
                 self.setupUnderlineBorder()
             }, completion: { finish in
                 self.borderStatus = 0
+            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
+                self.setupUnderlineBorder()
             })
         }
         
@@ -172,6 +203,8 @@ class animatedTextField: UIView {
     }
     
     private func setupFullBorders() {
+        temp_no+=1
+        print("\(temp_no) setupFullBorders")
         layer.borderWidth = bordersWidth
         underlineView.frame = CGRect(x: bordersWidth*2, y: self.frame.height-bordersWidth, width: self.frame.width-bordersWidth*4, height: bordersWidth)
         upperlineView.frame = CGRect(x: bordersWidth*2, y: 0, width: self.frame.width-bordersWidth*4, height: bordersWidth)
@@ -181,6 +214,8 @@ class animatedTextField: UIView {
     }
     
     private func setupHalfBorders() {
+        temp_no+=1
+        print("\(temp_no) setupHalfBorders")
         underlineView.frame = CGRect(x: 0.0, y: self.frame.height-bordersWidth, width: self.frame.width, height: bordersWidth)
         upperlineView.frame = CGRect(x: 0.0, y: 0.0, width: self.frame.width, height: bordersWidth)
         leftlineView.frame = CGRect(x: 0.0, y: 0.0, width: bordersWidth, height: self.frame.height)
@@ -188,6 +223,8 @@ class animatedTextField: UIView {
     }
     
     private func setupUnderlineBorder() {
+        temp_no+=1
+        print("\(temp_no) setupUnderlineBorder")
         layer.borderWidth = 0.0
         underlineView.frame = CGRect(x: 0.0, y: self.frame.height-bordersWidth*1.5, width: self.frame.width, height: bordersWidth*1.5)
         upperlineView.frame = underlineView.frame
@@ -215,18 +252,47 @@ class animatedTextField: UIView {
     @objc func tapped() {
         mainTextField.becomeFirstResponder()
         updateTextFieldStatus()
+        if mainTextField.text == "" {
+            showPasswordButton.isHidden = true
+        } else {
+            showPasswordButton.isHidden = false
+        }
     }
     
     @objc func textFieldTap(_ textField: UITextField) {
         mainTextField.becomeFirstResponder()
+        if mainTextField.text == "" {
+            showPasswordButton.isHidden = true
+        } else {
+            showPasswordButton.isHidden = false
+        }
         updateTextFieldStatus()
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
         updateTextFieldStatus()
+        if mainTextField.text == "" {
+            showPasswordButton.isHidden = true
+        } else {
+            showPasswordButton.isHidden = false
+        }
     }
     
     @objc func textFieldCancel(_ textField: UITextField) {
         updateTextFieldStatus()
+        showPasswordButton.isHidden = true
+    }
+    
+    
+    // MARK: Action Method for showPasswordButton
+    
+    @objc func showPasswordButtonAction(sender: UIButton!) {
+        if !mainTextField.isSecureTextEntry {
+            mainTextField.isSecureTextEntry = true
+            showPasswordButton.setImage(UIImage(named: "Unshow"), for: .normal)
+        } else {
+            mainTextField.isSecureTextEntry = false
+            showPasswordButton.setImage(UIImage(named: "Show"), for: .normal)
+        }
     }
 }
