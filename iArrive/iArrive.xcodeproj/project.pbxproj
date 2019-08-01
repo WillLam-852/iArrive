@@ -57,9 +57,6 @@
 		0DBBA91422C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8F022C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf */; };
 		0DBBA91522C36B5D00607511 /* NotoSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8F122C36B5D00607511 /* NotoSans-Medium.ttf */; };
 		0DBBA91622C36B5D00607511 /* NotoSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DBBA8F222C36B5D00607511 /* NotoSans-MediumItalic.ttf */; };
-		0DBBA91E22C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
-		0DBBA91F22C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
-		0DBBA92022C378BC00607511 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */; };
 		0DCF0F8E22C4A1F9003CE196 /* B_LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */; };
 		0DCF0F9022C4AE4A003CE196 /* C_RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */; };
 		0DCF0F9222C4B7E4003CE196 /* C1_CameraRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */; };
@@ -157,7 +154,6 @@
 		0DBBA8F022C36B5D00607511 /* NotoSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		0DBBA8F122C36B5D00607511 /* NotoSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Medium.ttf"; sourceTree = "<group>"; };
 		0DBBA8F222C36B5D00607511 /* NotoSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-MediumItalic.ttf"; sourceTree = "<group>"; };
-		0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
 		0DCF0F8D22C4A1F9003CE196 /* B_LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = B_LoginViewController.swift; sourceTree = "<group>"; };
 		0DCF0F8F22C4AE4A003CE196 /* C_RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C_RegisterViewController.swift; sourceTree = "<group>"; };
 		0DCF0F9122C4B7E4003CE196 /* C1_CameraRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C1_CameraRegisterViewController.swift; sourceTree = "<group>"; };
@@ -343,7 +339,6 @@
 				7942FCA022D6F5D7000E814F /* extension.swift */,
 				0DFC90F622C34EF700B7A7B0 /* staffMember.swift */,
 				79F3F2B722E984A800F1F164 /* animatedTextField.swift */,
-				0DBBA91D22C378BB00607511 /* FloatLabelTextField.swift */,
 				0DCF0F9522C4D3C5003CE196 /* photoCollectionViewCell.swift */,
 				0D241FEF22C617E60039E7EE /* selectStaffTableViewCell.swift */,
 			);
@@ -658,7 +653,6 @@
 				0D67BCF022C60BBA0035D181 /* B3_SelectCorrectViewController.swift in Sources */,
 				7900DB2D22D4813D00760DC7 /* API.swift in Sources */,
 				0D7F8A8322C2331400F0A280 /* A_LoadingViewController.swift in Sources */,
-				0DBBA91E22C378BC00607511 /* FloatLabelTextField.swift in Sources */,
 				7942FCA122D6F5D7000E814F /* extension.swift in Sources */,
 				0D7F8A8122C2331400F0A280 /* AppDelegate.swift in Sources */,
 				7925EFFA22CDF4F5000B0B03 /* B1_SignInOutCameraViewController.swift in Sources */,
@@ -675,7 +669,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DBBA91F22C378BC00607511 /* FloatLabelTextField.swift in Sources */,
 				0D7F8A9622C2331800F0A280 /* iArriveTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,7 +677,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DBBA92022C378BC00607511 /* FloatLabelTextField.swift in Sources */,
 				0D7F8AA122C2331900F0A280 /* iArriveUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
