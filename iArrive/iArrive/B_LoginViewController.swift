@@ -68,8 +68,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         passwordTextField.text = ""
         
         // TO BE DELETED
-        userNameTextField.text = "richard.zhang@apptech.com.hk"
-        passwordTextField.text = "123456"
+//        userNameTextField.text = "richard.zhang@apptech.com.hk"
+//        passwordTextField.text = "123456"
         
         // For first-time open the app
         if !isLoadedLoginPage {
@@ -256,8 +256,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         API().LogInAPI(username: userNameTextField.mainTextField.text!, password: passwordTextField.mainTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
-                self.userNameTextField.mainTextField.text = ""
-                self.passwordTextField.mainTextField.text = ""
                 self.configurateAppearingElements()
                 if self.keepMeLoginButton.isChecked {
                     UserDefaults.standard.set(companyName, forKey: "companyName")
@@ -265,6 +263,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     UserDefaults.standard.synchronize()
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
+                    self.userNameTextField.text = ""
+                    self.passwordTextField.text = ""
                     self.loginButton.setTitle("Login", for: .normal)
                 }
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {

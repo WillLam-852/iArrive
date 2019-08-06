@@ -44,6 +44,8 @@ class animatedTextField: UIView {
             if text != "" {
                 mainTextField.text = text
                 text = ""
+            } else {
+                mainTextField.text = ""
             }
             setup()
         }
@@ -53,7 +55,7 @@ class animatedTextField: UIView {
         didSet {
             if isSecureTextEntry == true {
                 setupShowPasswordButton()
-                mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-30.0-self.frame.height, height: frame.height-20.0)
+                mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-15.0-self.frame.height, height: frame.height-20.0)
                 mainTextField.isSecureTextEntry = true
             }
         }
@@ -80,7 +82,7 @@ class animatedTextField: UIView {
         }
         
         if isSecureTextEntry == true {
-            mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-30.0-self.frame.height, height: frame.height-20.0)
+            mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-15.0-self.frame.height, height: frame.height-20.0)
         } else {
             mainTextField.frame = CGRect(x: 15.0, y: 20.0, width: frame.width-30.0, height: frame.height-20.0)
         }
@@ -194,6 +196,7 @@ class animatedTextField: UIView {
         
         if mainTextField.text == "" {   // Large Label
             placeholderLabelStatus = 1
+            placeholderLabel.transform = .identity
         } else {                        // Small Label
             layer.opacity = 1.0
             placeholderLabelStatus = 0

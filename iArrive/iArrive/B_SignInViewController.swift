@@ -127,12 +127,14 @@ class B_SignInViewController: UIViewController {
             for item in [self.appearingApptechImage, self.appearingiArriveImage,  self.appearingKeepMeLoginButton, self.appearingForgotPasswordButton, self.appearingExplainTextView] {
                 item.layer.opacity = 1.0
             }
-            for item in [self.appearingUserNameTextField, self.appearingPasswordTextField, self.checkInOutButton] {
-                item?.layer.opacity = 0.5
+            for item in [self.appearingUserNameTextField, self.appearingPasswordTextField] {
+                item.layer.opacity = 0.5
             }
             self.checkInOutButton.layer.hideShadow()
             self.checkInOutButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio()
             self.checkInOutButton.setTitle("Login", for: .normal)
+            self.checkInOutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
+            self.checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         }, completion: { finished in
             if UserDefaults.standard.bool(forKey: "isUserLoggedIn") {
                 self.performSegue(withIdentifier: "SignIntoLogInSegue", sender: self)
