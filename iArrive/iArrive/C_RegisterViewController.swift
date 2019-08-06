@@ -19,15 +19,17 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     @IBOutlet weak var jobTitleTextField: animatedTextField!
     @IBOutlet weak var explainTextView: UITextView!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var poweredByLabel: UILabel!
+    @IBOutlet weak var bottomBarLogoImage: UIImageView!
     @IBOutlet weak var bottomBar: UILabel!
     
     var backgroundColorView: UIView!
     
     // MARK: Properties (for animation)
-    let greetingLabel = UILabel()
-    let logoutButton = UIButton()
-    let checkInOutButton = UIButton()
-    let addMemberLabel = UILabel()
+    let appearingGreetingLabel = UILabel()
+    let appearingLogoutButton = UIButton()
+    let appearingCheckInOutButton = UIButton()
+    let appearingAddMemberLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,15 +39,6 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         lastNameTextField.mainTextField.delegate = self
         jobTitleTextField.mainTextField.delegate = self
         explainTextView.delegate = self
-        
-        // Set up Background and Bottom Bar Color
-        addBackgroundGradientColors()
-        backgroundColorView = UIView()
-        backgroundColorView.frame = self.view.frame
-        backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.1)
-        backgroundColorView.isUserInteractionEnabled = false
-        self.view.insertSubview(backgroundColorView, at: 1)
-        bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
         
         configurateElements()
         configurateAppearingElements()
@@ -182,7 +175,64 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         nextButton.layer.hideShadow()
     }
     
+    
+    
+    // MARK: Navigation
+    
+    // Back to Sign In Page when user presses Cancel button
+    @IBAction func pressedCancelButton(_ sender: Any) {
+        currentRegisteringFirstName = nil
+        currentRegisteringLastName = nil
+        currentRegisteringJobTitle = nil
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: [], animations: {
+            for item in [self.registerLabel, self.firstNameTextField, self.lastNameTextField, self.jobTitleTextField, self.nextButton, self.explainTextView, self.cancelButton] {
+                item!.layer.opacity = 0.0
+            }
+            for item in [self.appearingGreetingLabel, self.appearingLogoutButton, self.appearingCheckInOutButton, self.appearingAddMemberLabel] {
+                item.layer.opacity = 1.0
+            }
+            self.backgroundColorView.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).centreRatio()
+            self.backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
+        }, completion: { finished in
+            self.dismiss(animated: false, completion: nil)
+        })
+    }
+    
+    // Go to Camera Register Page when user presses Next button if there is no repeating name in the database (otherwise an alert message appears)
+    @IBAction func pressedNextButton(_ sender: UIButton) {
+        if staffNameList.contains(where: {(staff : staffMember) -> Bool in
+            return (staff.firstName.lowercased() == currentRegisteringFirstName!.lowercased()) && (staff.lastName.lowercased() == currentRegisteringLastName!.lowercased())
+        }){
+            let alert = UIAlertController(title: "Existing Staff Name", message: "Please input a new staff", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        } else {
+            performSegue(withIdentifier: "RegistertoCameraSegue", sender: self)
+        }
+    }
+    
     private func configurateElements() {
+        // Set up postions
+        registerLabel.frame = CGRect(x: 297.0, y: 154.0, width: 174.0, height: 43.0).centreRatio()
+        firstNameTextField.frame = CGRect(x: 224.0, y: 260.0, width: 320.0, height: 64.0).centreRatio()
+        lastNameTextField.frame = CGRect(x: 224.0, y: 340.0, width: 320.0, height: 64.0).centreRatio()
+        jobTitleTextField.frame = CGRect(x: 224.0, y: 420.0, width: 320.0, height: 64.0).centreRatio()
+        nextButton.frame = CGRect(x: 224.0, y: 554.0, width: 320.0, height: 56.0).centreRatio()
+        explainTextView.frame = CGRect(x: 224.0, y: 618.0, width: 320.0, height: 61.0).centreRatio()
+        cancelButton.frame = CGRect(x: 175.0, y: 736.0, width: 158.0, height: 33.0).centreRatio()
+        poweredByLabel.frame = CGRect(x: 273, y: screenHeight-42.5, width: 113, height: 27.5).x_centreRatio()
+        bottomBarLogoImage.frame = CGRect(x: 394, y: screenHeight-44, width: 112, height: 29).x_centreRatio()
+        bottomBar.frame = CGRect(x: 0, y: screenHeight-59, width: screenWidth, height: 59)
+        
+        // Set up Background and Bottom Bar Color
+        addBackgroundGradientColors()
+        backgroundColorView = UIView()
+        backgroundColorView.frame = self.view.frame
+        backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.1)
+        backgroundColorView.isUserInteractionEnabled = false
+        self.view.insertSubview(backgroundColorView, at: 1)
+        bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        
         // Set up Text Fields with stored data, placeholders and required format
         firstNameTextField.placeholderText = "First Name"
         lastNameTextField.placeholderText = "Last Name"
@@ -229,47 +279,11 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         cancelButton.setTitleColor(UIColor.darkGray.withAlphaComponent(0.5), for: .highlighted)
     }
     
-    
-    
-    // MARK: Navigation
-    
-    // Back to Sign In Page when user presses Cancel button
-    @IBAction func pressedCancelButton(_ sender: Any) {
-        currentRegisteringFirstName = nil
-        currentRegisteringLastName = nil
-        currentRegisteringJobTitle = nil
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: [], animations: {
-            for item in [self.registerLabel, self.firstNameTextField, self.lastNameTextField, self.jobTitleTextField, self.nextButton, self.explainTextView, self.cancelButton] {
-                item!.layer.opacity = 0.0
-            }
-            for item in [self.greetingLabel, self.logoutButton, self.checkInOutButton, self.addMemberLabel] {
-                item.layer.opacity = 1.0
-            }
-            self.backgroundColorView.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
-            self.backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
-        }, completion: { finished in
-            self.dismiss(animated: false, completion: nil)
-        })
-    }
-    
-    // Go to Camera Register Page when user presses Next button if there is no repeating name in the database (otherwise an alert message appears)
-    @IBAction func pressedNextButton(_ sender: UIButton) {
-        if staffNameList.contains(where: {(staff : staffMember) -> Bool in
-            return (staff.firstName.lowercased() == currentRegisteringFirstName!.lowercased()) && (staff.lastName.lowercased() == currentRegisteringLastName!.lowercased())
-        }){
-            let alert = UIAlertController(title: "Existing Staff Name", message: "Please input a new staff", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        } else {
-            performSegue(withIdentifier: "RegistertoCameraSegue", sender: self)
-        }
-    }
-    
     private func configurateAppearingElements() {
-        greetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio(false)
-        logoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio(false)
-        checkInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
-        addMemberLabel.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
+        appearingGreetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).centreRatio()
+        appearingLogoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).centreRatio()
+        appearingCheckInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0).centreRatio()
+        appearingAddMemberLabel.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).centreRatio()
         
         // Set up Greeting Label (with time conditions and username)
         let currentHour = Calendar.current.component(.hour, from: Date())
@@ -288,41 +302,41 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
         let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
         let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))
-        greetingLabel.attributedText = attributedString
-        greetingLabel.textColor = .white
-        greetingLabel.textAlignment = .center
+        appearingGreetingLabel.attributedText = attributedString
+        appearingGreetingLabel.textColor = .white
+        appearingGreetingLabel.textAlignment = .center
         
         // Set up Logout Button
-        logoutButton.setTitle("   Logout", for: .normal)
-        logoutButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24)
-        logoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
-        logoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
-        logoutButton.setImage(UIImage(named: "Logout"), for: .normal)
-        logoutButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: -10.0)
-        logoutButton.contentHorizontalAlignment = .fill
-        logoutButton.contentVerticalAlignment = .fill
+        appearingLogoutButton.setTitle("   Logout", for: .normal)
+        appearingLogoutButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24)
+        appearingLogoutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#3BACD0").withAlphaComponent(1.0), for: .normal)
+        appearingLogoutButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .highlighted)
+        appearingLogoutButton.setImage(UIImage(named: "Logout"), for: .normal)
+        appearingLogoutButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: -10.0)
+        appearingLogoutButton.contentHorizontalAlignment = .fill
+        appearingLogoutButton.contentVerticalAlignment = .fill
         
         // Set up Check In/Out Button
-        checkInOutButton.setTitle("Check in /Out", for: .normal)
-        checkInOutButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24.0)
-        checkInOutButton.layer.cornerRadius = 4.0
-        checkInOutButton.layer.applySketchShadow(
+        appearingCheckInOutButton.setTitle("Check in /Out", for: .normal)
+        appearingCheckInOutButton.titleLabel?.font = UIFont(name: "NotoSans-Medium", size: 24.0)
+        appearingCheckInOutButton.layer.cornerRadius = 4.0
+        appearingCheckInOutButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
             x: 0,
             y: 3,
             blur: 6,
             spread: 0)
-        checkInOutButton.layer.showShadow()
-        checkInOutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1.0), for: .normal)
-        checkInOutButton.backgroundColor = UIColor.white
+        appearingCheckInOutButton.layer.showShadow()
+        appearingCheckInOutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1.0), for: .normal)
+        appearingCheckInOutButton.backgroundColor = UIColor.white
         
         // Set up Add Member Button
-        addMemberLabel.textAlignment = .center
-        addMemberLabel.font = UIFont(name: "NotoSans-Medium", size: 24.0)
-        addMemberLabel.textColor = .white
-        addMemberLabel.text = "Add Member"
+        appearingAddMemberLabel.textAlignment = .center
+        appearingAddMemberLabel.font = UIFont(name: "NotoSans-Medium", size: 24.0)
+        appearingAddMemberLabel.textColor = .white
+        appearingAddMemberLabel.text = "Add Member"
         
-        for item in [greetingLabel, logoutButton, checkInOutButton, addMemberLabel] {
+        for item in [appearingGreetingLabel, appearingLogoutButton, appearingCheckInOutButton, appearingAddMemberLabel] {
             self.view.addSubview(item)
             self.view.bringSubviewToFront(item)
             item.layer.opacity = 0.0

@@ -73,7 +73,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         
         // For first-time open the app
         if !isLoadedLoginPage {
-            iArriveImage.frame = CGRect(x: 322, y: 546, width: 124, height: 44).centreRatio()
+            iArriveImage.frame = CGRect(x: 322, y: 600, width: 124, height: 44).centreRatio()
             for item in [ApptechImage, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage] {
                 item!.layer.opacity = 0.0
             }
@@ -262,7 +262,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
                     UserDefaults.standard.synchronize()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.60) {
                     self.userNameTextField.text = ""
                     self.passwordTextField.text = ""
                     self.loginButton.setTitle("Login", for: .normal)
@@ -274,7 +274,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     for item in [self.appearingGreetingLabel, self.appearingLogoutButton, self.appearingAddMemberButton] {
                         item.layer.opacity = 1.0
                     }
-                    self.loginButton.center.y = 464.0
+                    self.loginButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0).centreRatio()
                     self.loginButton.setTitle("Check in /Out", for: .normal)
                 }, completion: { finished in
                     self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
@@ -289,8 +289,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             }
         }
     }
-    
-    
+
     
     
     // MARK: Configurate Elements
@@ -362,8 +361,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
     
     private func configurateDisappearingElements() {
-        disappearingApptechImage.frame = CGRect(x: 248, y: 266, width: 272, height: 58).y_fixedToScreenRatio(false)
-        disappearingAppIconImage.frame = CGRect(x: 319, y: 399, width: 130, height: 128).centreRatio()
+        disappearingApptechImage.frame = CGRect(x: 248, y: 256, width: 272, height: 58).centreRatio()
+        disappearingAppIconImage.frame = CGRect(x: 319.5, y: 443, width: 129, height: 138).centreRatio()
         
         disappearingApptechImage.image = UIImage(named: "Large_Logo")
         disappearingAppIconImage.image = UIImage(named: "Logo")
@@ -376,9 +375,9 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
     
     private func configurateAppearingElements() {
-        appearingGreetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio(false)
-        appearingLogoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio(false)
-        appearingAddMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
+        appearingGreetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).centreRatio()
+        appearingLogoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).centreRatio()
+        appearingAddMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).centreRatio()
         
         // Set up Greeting Label (with time conditions and username)
         let currentHour = Calendar.current.component(.hour, from: Date())

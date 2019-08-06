@@ -15,6 +15,8 @@ class B_SignInViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var checkInOutButton: UIButton!
     @IBOutlet weak var addMemberButton: UIButton!
+    @IBOutlet weak var poweredByLabel: UILabel!
+    @IBOutlet weak var bottomBarLogoImage: UIImageView!
     @IBOutlet weak var bottomBar: UILabel!
     
     // MARK: Properties (for animation)
@@ -56,7 +58,7 @@ class B_SignInViewController: UIViewController {
             item!.layer.opacity = 1.0
         }
         // Set up Add Member Button
-        addMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
+        addMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).centreRatio()
         addMemberButton.setTitle("Add Member", for: .normal)
         addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         addMemberButton.layer.cornerRadius = 4.0
@@ -131,7 +133,7 @@ class B_SignInViewController: UIViewController {
                 item.layer.opacity = 0.5
             }
             self.checkInOutButton.layer.hideShadow()
-            self.checkInOutButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
+            self.checkInOutButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).centreRatio()
             self.checkInOutButton.setTitle("Login", for: .normal)
             self.checkInOutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
             self.checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
@@ -183,6 +185,15 @@ class B_SignInViewController: UIViewController {
     // MARK: Configurate Elements
     
     private func configurateElements() {
+        // Set up postions
+        greetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).centreRatio()
+        logoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).centreRatio()
+        checkInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0).centreRatio()
+        addMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).centreRatio()
+        poweredByLabel.frame = CGRect(x: 273, y: screenHeight-42.5, width: 113, height: 27.5).x_centreRatio()
+        bottomBarLogoImage.frame = CGRect(x: 394, y: screenHeight-44, width: 112, height: 29).x_centreRatio()
+        bottomBar.frame = CGRect(x: 0, y: screenHeight-59, width: screenWidth, height: 59)
+        
         // Set up Background and Bottom Bar Color
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
@@ -236,21 +247,16 @@ class B_SignInViewController: UIViewController {
         appearingUserNameTextField.frame = CGRect(x: 224.0, y: 356.0, width: 320.0, height: 64.0).centreRatio()
         appearingPasswordTextField.frame = CGRect(x: 224.0, y: 438.0, width: 320.0, height: 64.0).centreRatio()
         appearingKeepMeLoginButton.frame = CGRect(x: 224.0, y: 530.0, width: 150.0, height: 34.0).centreRatio()
-        appearingForgotPasswordButton.frame = CGRect(x: 224, y: 600, width: 320, height: 56).centreRatio()
+        appearingForgotPasswordButton.frame = CGRect(x: 398.0, y: 530.0, width: 146.0, height: 34.0).centreRatio()
         appearingExplainTextView.frame = CGRect(x: 224, y: 664, width: 320, height: 60).centreRatio()
         
-//        poweredByLabel.frame = CGRect(x: 273, y: screenHeight-42.5, width: 113, height: 27.5).x_centreRatio()
-//        bottomBarLogoImage.frame = CGRect(x: 394, y: screenHeight-44, width: 112, height: 29).x_centreRatio()
-//        bottomBar.frame = CGRect(x: 0, y: screenHeight-59, width: screenWidth, height: 59)
-        
-        
-        appearingRegisterLabel.frame = CGRect(x: 297.0, y: 154.0, width: 174.0, height: 43.0).fixedToScreenRatio(false)
-        appearingFirstNameTextField.frame = CGRect(x: 224.0, y: 260.0, width: 320.0, height: 64.0).fixedToScreenRatio(false)
-        appearingLastNameTextField.frame = CGRect(x: 224.0, y: 340.0, width: 320.0, height: 64.0).fixedToScreenRatio(false)
-        appearingJobTitleTextField.frame = CGRect(x: 224.0, y: 420.0, width: 320.0, height: 64.0).fixedToScreenRatio(false)
-        appearingNextButton.frame = CGRect(x: 224.0, y: 554.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
-        appearingExplainTextView2.frame = CGRect(x: 224.0, y: 618.0, width: 320.0, height: 61.0).fixedToScreenRatio(false)
-        appearingCancelButton.frame = CGRect(x: 175.0, y: 736.0, width: 158.0, height: 33.0).fixedToScreenRatio(false)
+        appearingRegisterLabel.frame = CGRect(x: 297.0, y: 154.0, width: 174.0, height: 43.0).centreRatio()
+        appearingFirstNameTextField.frame = CGRect(x: 224.0, y: 260.0, width: 320.0, height: 64.0).centreRatio()
+        appearingLastNameTextField.frame = CGRect(x: 224.0, y: 340.0, width: 320.0, height: 64.0).centreRatio()
+        appearingJobTitleTextField.frame = CGRect(x: 224.0, y: 420.0, width: 320.0, height: 64.0).centreRatio()
+        appearingNextButton.frame = CGRect(x: 224.0, y: 554.0, width: 320.0, height: 56.0).centreRatio()
+        appearingExplainTextView2.frame = CGRect(x: 224.0, y: 618.0, width: 320.0, height: 61.0).centreRatio()
+        appearingCancelButton.frame = CGRect(x: 175.0, y: 736.0, width: 158.0, height: 33.0).centreRatio()
         
         // Set up ApptechImage and iArriveImage
         appearingApptechImage.image = UIImage(named: "Logo")
