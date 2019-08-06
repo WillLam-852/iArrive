@@ -226,9 +226,11 @@ Terms of Service and Privacy Policy</string>
                     <connections>
                         <outlet property="addMemberButton" destination="9Y3-iK-WbG" id="QSD-HK-tgb"/>
                         <outlet property="bottomBar" destination="UFV-1a-Fo3" id="RpD-oy-BpT"/>
+                        <outlet property="bottomBarLogoImage" destination="lXC-UL-FgB" id="nDv-2U-CWX"/>
                         <outlet property="checkInOutButton" destination="pVp-Dm-a3L" id="HD2-sr-BMh"/>
                         <outlet property="greetingLabel" destination="fYn-Rd-bXz" id="J6h-3Q-h5m"/>
                         <outlet property="logoutButton" destination="7vM-pU-0U0" id="lSe-yw-DJX"/>
+                        <outlet property="poweredByLabel" destination="D8i-Bg-fZS" id="sMy-Gf-mWi"/>
                         <segue destination="7cn-WA-HRt" kind="show" identifier="SignIntoLogInSegue" animates="NO" id="F7L-43-YCx"/>
                         <segue destination="n89-Kq-gXM" kind="presentation" identifier="SignIntoRegisterSegue" animates="NO" modalPresentationStyle="fullScreen" id="jxc-aP-Knc"/>
                     </connections>
@@ -396,7 +398,7 @@ Terms of Service and Privacy Policy</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHG-8y-UYm">
-                                <rect key="frame" x="20" y="40" width="175" height="44"/>
+                                <rect key="frame" x="20" y="40" width="175" height="49"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Medium" family="Noto Sans" pointSize="24"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="13" maxY="0.0"/>
                                 <state key="normal" title="      HOME" image="HomeArrow">
@@ -408,13 +410,13 @@ Terms of Service and Privacy Policy</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TimeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIj-hT-FaE">
-                                <rect key="frame" x="164" y="35" width="442" height="54"/>
+                                <rect key="frame" x="164" y="35" width="442" height="59"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="56"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbr-7J-lLd">
-                                <rect key="frame" x="164" y="98" width="442" height="33"/>
+                                <rect key="frame" x="164" y="103" width="442" height="28"/>
                                 <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -673,12 +675,14 @@ Terms of Service and Privacy Policy</string>
                     </view>
                     <connections>
                         <outlet property="bottomBar" destination="bwz-a4-Rsf" id="cfa-40-pBG"/>
+                        <outlet property="bottomBarLogoImage" destination="ZIM-BQ-kcb" id="nqB-4Q-e2n"/>
                         <outlet property="cancelButton" destination="wuP-Lg-yvh" id="1Td-on-vb1"/>
                         <outlet property="explainTextView" destination="X0V-ZE-k6m" id="hEL-f8-EAZ"/>
                         <outlet property="firstNameTextField" destination="Isl-To-zHj" id="txm-xj-AeN"/>
                         <outlet property="jobTitleTextField" destination="IIG-Qv-ny3" id="bKj-eG-dLt"/>
                         <outlet property="lastNameTextField" destination="usM-0Y-haY" id="htv-9y-1ao"/>
                         <outlet property="nextButton" destination="cfp-12-HRd" id="OBs-wH-dix"/>
+                        <outlet property="poweredByLabel" destination="xOJ-wE-Vtm" id="kfu-XD-Bdt"/>
                         <outlet property="registerLabel" destination="gVg-id-eIJ" id="Y7q-fX-dXh"/>
                         <segue destination="RnR-os-9Zo" kind="presentation" identifier="RegistertoCameraSegue" id="Re3-gM-lJf"/>
                     </connections>
