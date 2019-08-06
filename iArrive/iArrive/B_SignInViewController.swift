@@ -56,7 +56,7 @@ class B_SignInViewController: UIViewController {
             item!.layer.opacity = 1.0
         }
         // Set up Add Member Button
-        addMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+        addMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
         addMemberButton.setTitle("Add Member", for: .normal)
         addMemberButton.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         addMemberButton.layer.cornerRadius = 4.0
@@ -131,7 +131,7 @@ class B_SignInViewController: UIViewController {
                 item.layer.opacity = 0.5
             }
             self.checkInOutButton.layer.hideShadow()
-            self.checkInOutButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+            self.checkInOutButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
             self.checkInOutButton.setTitle("Login", for: .normal)
             self.checkInOutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
             self.checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
@@ -231,21 +231,26 @@ class B_SignInViewController: UIViewController {
     
     private func configurateAppearingElements() {
         // Set up Appearing elements positions
-        appearingApptechImage.frame = CGRect(x: 319.0, y: 130.0, width: 130.0, height: 128.0).fixedToScreenRatio()
-        appearingiArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).fixedToScreenRatio()
-        appearingUserNameTextField.frame = CGRect(x: 224.0, y: 356.0, width: 320.0, height: 64.0).fixedToScreenRatio()
-        appearingPasswordTextField.frame = CGRect(x: 224.0, y: 438.0, width: 320.0, height: 64.0).fixedToScreenRatio()
-        appearingKeepMeLoginButton.frame = CGRect(x: 224.0, y: 530.0, width: 150.0, height: 34.0).fixedToScreenRatio()
-        appearingForgotPasswordButton.frame = CGRect(x: 398.0, y: 530.0, width: 146.0, height: 34.0).fixedToScreenRatio()
-        appearingExplainTextView.frame = CGRect(x: 224.0, y: 664.0, width: 320.0, height: 60.0).fixedToScreenRatio()
+        appearingApptechImage.frame = CGRect(x: 319.0, y: 130.0, width: 130.0, height: 128.0).centreRatio()
+        appearingiArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).centreRatio()
+        appearingUserNameTextField.frame = CGRect(x: 224.0, y: 356.0, width: 320.0, height: 64.0).centreRatio()
+        appearingPasswordTextField.frame = CGRect(x: 224.0, y: 438.0, width: 320.0, height: 64.0).centreRatio()
+        appearingKeepMeLoginButton.frame = CGRect(x: 224.0, y: 530.0, width: 150.0, height: 34.0).centreRatio()
+        appearingForgotPasswordButton.frame = CGRect(x: 224, y: 600, width: 320, height: 56).centreRatio()
+        appearingExplainTextView.frame = CGRect(x: 224, y: 664, width: 320, height: 60).centreRatio()
         
-        appearingRegisterLabel.frame = CGRect(x: 297.0, y: 154.0, width: 174.0, height: 43.0).fixedToScreenRatio()
-        appearingFirstNameTextField.frame = CGRect(x: 224.0, y: 260.0, width: 320.0, height: 64.0).fixedToScreenRatio()
-        appearingLastNameTextField.frame = CGRect(x: 224.0, y: 340.0, width: 320.0, height: 64.0).fixedToScreenRatio()
-        appearingJobTitleTextField.frame = CGRect(x: 224.0, y: 420.0, width: 320.0, height: 64.0).fixedToScreenRatio()
-        appearingNextButton.frame = CGRect(x: 224.0, y: 554.0, width: 320.0, height: 56.0).fixedToScreenRatio()
-        appearingExplainTextView2.frame = CGRect(x: 224.0, y: 618.0, width: 320.0, height: 61.0).fixedToScreenRatio()
-        appearingCancelButton.frame = CGRect(x: 175.0, y: 736.0, width: 158.0, height: 33.0).fixedToScreenRatio()
+//        poweredByLabel.frame = CGRect(x: 273, y: screenHeight-42.5, width: 113, height: 27.5).x_centreRatio()
+//        bottomBarLogoImage.frame = CGRect(x: 394, y: screenHeight-44, width: 112, height: 29).x_centreRatio()
+//        bottomBar.frame = CGRect(x: 0, y: screenHeight-59, width: screenWidth, height: 59)
+        
+        
+        appearingRegisterLabel.frame = CGRect(x: 297.0, y: 154.0, width: 174.0, height: 43.0).fixedToScreenRatio(false)
+        appearingFirstNameTextField.frame = CGRect(x: 224.0, y: 260.0, width: 320.0, height: 64.0).fixedToScreenRatio(false)
+        appearingLastNameTextField.frame = CGRect(x: 224.0, y: 340.0, width: 320.0, height: 64.0).fixedToScreenRatio(false)
+        appearingJobTitleTextField.frame = CGRect(x: 224.0, y: 420.0, width: 320.0, height: 64.0).fixedToScreenRatio(false)
+        appearingNextButton.frame = CGRect(x: 224.0, y: 554.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
+        appearingExplainTextView2.frame = CGRect(x: 224.0, y: 618.0, width: 320.0, height: 61.0).fixedToScreenRatio(false)
+        appearingCancelButton.frame = CGRect(x: 175.0, y: 736.0, width: 158.0, height: 33.0).fixedToScreenRatio(false)
         
         // Set up ApptechImage and iArriveImage
         appearingApptechImage.image = UIImage(named: "Logo")

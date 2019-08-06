@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Loading View Controller-->
+        <!--View Controller-->
         <scene sceneID="aBX-dF-xBM">
             <objects>
-                <viewController id="i1g-ku-Hr9" customClass="A_LoadingViewController" customModule="iArrive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="i1g-ku-Hr9" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BkT-BF-b3Q">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,8 +24,12 @@
                                     <constraint firstAttribute="height" constant="58" id="ufR-tP-bnJ"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="e5P-vu-9gP">
+                            <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="e5P-vu-9gP">
                                 <rect key="frame" x="319" y="399" width="130" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="Dhe-0i-QqK"/>
+                                    <constraint firstAttribute="height" constant="128" id="s7f-OH-PVK"/>
+                                </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iArrive" translatesAutoresizingMaskIntoConstraints="NO" id="WKk-VJ-F9n">
                                 <rect key="frame" x="322" y="546" width="124" height="44"/>

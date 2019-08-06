@@ -53,7 +53,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         loadingView = UIView()
         
         // Create a transparent circle view with shadow outside the circle
-        createOverlay(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height).fixedToScreenRatio())
+        createOverlay(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height).fixedToScreenRatio(false))
         
         // Set up Time and Date Label
         timeAndDateLabelConfiguration()
@@ -172,7 +172,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         // Create a path with the rectangle in it.
         let path = CGMutablePath()
         path.addArc(center: CGPoint(x: overlayView.frame.width/2, y: overlayView.frame.height/2), radius: overlayView.frame.width*9/20, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-        path.addRect(CGRect(x: 0, y: 0, width: overlayView.frame.width, height: overlayView.frame.height).fixedToScreenRatio())
+        path.addRect(CGRect(x: 0, y: 0, width: overlayView.frame.width, height: overlayView.frame.height).fixedToScreenRatio(false))
         maskLayer.backgroundColor = UIColor.black.cgColor
         maskLayer.path = path;
         maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
@@ -301,7 +301,7 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
             faceViewBounds = faceViewBounds.applying(CGAffineTransform(scaleX: scale, y: scale))
             faceViewBounds.origin.x += 260
             faceViewBounds.origin.y += 180
-            faceViewBounds = CGRect(x: faceViewBounds.origin.x, y: faceViewBounds.origin.y, width: length*1.2, height: length*1.2).fixedToScreenRatio()
+            faceViewBounds = CGRect(x: faceViewBounds.origin.x, y: faceViewBounds.origin.y, width: length*1.2, height: length*1.2).fixedToScreenRatio(false)
             
             print("faceViewBounds: ", faceViewBounds)
             

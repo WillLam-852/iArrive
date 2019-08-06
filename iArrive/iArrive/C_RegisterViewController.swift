@@ -245,7 +245,7 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
             for item in [self.greetingLabel, self.logoutButton, self.checkInOutButton, self.addMemberLabel] {
                 item.layer.opacity = 1.0
             }
-            self.backgroundColorView.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+            self.backgroundColorView.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
             self.backgroundColorView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#0027FF").withAlphaComponent(0.2)
         }, completion: { finished in
             self.dismiss(animated: false, completion: nil)
@@ -266,10 +266,10 @@ class C_RegisterViewController: UIViewController, UITextFieldDelegate, UITextVie
     }
     
     private func configurateAppearingElements() {
-        greetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio()
-        logoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio()
-        checkInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0).fixedToScreenRatio()
-        addMemberLabel.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+        greetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio(false)
+        logoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio(false)
+        checkInOutButton.frame = CGRect(x: 224.0, y: 436.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
+        addMemberLabel.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
         
         // Set up Greeting Label (with time conditions and username)
         let currentHour = Calendar.current.component(.hour, from: Date())
