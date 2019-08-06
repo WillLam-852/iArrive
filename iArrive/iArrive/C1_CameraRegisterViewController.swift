@@ -237,7 +237,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         }
         // The center coordinate along Y axis
         let rcy = imageHeight * 0.5
-        let rect = CGRect(x: rcy - imageWidth * 0.5, y: 0, width: imageWidth, height: imageWidth).fixedToScreenRatio()
+        let rect = CGRect(x: rcy - imageWidth * 0.5, y: 0, width: imageWidth, height: imageWidth).fixedToScreenRatio(false)
         let imageRef = image.cgImage?.cropping(to: rect)
         return UIImage(cgImage: imageRef!, scale: 1.0, orientation: image.imageOrientation)
     }

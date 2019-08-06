@@ -68,12 +68,12 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         passwordTextField.text = ""
         
         // TO BE DELETED
-        userNameTextField.text = "richard.zhang@apptech.com.hk"
-        passwordTextField.text = "123456"
+//        userNameTextField.text = "richard.zhang@apptech.com.hk"
+//        passwordTextField.text = "123456"
         
         // For first-time open the app
         if !isLoadedLoginPage {
-            iArriveImage.frame = CGRect(x: 322.0, y: 546.0, width: 124.0, height: 44.0).fixedToScreenRatio()
+            iArriveImage.frame = CGRect(x: 322, y: 546, width: 124, height: 44).centreRatio()
             for item in [ApptechImage, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage] {
                 item!.layer.opacity = 0.0
             }
@@ -101,7 +101,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                            completion: nil)
             UIView.animate(withDuration: 0.8, delay: 0.0, options: [],
                            animations: {
-                            self.iArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).fixedToScreenRatio()
+                            self.iArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).centreRatio()
             },
                            completion: nil)
             UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut,
@@ -256,8 +256,6 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBAction func pressedLoginButton(_ sender: Any) {
         API().LogInAPI(username: userNameTextField.mainTextField.text!, password: passwordTextField.mainTextField.text!) { (responseObject, error, isLogIn) in
             if isLogIn {
-                self.userNameTextField.mainTextField.text = ""
-                self.passwordTextField.mainTextField.text = ""
                 self.configurateAppearingElements()
                 if self.keepMeLoginButton.isChecked {
                     UserDefaults.standard.set(companyName, forKey: "companyName")
@@ -265,6 +263,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     UserDefaults.standard.synchronize()
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
+                    self.userNameTextField.text = ""
+                    self.passwordTextField.text = ""
                     self.loginButton.setTitle("Login", for: .normal)
                 }
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
@@ -296,6 +296,19 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     // MARK: Configurate Elements
     
     private func configurateElements() {
+        
+        // Set up positions
+        ApptechImage.frame = CGRect(x: 319.0, y: 130.0, width: 130.0, height: 128.0).centreRatio()
+        userNameTextField.frame = CGRect(x: 224.0, y: 356.0, width: 320.0, height: 64.0).centreRatio()
+        passwordTextField.frame = CGRect(x: 224.0, y: 438.0, width: 320.0, height: 64.0).centreRatio()
+        keepMeLoginButton.frame = CGRect(x: 224.0, y: 530.0, width: 150.0, height: 34.0).centreRatio()
+        forgotPasswordButton.frame = CGRect(x: 398.0, y: 530.0, width: 146.0, height: 34.0).centreRatio()
+        loginButton.frame = CGRect(x: 224, y: 600, width: 320, height: 56).centreRatio()
+        explainTextView.frame = CGRect(x: 224, y: 664, width: 320, height: 60).centreRatio()
+        poweredByLabel.frame = CGRect(x: 273, y: screenHeight-42.5, width: 113, height: 27.5).x_centreRatio()
+        bottomBarLogoImage.frame = CGRect(x: 394, y: screenHeight-44, width: 112, height: 29).x_centreRatio()
+        bottomBar.frame = CGRect(x: 0, y: screenHeight-59, width: screenWidth, height: 59)
+
         // Set up Background and Bottom Bar Color
         addBackgroundGradientColors()
         bottomBar.backgroundColor = UIColor(white: 1, alpha: 0.1)
@@ -343,16 +356,15 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             isengChinSegmentedControl = true
         }
         
-        loginButton.frame = CGRect(x: 224.0, y: 600.0, width: 320.0, height: 56.0).fixedToScreenRatio()
-        
         for item in [ApptechImage, forgotPasswordButton, explainTextView, engChinSegmentedControl, bottomBar, poweredByLabel, bottomBarLogoImage, keepMeLoginButton, loginButton, iArriveImage] {
             item!.layer.opacity = 1.0
         }
     }
     
     private func configurateDisappearingElements() {
-        disappearingApptechImage.frame = CGRect(x: 248.0, y: 266.0, width: 272.0, height: 58.0).fixedToScreenRatio()
-        disappearingAppIconImage.frame = CGRect(x: 319.0, y: 399.0, width: 130.0, height: 128.0).fixedToScreenRatio()
+        disappearingApptechImage.frame = CGRect(x: 248, y: 266, width: 272, height: 58).y_fixedToScreenRatio(false)
+        disappearingAppIconImage.frame = CGRect(x: 319, y: 399, width: 130, height: 128).centreRatio()
+        
         disappearingApptechImage.image = UIImage(named: "Large_Logo")
         disappearingAppIconImage.image = UIImage(named: "Logo")
         disappearingAppIconImage.contentMode = .scaleAspectFit
@@ -364,9 +376,9 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
     
     private func configurateAppearingElements() {
-        appearingGreetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio()
-        appearingLogoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio()
-        appearingAddMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio()
+        appearingGreetingLabel.frame = CGRect(x: 80.0, y: 274.0, width: 608.0, height: 28.0).fixedToScreenRatio(false)
+        appearingLogoutButton.frame = CGRect(x: 323.0, y: 318.0, width: 122.0, height: 28.0).fixedToScreenRatio(false)
+        appearingAddMemberButton.frame = CGRect(x: 224.0, y: 516.0, width: 320.0, height: 56.0).fixedToScreenRatio(false)
         
         // Set up Greeting Label (with time conditions and username)
         let currentHour = Calendar.current.component(.hour, from: Date())

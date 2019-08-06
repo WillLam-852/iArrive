@@ -82,14 +82,61 @@ extension String: ParameterEncoding {
 
 // Extension on CGRect to make a flexible size for different screensize devices
 extension CGRect {
-    func fixedToScreenRatio() -> CGRect {
+    
+    // Based on ratio from the top border / left border
+    func fixedToScreenRatio(_ widthHeightChange: Bool) -> CGRect {
         var newPosition = CGRect()
-        let newX = minX / 768.0 * UIScreen.main.bounds.width
-        let newY = minY / 1024.0 * UIScreen.main.bounds.height
-        let newWidth = width / 768.0 * UIScreen.main.bounds.width
-        let newHeight = height / 1024.0 * UIScreen.main.bounds.height
+        let newX = minX / 768.0 * screenWidth
+        let newY = minY / 1024.0 * screenHeight
+        var newWidth = width
+        var newHeight = height
+        if widthHeightChange {
+            newWidth = width / 768.0 * screenWidth
+            newHeight = height / 1024.0 * screenHeight
+        }
         newPosition = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
         return newPosition
+    }
+    
+    func x_fixedToScreenRatio(_ widthHeightChange: Bool) -> CGRect {
+        var newPosition = CGRect()
+        let newX = minX
+        let newY = minY / 1024.0 * screenHeight
+        var newWidth = width
+        var newHeight = height
+        if widthHeightChange {
+            newWidth = width / 768.0 * screenWidth
+            newHeight = height / 1024.0 * screenHeight
+        }
+        newPosition = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
+        return newPosition
+    }
+    
+    func y_fixedToScreenRatio(_ widthHeightChange: Bool) -> CGRect {
+        var newPosition = CGRect()
+        let newX = minX
+        let newY = minY / 1024.0 * screenHeight
+        var newWidth = width
+        var newHeight = height
+        if widthHeightChange {
+            newWidth = width / 768.0 * screenWidth
+            newHeight = height / 1024.0 * screenHeight
+        }
+        newPosition = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
+        return newPosition
+    }
+    
+    // Based on ratio from the centre
+    func centreRatio() -> CGRect {
+        return CGRect(x: screenCentreX-(384.0-minX), y: screenCentreY-(512.0-minY), width: width, height: height)
+    }
+    
+    func x_centreRatio() -> CGRect {
+        return CGRect(x: screenCentreX-(384.0-minX), y: minY, width: width, height: height)
+    }
+    
+    func y_centreRatio() -> CGRect {
+        return CGRect(x: minX, y: screenCentreY-(512.0-minY), width: width, height: height)
     }
 }
 

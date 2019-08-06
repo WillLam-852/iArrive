@@ -5,6 +5,11 @@
 //  Created by Lam Wun Yin on 26/6/2019.
 //  Copyright © 2019 Lam Wun Yin. All rights reserved.
 //
+//
+//  iPad Air (3rd generation):  2224 x 1668
+//  iPad Pro (9.7-inch):        2048 x 1536     (iPad, iPad mini)
+//  iPad Pro (11-inch):         2388 x 1668
+//  iPad Pro (12.9-inch):       2732 x 2048
 
 import UIKit
 import AFNetworking
@@ -45,6 +50,12 @@ var isLoadedLoginPage = false
 
 // For avoiding loading the EngChinSegmentedControl repeatedly
 var isengChinSegmentedControl = false
+
+// For layout
+let screenHeight = UIScreen.main.bounds.height
+let screenWidth = UIScreen.main.bounds.width
+let screenCentreX = screenWidth/2
+let screenCentreY = screenHeight/2
 
 // For Loading Sample Data and Debugging (Deleted after deployment)
 var isLoadSampleStaff = true
