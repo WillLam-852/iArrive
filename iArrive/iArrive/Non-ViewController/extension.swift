@@ -103,10 +103,9 @@ extension CGRect {
         let newX = minX
         let newY = minY / 1024.0 * screenHeight
         var newWidth = width
-        var newHeight = height
+        let newHeight = height
         if widthHeightChange {
             newWidth = width / 768.0 * screenWidth
-            newHeight = height / 1024.0 * screenHeight
         }
         newPosition = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
         return newPosition
@@ -116,10 +115,9 @@ extension CGRect {
         var newPosition = CGRect()
         let newX = minX
         let newY = minY / 1024.0 * screenHeight
-        var newWidth = width
+        let newWidth = width
         var newHeight = height
         if widthHeightChange {
-            newWidth = width / 768.0 * screenWidth
             newHeight = height / 1024.0 * screenHeight
         }
         newPosition = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
@@ -163,7 +161,6 @@ extension UIColor
         (r, g, b, a) = (0, 0, 0, 0)
         self.getRed(&r, green: &g, blue: &b, alpha: &a)
         let lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
-        print(lum)
         return  lum < 0.55 ? true : false
     }
 }

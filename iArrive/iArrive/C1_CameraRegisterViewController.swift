@@ -15,7 +15,9 @@ import SwiftyJSON
 class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AVCapturePhotoCaptureDelegate, AVCaptureFileOutputRecordingDelegate{
     
     // MARK: Properties
+    @IBOutlet weak var pleaseLabel: UILabel!
     @IBOutlet weak var noOfPhotosLabel: UILabel!
+    @IBOutlet weak var atLeastLabel: UILabel!
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var imageInsidePreviewView: UIImageView!
     @IBOutlet weak var photoCollectionView: UICollectionView?
@@ -36,6 +38,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     private let reuseIdentifier = "photoCell"
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,39 +51,17 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
             imageArray.append(UIImage.init())
         }
         
-        // Set up Number Of Photos Label
-        noOfPhotosLabel.text = "0"
-        
-        // Set up Camera Preview View
-        previewView.layer.borderWidth = 1.0
-        previewView.layer.masksToBounds = false
-        previewView.layer.borderColor = UIColor.white.cgColor
-        previewView.layer.cornerRadius = previewView.frame.height / 2
-        previewView.clipsToBounds = true
-        
-        // Set up Image Inside Preview View
-        previewView.insertSubview(imageInsidePreviewView, at: 1)
-        
-        // Set up Confirm Button
-        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
-        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
-        confirmButton.setImage(UIImage(named: "Confirm"), for: .normal)
-        confirmButton.setImage(UIImage(named: "HighlightedConfirmArrow"), for: .highlighted)
-        confirmButton.isEnabled = false
-        
-        // Set up Back Button
-        backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
-        backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
-        backButton.setImage(UIImage(named: "Back_3"), for: .normal)
-        backButton.setImage(UIImage(named: "HighlightedBackArrow"), for: .highlighted)
+        setUpElements()
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        previewView.backgroundColor = .blue
         // Set up the camera
         setupSession()
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -242,6 +223,50 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
         return UIImage(cgImage: imageRef!, scale: 1.0, orientation: image.imageOrientation)
     }
     
+    
+    private func setUpElements() {
+        // Set up labels
+        pleaseLabel.frame = CGRect(x: 148, y: 37, width: 472, height: 43).x_centreRatio()
+        atLeastLabel.frame = CGRect(x: 406, y: 112, width: 214, height: 33).x_centreRatio()
+        noOfPhotosLabel.frame = CGRect(x: 317, y: 88, width: 81, height: 65.5).x_centreRatio()
+        noOfPhotosLabel.text = "0"
+        
+        // Set up Camera Preview View
+        previewView.frame = CGRect(x: 244, y: 168.5, width: 280, height: 280.5).fixedToScreenRatio(true)
+        previewView.frame = CGRect(x: previewView.frame.minX, y: previewView.frame.minY, width: previewView.frame.height, height: previewView.frame.height)
+        previewView.center.x = self.view.center.x
+        previewView.layer.borderWidth = 1.0
+        previewView.layer.masksToBounds = false
+        previewView.layer.borderColor = UIColor.white.cgColor
+        previewView.layer.cornerRadius = previewView.frame.height / 2
+        previewView.clipsToBounds = true
+        
+        // Set up Image Inside Preview View
+        imageInsidePreviewView.frame = CGRect(x: 0, y: 0, width: previewView.bounds.width, height: previewView.bounds.height)
+        previewView.insertSubview(imageInsidePreviewView, at: 1)
+        
+        // Set up Photo Collection View
+        photoCollectionView?.frame = CGRect(x: 32, y: 485, width: 704, height: 400).fixedToScreenRatio(true)
+        
+        // Set up Back Button
+        backButton.frame = CGRect(x: 77, y: 946, width: 117, height: 33).fixedToScreenRatio(false)
+        backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(1), for: .normal)
+        backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
+        backButton.setImage(UIImage(named: "Back_3"), for: .normal)
+        backButton.setImage(UIImage(named: "HighlightedBackArrow"), for: .highlighted)
+        
+        // Set up Photo Button
+        photoButton.frame = CGRect(x: 328, y: 908, width: 112, height: 111).x_centreRatio().y_fixedToScreenRatio(false)
+        
+        // Set up Confirm Button
+        confirmButton.frame = CGRect(x: 562, y: 945, width: 186, height: 35).fixedToScreenRatio(false)
+        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .normal)
+        confirmButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2E4365").withAlphaComponent(0.5), for: .highlighted)
+        confirmButton.setImage(UIImage(named: "Confirm"), for: .normal)
+        confirmButton.setImage(UIImage(named: "HighlightedConfirmArrow"), for: .highlighted)
+        confirmButton.isEnabled = false
+    }
+    
     // For generating a temporary URL for saved photos
 //    private func tempURL() -> NSURL? {
 //        let temp = NSTemporaryDirectory()
@@ -256,7 +281,7 @@ class C1_CameraRegisterViewController: UIViewController, UICollectionViewDelegat
     
     // For uploading to add face
 //    func uploadToAddFace (video_url: String) {
-//        let faceName = usefulTools().ret32bitString()
+//        let faceName = publicFunctions().ret32bitString()
 //        print("faceName: ", faceName!)
 //        let contactInfo: Parameters = [
 //            "face_name" : faceName!,

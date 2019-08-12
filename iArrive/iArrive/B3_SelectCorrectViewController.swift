@@ -12,6 +12,8 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
     
 
     // MARK: Properties
+    @IBOutlet weak var selectLabel: UILabel!
+    @IBOutlet weak var pleaseLabel: UILabel!
     @IBOutlet weak var staffSearchBar: UISearchBar!
     @IBOutlet weak var selectStaffTableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
@@ -28,9 +30,9 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         super.viewDidLoad()
         
         // Load Sample Staff for debugging (Delete after deployment)
-        if isLoadSampleStaff {
-            publicFunctions().loadSampleStaff()
-        }
+//        if isLoadSampleStaff {
+//            publicFunctions().loadSampleStaff()
+//        }
         
         // Update delegate, data source, and other initialization
         staffSearchBar.delegate = self
@@ -42,7 +44,12 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         // Sort the Staff Name List (according to ascending order of First Name)
         staffNameList.sort(by: { $0.firstName < $1.firstName })
         
+        // Set up labels
+        selectLabel.frame = CGRect(x: 317, y: 23.5, width: 134, height: 65.5).x_centreRatio().y_fixedToScreenRatio(false)
+        pleaseLabel.frame = CGRect(x: 267, y: 89, width: 234, height: 27.5).x_centreRatio().y_fixedToScreenRatio(false)
+        
         // Set up Staff Search Bar
+        staffSearchBar.frame = CGRect(x: 83, y: 132.5, width: 602, height: 56).x_centreRatio().y_fixedToScreenRatio(false)
         let textFieldInsideSearchBar = staffSearchBar.value(forKey: "searchField") as! UITextField
         textFieldInsideSearchBar.subviews.first?.backgroundColor = .white
         textFieldInsideSearchBar.subviews.first?.layer.cornerRadius = 17.5
@@ -52,10 +59,12 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         textFieldInsideSearchBar.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#F7F7F7")
         
         // Set up Select Staff TableView
+        selectStaffTableView.frame = CGRect(x: 83, y: 196.5, width: 602, height: 620.5).x_centreRatio().y_fixedToScreenRatio(true)
         selectStaffTableView.separatorStyle = .none
         selectStaffTableView.backgroundColor = publicFunctions().hexStringToUIColor(hex: "#F7F7F7")
         
         // Set up Confirm Button
+        confirmButton.frame = CGRect(x: 224, y: 913, width: 320, height: 56).x_centreRatio().y_fixedToScreenRatio(false)
         confirmButton.layer.cornerRadius = 4.0
         confirmButton.layer.applySketchShadow(
             color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.16),
@@ -65,6 +74,7 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
             spread: 0)
         
         // Set up Back Button
+        backButton.frame = CGRect(x: 20, y: 919, width: 185, height: 45).fixedToScreenRatio(false)
         backButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#2FB4E6").withAlphaComponent(1), for: .normal)
         backButton.setTitleColor(UIColor.black.withAlphaComponent(0.7), for: .highlighted)
         
@@ -169,8 +179,6 @@ class B3_SelectCorrectViewController: UIViewController, UITableViewDelegate, UIT
         cell.whiteRoundedView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         cell.nameLabel.text = staff!.firstName + " " + staff!.lastName
         cell.jobTitleLabel.text = staff!.jobTitle
-        cell.nameLabel.textColor = UIColor.black.withAlphaComponent(0.3)
-        cell.jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.3)
         return cell
     }
     

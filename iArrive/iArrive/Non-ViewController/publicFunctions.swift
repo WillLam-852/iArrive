@@ -1,123 +1,15 @@
 //
-//  globalVariablesFunctions.swift
+//  publicFunctions.swift
 //  iArrive
 //
-//  Created by Lam Wun Yin on 26/6/2019.
+//  Created by Will Lam on 12/8/2019.
 //  Copyright © 2019 Lam Wun Yin. All rights reserved.
 //
-//
-//  iPad Air (3rd generation):  2224 x 1668
-//  iPad Pro (9.7-inch):        2048 x 1536     (iPad, iPad mini)
-//  iPad Pro (11-inch):         2388 x 1668
-//  iPad Pro (12.9-inch):       2732 x 2048
+
 
 import UIKit
-import AFNetworking
 import Toast_Swift
 import TTSegmentedControl
-
-
-// MARK: Global Variables
-
-// For Storing the Staff Member List Data
-var staffNameList = [staffMember] ()
-
-// For selecting language
-var engChinStatus = 0   // 0 for English, 1 for Chinese
-
-// Login Information (For Section B)
-var companyName: String?
-
-// Staff Member Information (For Section B1)
-var currentCheckingInOutFirstName: String?
-var currentCheckingInOutLastName: String?
-var currentCheckingInOutJobTitle: String?
-var currentCheckingInOutDate: String?
-var currentCheckingInOutTime: String?
-var currentCheckingInOutPhoto: UIImage?
-
-// Staff Member Information (For Section C)
-var currentRegisteringFirstName: String?
-var currentRegisteringLastName: String?
-var currentRegisteringJobTitle: String?
-
-// For sending and retriving JSON data to/from database
-var token: String?
-var orgID: String?
-
-// For animation
-var isLoadedLoginPage = false
-
-// For avoiding loading the EngChinSegmentedControl repeatedly
-var isengChinSegmentedControl = false
-
-// For layout
-let screenHeight = UIScreen.main.bounds.height
-let screenWidth = UIScreen.main.bounds.width
-let screenCentreX = screenWidth/2
-let screenCentreY = screenHeight/2
-
-// For Loading Sample Data and Debugging (Deleted after deployment)
-var isLoadSampleStaff = true
-var isLoadSampleDetectedData = true
-
-
-
-// MARK: Global Constants
-
-// URL for Term of Service, Privacy Policy, and Forgot Password
-let termOfServiceLink = "https://www.google.com/search?q=term+of+service"
-let privacyPolicyLink = "https://www.google.com/search?q=privacy+policy"
-let forgotPasswordLink = "https://www.google.com/search?q=forgot+password"
-
-// Position for Toast View (determined by Screen Size)
-let toast_x = UIScreen.main.bounds.width / 2
-let toast_y = UIScreen.main.bounds.height * 3/4
-let toast_postion = CGPoint(x: toast_x, y: toast_y)
-
-// For sending and retriving data to/from database
-let baseURL = "https://iarrive.apptech.com.hk/api"
-
-
-
-// MARK: Global Classes
-
-// For Outputing Background Gradient Colors in Section B and Section C
-class backgroundGradientColors {
-    var gl: CAGradientLayer
-    init() {
-        let colorTop = publicFunctions().hexStringToUIColor(hex: "#38C9FF").cgColor
-        let colorBottom = publicFunctions().hexStringToUIColor(hex: "#00D8FF").cgColor
-        self.gl = CAGradientLayer()
-        self.gl.colors = [colorTop, colorBottom]
-        self.gl.locations = [0.0, 1.0]
-    }
-}
-
-// For "Keep Me Login" checkbox in Section B (Login Page)
-class CheckBox: UIButton {
-    let checkedImage = UIImage(named: "ic_check_box")! as UIImage
-    let uncheckedImage = UIImage(named: "ic_check_box_outline_blank")! as UIImage
-    var isChecked: Bool = false {
-        didSet{
-            if isChecked == true {
-                self.setImage(checkedImage, for: UIControl.State.normal)
-            } else {
-                self.setImage(uncheckedImage, for: UIControl.State.normal)
-            }
-        }
-    }
-    override func awakeFromNib() {
-        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
-        self.isChecked = false
-    }
-    @objc func buttonClicked(sender: UIButton) {
-        if sender == self {
-            isChecked = !isChecked
-        }
-    }
-}
-
 
 
 // MARK: Public Functions
@@ -187,5 +79,79 @@ class publicFunctions {
         staffNameList.append(staffMember.init(firstName: "Kit Wai", lastName: "Fong", jobTitle: "Software Engineer", isCheckedIn: false))
         staffNameList.append(staffMember.init(firstName: "Chloe", lastName: "Wong", jobTitle: "Project Manager", isCheckedIn: false))
         staffNameList.append(staffMember.init(firstName: "Tin Yan", lastName: "Li", jobTitle: "Software Engineer", isCheckedIn: false))
+    }
+    
+    
+    // For returning a random 32-bit string
+    public func ret32bitString() -> String? {
+        var retString: String = ""
+        for _ in 0 ..< 32 {
+            retString.append(Character(UnicodeScalar(UInt32(("A" as UnicodeScalar).value) + arc4random_uniform(26))!))
+        }
+        return retString
+    }
+    
+    
+    // For adding an animated loading view
+    public func animatedLoadingView(textColor: UIColor) -> UIView {
+        let loadingView = UIView(frame: UIScreen.main.bounds)
+        loadingView.contentMode = .scaleAspectFit
+        loadingView.backgroundColor = UIColor.clear
+        
+        let dot1 = CAShapeLayer()
+        let dot2 = CAShapeLayer()
+        let dot3 = CAShapeLayer()
+        let dot4 = CAShapeLayer()
+        
+        dot1.path = UIBezierPath(arcCenter: CGPoint(x: loadingView.center.x-30,y: loadingView.center.y), radius: CGFloat(5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true).cgPath
+        dot1.fillColor = UIColor.white.cgColor
+        
+        dot2.path = UIBezierPath(arcCenter: CGPoint(x: loadingView.center.x-10,y: loadingView.center.y), radius: CGFloat(5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true).cgPath
+        dot2.fillColor = UIColor.white.cgColor
+        
+        dot3.path = UIBezierPath(arcCenter: CGPoint(x: loadingView.center.x+10,y: loadingView.center.y), radius: CGFloat(5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true).cgPath
+        dot3.fillColor = UIColor.white.cgColor
+        
+        dot4.path = UIBezierPath(arcCenter: CGPoint(x: loadingView.center.x+30,y: loadingView.center.y), radius: CGFloat(5), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true).cgPath
+        dot4.fillColor = UIColor.white.cgColor
+        
+        let animcolor = CABasicAnimation(keyPath: "fillColor")
+        animcolor.fromValue         = UIColor.white.cgColor
+        animcolor.toValue           = UIColor.black.cgColor
+        animcolor.duration          = 1.0
+        animcolor.repeatCount       = .infinity
+        animcolor.autoreverses      = true
+        
+        animcolor.beginTime = CACurrentMediaTime()
+        dot1.add(animcolor, forKey: "fillColor")
+        
+        animcolor.beginTime = CACurrentMediaTime() + 0.25
+        dot2.add(animcolor, forKey: "fillColor")
+        
+        animcolor.beginTime = CACurrentMediaTime() + 0.5
+        dot3.add(animcolor, forKey: "fillColor")
+        
+        animcolor.beginTime = CACurrentMediaTime() + 0.75
+        dot4.add(animcolor, forKey: "fillColor")
+        
+        loadingView.layer.addSublayer(dot1)
+        loadingView.layer.addSublayer(dot2)
+        loadingView.layer.addSublayer(dot3)
+        loadingView.layer.addSublayer(dot4)
+        loadingView.center = CGPoint(x: UIScreen.main.bounds.size.width*0.5, y: UIScreen.main.bounds.size.height*0.5)
+        
+        let loadingLabel: UILabel = {
+            let loadingLabel = UILabel()
+            loadingLabel.text = "Loading"
+            loadingLabel.font = UIFont(name: "NotoSans-Medium", size: 24)
+            loadingLabel.textColor = textColor
+            loadingLabel.textAlignment = .center
+            loadingLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+            loadingLabel.center = CGPoint(x: loadingView.center.x, y: loadingView.center.y-30)
+            return loadingLabel
+        }()
+        loadingView.addSubview(loadingLabel)
+        
+        return loadingView
     }
 }
