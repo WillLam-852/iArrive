@@ -11,16 +11,15 @@ import UIKit
 class selectStaffTableViewCell: UITableViewCell {
 
     // MARK: Properties
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var jobTitleLabel: UILabel!
-    
     var didSelectedRow = false
     var whiteRoundedView = UIView()
+    var nameLabel = UILabel()
+    var jobTitleLabel = UILabel()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        whiteRoundedView = UIView(frame: CGRect(x: 10, y: 5, width: self.contentView.frame.size.width - 20, height: self.contentView.frame.size.height+10))
+        whiteRoundedView = UIView(frame: CGRect(x: 10, y: 5, width: self.contentView.frame.size.width - 20, height: self.contentView.frame.size.height + 10))
         whiteRoundedView.layer.backgroundColor = UIColor.white.cgColor
         whiteRoundedView.layer.masksToBounds = false
         whiteRoundedView.layer.cornerRadius = 8.0
@@ -30,6 +29,18 @@ class selectStaffTableViewCell: UITableViewCell {
             y: 3,
             blur: 6,
             spread: 0)
+        
+        nameLabel.frame = CGRect(x: 30, y: 18, width: 524, height: 33)
+        jobTitleLabel.frame = CGRect(x: 30, y: 53, width: 524, height: 32)
+        nameLabel.font = UIFont(name: "NotoSans-Bold", size: 24)
+        jobTitleLabel.font = UIFont(name: "NotoSans-Light", size: 24)
+        nameLabel.textColor = UIColor.black.withAlphaComponent(0.3)
+        jobTitleLabel.textColor = UIColor.black.withAlphaComponent(0.3)
+        whiteRoundedView.addSubview(nameLabel)
+        whiteRoundedView.addSubview(jobTitleLabel)
+        whiteRoundedView.bringSubviewToFront(nameLabel)
+        whiteRoundedView.bringSubviewToFront(jobTitleLabel)
+        
         self.contentView.addSubview(whiteRoundedView)
         self.contentView.sendSubviewToBack(whiteRoundedView)
     }

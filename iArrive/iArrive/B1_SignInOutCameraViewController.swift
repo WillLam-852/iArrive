@@ -59,6 +59,10 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         timeAndDateLabelConfiguration()
         
         // Set up Home Button
+        homeButton.frame = CGRect(x: 20, y: 40, width: 175, height: 33).fixedToScreenRatio(false)
+        homeButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 115)
+        homeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        homeButton.setTitle("    HOME", for: .normal)
         homeButton.setTitleColor(UIColor.white.withAlphaComponent(1.0), for: .normal)
         homeButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
         homeButton.setImage(UIImage(named: "HomeArrow"), for: .normal)
@@ -127,9 +131,9 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: {
             self.view.removeGestureRecognizer(self.tap)
             if self.imageView.getColor(at: CGPoint(x: self.view.center.x + 50, y: self.view.center.y - 50)).isDarkColor || self.imageView.getColor(at: CGPoint(x: self.view.center.x - 50, y: self.view.center.y - 50)).isDarkColor || self.imageView.getColor(at: CGPoint(x: self.view.center.x + 50, y: self.view.center.y + 50)).isDarkColor {
-                self.loadingView = usefulTools().animatedLoadingView(textColor: UIColor.white)
+                self.loadingView = publicFunctions().animatedLoadingView(textColor: UIColor.white)
             } else {
-                self.loadingView = usefulTools().animatedLoadingView(textColor: publicFunctions().hexStringToUIColor(hex: "#2E4365"))
+                self.loadingView = publicFunctions().animatedLoadingView(textColor: publicFunctions().hexStringToUIColor(hex: "#2E4365"))
             }
             self.view.addSubview(self.loadingView)
             self.homeButton.isHidden = true
@@ -207,6 +211,8 @@ class B1_SignInOutCameraViewController: UIViewController, AVCapturePhotoCaptureD
             dateLabel.text = dateLabel.text! + "0"
         }
         dateLabel.text = dateLabel.text! + String(day)
+        timeLabel.frame = CGRect(x: 164, y: 35, width: 442, height: 54).x_centreRatio()
+        dateLabel.frame = CGRect(x: 164, y: 98, width: 442, height: 33).x_centreRatio()
         
         self.view.bringSubviewToFront(timeLabel)
         self.view.bringSubviewToFront(dateLabel)

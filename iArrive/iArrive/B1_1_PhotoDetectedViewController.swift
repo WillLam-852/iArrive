@@ -70,12 +70,14 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         // Set up Upper Layer View (with different colors for check in / out)
+        upperLayerView.frame = CGRect(x: 171, y: 96, width: 426, height: 648).centreRatio()
         upperLayerView.layer.borderWidth = 1
         upperLayerView.layer.borderColor = currentColor?.cgColor
         upperLayerView.layer.cornerRadius = 20
         upperLayerView.clipsToBounds = true
         
         // Set up Icon Image Vice (with circle border)
+        iconImageView.frame = CGRect(x: 73, y: 69, width: 280, height: 280)
         iconImageView.image = UIImage(named: "Search") // To Be changed
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.layer.borderWidth = 1.0
@@ -85,6 +87,8 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         iconImageView.clipsToBounds = true
         
         // Set up Detected Name and Detected Job Title Labels
+        detectedNameLabel.frame = CGRect(x: 0, y: 373, width: 426, height: 44)
+        detectedJobTitleLabel.frame = CGRect(x: 0, y: 417, width: 426, height: 44)
         detectedNameLabel.text = currentCheckingInOutFirstName! + " " + currentCheckingInOutLastName!
         detectedJobTitleLabel.text = currentCheckingInOutJobTitle
         
@@ -99,15 +103,21 @@ class B1_1_PhotoDetectedViewController: UIViewController {
         let string = NSMutableAttributedString(string: labelText, attributes: nameStringAttribute)
         let textRange = string.mutableString.range(of: currentCheckingInOutTime!)
         string.addAttributes([.font: UIFont(name: "Montserrat-Medium", size: 56)!, .foregroundColor : UIColor.white], range: textRange)
+        checkInOutButton.frame = CGRect(x: 0, y: 507, width: 426, height: 141)
         checkInOutButton.backgroundColor = currentColor
         checkInOutButton.titleLabel?.numberOfLines = 0
         checkInOutButton.titleLabel?.textAlignment = .center
         checkInOutButton.setAttributedTitle(string, for: .normal)
         
         // Set up Not Me Button
+        notMeButton.frame = CGRect(x: 298, y: 778, width: 172, height: 56).centreRatio()
         notMeButton.layer.cornerRadius = 28
         
         // Set up Try Again Button
+        tryAgainButton.frame = CGRect(x: 44, y: 932, width: 175, height: 35).fixedToScreenRatio(false)
+        tryAgainButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -5)
+        tryAgainButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tryAgainButton.setTitle("     Try Again", for: .normal)
         if self.backgroundImageView.getColor(at: tryAgainButton.center).isDarkColor && (self.backgroundImageView.getColor(at: CGPoint(x: tryAgainButton.center.x - 50, y: tryAgainButton.center.y - 50)).isDarkColor || self.backgroundImageView.getColor(at: CGPoint(x: tryAgainButton.center.x + 50, y: tryAgainButton.center.y + 50)).isDarkColor) {
             tryAgainButton.setTitleColor(UIColor.white, for: .normal)
             tryAgainButton.setTitleColor(UIColor.white.withAlphaComponent(0.3), for: .highlighted)
