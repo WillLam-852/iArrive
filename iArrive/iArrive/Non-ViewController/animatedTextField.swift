@@ -26,6 +26,9 @@ class animatedTextField: UIView {
     var borderStatus = 0                // 0 for underline, 1 for whole borders
     var placeholderLabelStatus = 0      // 0 for minified, 1 for magnified
     var isPlaceholderSetup = false      // For avoiding setting up placeholderlabel repeatedly
+    var updateTextFieldStatusChecked = false        // For avoiding updating text field status simultaneously
+    var tappedChecked = false           // For avoding tapped action and text field cancel action at the same time
+
     
     // MARK: Properties
     var placeholderText: String? {
@@ -123,38 +126,40 @@ class animatedTextField: UIView {
 
     
     private func updateTextFieldStatus() {
-        if mainTextField.isFirstResponder && borderStatus == 0 {
-            UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-                self.backgroundColor = UIColor.black.withAlphaComponent(0.05)
-                self.setupHalfBorders()
-            }, completion: { finished in
-                self.borderStatus = 1
-            })
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
-                self.setupFullBorders()
-            })
-        } else if mainTextField.text != "" && !mainTextField.isFirstResponder && borderStatus == 1 {
-            setupHalfBorders()
-            UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-                self.backgroundColor = .clear
+        if !updateTextFieldStatusChecked {
+            updateTextFieldStatusChecked = true
+            if mainTextField.isFirstResponder && borderStatus == 0 {
+                UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
+                    self.backgroundColor = UIColor.black.withAlphaComponent(0.05)
+                    self.setupHalfBorders()
+                }, completion: { finished in
+                    self.borderStatus = 1
+                })
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
+                    self.setupFullBorders()
+                })
+            } else if mainTextField.text != "" && !mainTextField.isFirstResponder && borderStatus == 1 {
+                setupHalfBorders()
+                UIView.animate(withDuration: animationDuration, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
+                    self.backgroundColor = .clear
+                    self.setupUnderlineBorder()
+                }, completion: { finish in
+                    self.borderStatus = 0
+                })
                 self.setupUnderlineBorder()
-            }, completion: { finish in
-                self.borderStatus = 0
-            })
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
-                self.setupUnderlineBorder()
-            })
-        }
+            }
         
-        if mainTextField.text == "" && !mainTextField.isFirstResponder {
-            if placeholderLabelStatus == 0 {
-                magnifyingPlaceholder()
-            }
-        } else {
-            if placeholderLabelStatus == 1 {
-                minifyingPlaceholder()
+            if mainTextField.text == "" && !mainTextField.isFirstResponder {
+                if placeholderLabelStatus == 0 {
+                    magnifyingPlaceholder()
+                }
+            } else {
+                if placeholderLabelStatus == 1 {
+                    minifyingPlaceholder()
+                }
             }
         }
+        self.updateTextFieldStatusChecked = false
     }
     
     
@@ -246,6 +251,7 @@ class animatedTextField: UIView {
     // MARK: Action Methods for Text Field
     
     @objc func tapped() {
+        tappedChecked = true
         mainTextField.becomeFirstResponder()
         updateTextFieldStatus()
         if mainTextField.text == "" {
@@ -253,6 +259,9 @@ class animatedTextField: UIView {
         } else {
             showPasswordButton.isHidden = false
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: {
+            self.tappedChecked = false
+        })
     }
     
     @objc func textFieldTap(_ textField: UITextField) {
@@ -275,8 +284,12 @@ class animatedTextField: UIView {
     }
     
     @objc func textFieldCancel(_ textField: UITextField) {
-        updateTextFieldStatus()
-        showPasswordButton.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(150), execute: {
+            if !self.tappedChecked {
+                self.updateTextFieldStatus()
+                self.showPasswordButton.isHidden = true
+            }
+        })
     }
     
     
