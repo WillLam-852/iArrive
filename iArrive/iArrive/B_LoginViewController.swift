@@ -85,6 +85,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             for item in [disappearingApptechImage, disappearingAppIconImage, appearingGreetingLabel, appearingLogoutButton, appearingAddMemberButton] {
                 item.layer.opacity = 0.0
             }
+            iArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).centreRatio()
         }
         updatedLoginButtonState()
     }
