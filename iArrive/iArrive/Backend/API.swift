@@ -21,7 +21,7 @@ class API {
             "email" : username,
             "password" : password
         ]
-        AF.request(uploadURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil, interceptor: nil)
+        Alamofire.request(uploadURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil)
             .responseJSON { (response) -> Void in
                 switch response.result {
                 case .success(let value):
@@ -51,7 +51,7 @@ class API {
         let headers: HTTPHeaders = [
             "Authorization": token!
         ]
-        AF.request(uploadURL ?? "", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil)
+        Alamofire.request(uploadURL ?? "", method: .post, parameters: nil, encoding: URLEncoding.default, headers: headers)
             .responseJSON { (response) -> Void in
                 switch response.result {
                 case .success(let value):
@@ -77,18 +77,18 @@ class API {
         let headers: HTTPHeaders = [
             "Authorization": token!
         ]
-        AF.upload(multipartFormData: multipartFormDatas, usingThreshold: .init(), fileManager: .init(), to: uploadURL ?? "", method: .post, headers: headers, interceptor: nil)
-            .responseJSON { (response) -> Void in
-                switch response.result {
-                case .success(let value):
-                    let receivedData = JSON(value)
-                    print("uploadVideo JSON: ", receivedData)
-                    completionHandler(receivedData, nil)
-                case .failure(let error):
-                    print("Request failed with error: \(error)")
-                    completionHandler(nil, error)
-                }
-        }
+//        Alamofire.upload(multipartFormData: multipartFormDatas, usingThreshold: .init(), to: uploadURL ?? "", method: .post, headers: headers, encodingCompletion: nil)
+//            .responseJSON { (response) -> Void in
+//                switch response.result {
+//                case .success(let value):
+//                    let receivedData = JSON(value)
+//                    print("uploadVideo JSON: ", receivedData)
+//                    completionHandler(receivedData, nil)
+//                case .failure(let error):
+//                    print("Request failed with error: \(error)")
+//                    completionHandler(nil, error)
+//                }
+//        }
     }
     
     
@@ -102,7 +102,7 @@ class API {
             "Authorization": token!
         ]
         print("parameters: ", parameters)
-        AF.request(uploadURL ?? "", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers, interceptor: nil)
+        Alamofire.request(uploadURL ?? "", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers)
             .responseJSON { (response) -> Void in
                 switch response.result {
                 case .success(let value):
