@@ -53,6 +53,12 @@ class B_SignInViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // TO BE DELETED
+        print("token: ", UserDefaults.standard.string(forKey: "token")!)
+        print("orgID: ", UserDefaults.standard.string(forKey: "orgID")!)
+        print("companyName: ", UserDefaults.standard.string(forKey: "companyName")!)
+        
         configurateAppearingElements()
         for item in [greetingLabel, logoutButton, checkInOutButton] {
             item!.layer.opacity = 1.0
@@ -138,15 +144,24 @@ class B_SignInViewController: UIViewController {
             self.checkInOutButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
             self.checkInOutButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         }, completion: { finished in
-            if UserDefaults.standard.bool(forKey: "isUserLoggedIn") {
-                self.performSegue(withIdentifier: "SignIntoLogInSegue", sender: self)
-                isengChinSegmentedControl = false
-                isLoadedLoginPage = true
-                UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
-                UserDefaults.standard.synchronize()
-            } else {
-                self.dismiss(animated: false, completion: nil)
-            }
+            UserDefaults.standard.set("", forKey: "companyName")
+            UserDefaults.standard.set("", forKey: "orgID")
+            UserDefaults.standard.set("", forKey: "token")
+            UserDefaults.standard.synchronize()
+            self.dismiss(animated: false, completion: nil)
+            
+//            if UserDefaults.standard.bool(forKey: "isUserLoggedIn") {
+//                self.performSegue(withIdentifier: "SignIntoLogInSegue", sender: self)
+//                isengChinSegmentedControl = false
+//                isLoadedLoginPage = true
+//                UserDefaults.standard.set("", forKey: "companyName")
+//                UserDefaults.standard.set("", forKey: "orgID")
+//                UserDefaults.standard.set("", forKey: "token")
+//                UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
+//                UserDefaults.standard.synchronize()
+//            } else {
+//                self.dismiss(animated: false, completion: nil)
+//            }
         })
     }
     
@@ -211,7 +226,7 @@ class B_SignInViewController: UIViewController {
             normalText = "Good night "
         }
         let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
-        let boldText = (companyName ?? UserDefaults.standard.string(forKey: "companyName")!) + " !"
+        let boldText = companyName + " !"
         let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
         let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))

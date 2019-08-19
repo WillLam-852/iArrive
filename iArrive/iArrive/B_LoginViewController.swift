@@ -12,7 +12,6 @@ import SwiftyJSON
 
 class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
-    
     // MARK: Properties
     @IBOutlet weak var ApptechImage: UIImageView!
     @IBOutlet weak var iArriveImage: UILabel!
@@ -35,7 +34,9 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     // MARK: Local Variable
     var engChinSegmentedControl = UIView()
-
+    var logoURL: String?
+    var organizationDescription: String?
+    var profileDictionary: Dictionary<String, Any>?
     
     
     override func viewDidLoad() {
@@ -45,6 +46,55 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         userNameTextField.mainTextField.delegate = self
         passwordTextField.mainTextField.delegate = self
         explainTextView.delegate = self
+        
+        // Check if Auto-Login
+        token = UserDefaults.standard.string(forKey: "token") ?? ""
+        orgID = UserDefaults.standard.string(forKey: "orgID") ?? ""
+        if (token != "" && orgID != "") {
+            API().getOrganizationInformationAPI() { (responseObject, error) in
+                if error == nil {
+                    if self.dealProfileForOrganizationInformation(responseObject!) {
+                        UserDefaults.standard.set(true, forKey: "haveSettingPage")
+                        UserDefaults.standard.synchronize()
+                    } else {
+                        UserDefaults.standard.set(false, forKey: "haveSettingPage")
+                        UserDefaults.standard.synchronize()
+                    }
+                    self.performSegue(withIdentifier: "LogintoSignInSegue", sender: self)
+                } else {
+
+                }
+            }
+        }
+        
+            
+//
+//                } else {
+//                    [userDefaults setObject:@(NO) forKey:@"haveSettingPage"];
+//                    [userDefaults synchronize];
+//                }
+//                [self performSegueWithIdentifier:@"loginSuccess" sender:self];
+//
+//            } failure:^(NSError *error) {
+//                self.coverView.alpha = 0;
+//
+//                NSString *errorType = error.userInfo[@"NSLocalizedDescription"];
+//                if(([errorType isEqualToString:@"The Internet connection appears to be offline."])||([errorType isEqualToString:@"Could not connect to the server."])) {
+//                    self.noticeLabel.text = CustomLocalisedString(@"loginVC_erm_noConnect", @"");
+//                    self.noticeLabel.alpha = 1;
+//                }
+//
+//                UIBarButtonItem *translationButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"translation"] style:UIBarButtonItemStylePlain target:self action:@selector(performTranslation)];
+//                [translationButton setTintColor: [UIColor whiteColor]];
+//
+//                self.navigationItem.rightBarButtonItem = translationButton;
+//
+//            }];
+//        } else {
+//            _coverView.alpha = 0;
+//            UIBarButtonItem *translationButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"translation"] style:UIBarButtonItemStylePlain target:self action:@selector(performTranslation)];
+//            self.navigationItem.rightBarButtonItem = translationButton;
+//        }
         
         // Associate Text Field objects with action methods (For updating Login button and Show Password button states)
         userNameTextField.mainTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -81,6 +131,9 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                 item!.center.x += 250
                 item!.layer.opacity = 0.0
             }
+            for item in [disappearingApptechImage, disappearingAppIconImage] {
+                item.layer.opacity = 1.0
+            }
         } else { // For showing the view after logging out
             for item in [disappearingApptechImage, disappearingAppIconImage, appearingGreetingLabel, appearingLogoutButton, appearingAddMemberButton] {
                 item.layer.opacity = 0.0
@@ -94,25 +147,25 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         super.viewDidAppear(animated)
         // Set up Fade-in animation
         if !isLoadedLoginPage {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
+            UIView.animate(withDuration: 0.5, delay: 2.0, options: [],
                            animations: {
                 self.disappearingApptechImage.layer.opacity = 0.0
                 self.disappearingAppIconImage.layer.opacity = 0.0
             },
                            completion: nil)
-            UIView.animate(withDuration: 0.8, delay: 0.0, options: [],
+            UIView.animate(withDuration: 0.8, delay: 2.0, options: [],
                            animations: {
                             self.iArriveImage.frame = CGRect(x: 322.0, y: 279.0, width: 124.0, height: 44.0).centreRatio()
             },
                            completion: nil)
-            UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut,
+            UIView.animate(withDuration: 0.5, delay: 2.5, options: .curveEaseInOut,
                            animations: {
                             for item in [self.ApptechImage, self.explainTextView, self.engChinSegmentedControl, self.bottomBar, self.poweredByLabel, self.bottomBarLogoImage] {
                                 item!.layer.opacity = 1.0
                             }
             },
                            completion: nil)
-            UIView.animate(withDuration: 0.7, delay: 0.5, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 2.5, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.userNameTextField.center.x -= 250
                 if self.userNameTextField.mainTextField.text == "" {
                     self.userNameTextField.layer.opacity = 0.5
@@ -120,7 +173,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     self.userNameTextField.layer.opacity = 1.0
                 }
             }, completion: nil)
-            UIView.animate(withDuration: 0.7, delay: 0.6, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 2.6, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.passwordTextField.center.x -= 250
                 if self.passwordTextField.mainTextField.text == "" {
                     self.passwordTextField.layer.opacity = 0.5
@@ -128,13 +181,13 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     self.passwordTextField.layer.opacity = 1.0
                 }
             }, completion: nil)
-            UIView.animate(withDuration: 0.7, delay: 0.7, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 2.7, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.keepMeLoginButton.center.x -= 250
                 self.forgotPasswordButton.center.x -= 250
                 self.keepMeLoginButton.layer.opacity = 1.0
                 self.forgotPasswordButton.layer.opacity = 1.0
             }, completion: nil)
-            UIView.animate(withDuration: 0.7, delay: 0.8, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
+            UIView.animate(withDuration: 0.7, delay: 2.8, usingSpringWithDamping: 0.7, initialSpringVelocity: 7.0, options: [.curveEaseOut], animations: {
                 self.loginButton.center.x -= 250
                 self.loginButton.layer.opacity = 1.0
             }, completion: nil)
@@ -240,6 +293,33 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         loginButton.setTitleColor(publicFunctions().hexStringToUIColor(hex: "#38C9FF").withAlphaComponent(0.5), for: .normal)
         loginButton.layer.hideShadow()
     }
+
+    
+    private func dealProfileForOrganizationInformation(_ organizationInformation: JSON) -> Bool {
+        logoURL = organizationInformation["logo_image_url"].stringValue
+        organizationDescription = organizationInformation["description"].stringValue
+
+        profileDictionary = organizationInformation["features"].dictionaryValue
+//        UserDefaults.standard.setValue(profileDictionary, forKey: "profile")
+//        UserDefaults.standard.synchronize()
+        
+        companyName = organizationInformation["name"].stringValue
+
+        var count = 0
+        if organizationInformation["features"]["multiple_sites"].boolValue {
+            count += 1
+        }
+        let checkMode = organizationInformation["features"]["check_mode"].arrayValue
+        if checkMode.firstIndex(of: "manual") != nil {
+            count += 1
+        }
+        if count > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+
     
     
     // MARK: Actions
@@ -260,6 +340,8 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                 self.configurateAppearingElements()
                 if self.keepMeLoginButton.isChecked {
                     UserDefaults.standard.set(companyName, forKey: "companyName")
+                    UserDefaults.standard.set(orgID, forKey: "orgID")
+                    UserDefaults.standard.set(token, forKey: "token")
                     UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
                     UserDefaults.standard.synchronize()
                 }
@@ -368,7 +450,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         disappearingApptechImage.image = UIImage(named: "Large_Logo")
         disappearingAppIconImage.image = UIImage(named: "Logo")
         disappearingAppIconImage.contentMode = .scaleAspectFit
-        for item in [disappearingAppIconImage, disappearingAppIconImage] {
+        for item in [disappearingApptechImage, disappearingAppIconImage] {
             self.view.addSubview(item)
             self.view.bringSubviewToFront(item)
             item.layer.opacity = 1.0
@@ -393,7 +475,7 @@ class B_LoginViewController: UIViewController, UITextFieldDelegate, UITextViewDe
             normalText = "Good night "
         }
         let normalAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-Medium", size: 24)]
-        let boldText = (companyName ?? UserDefaults.standard.string(forKey: "companyName")!) + " !"
+        let boldText = companyName + " !"
         let boldAttrs = [NSAttributedString.Key.font : UIFont(name: "NotoSans-ExtraBold", size: 24)]
         let attributedString = NSMutableAttributedString(string: normalText, attributes: normalAttrs as [NSAttributedString.Key : Any])
         attributedString.append(NSMutableAttributedString(string: boldText, attributes: boldAttrs as [NSAttributedString.Key : Any]))

@@ -22,17 +22,13 @@ var staffNameList = [staffMember] ()
 // For selecting language
 var engChinStatus = 0   // 0 for English, 1 for Chinese
 
-// Login Information (For Section B)
-var companyName: String?
-
 // Staff Member Information (For Section B1)
 var currentCheckingInOutFirstName: String?
 var currentCheckingInOutLastName: String?
 var currentCheckingInOutJobTitle: String?
 var currentCheckingInOutDate: String?
 var currentCheckingInOutTime: String?
-//var currentCheckingInOutPhoto: UIImage?
-var currentCheckingInOutPhoto = UIImage(named: "lion")
+var currentCheckingInOutPhoto: UIImage?
 
 // Staff Member Information (For Section C)
 var currentRegisteringFirstName: String?
@@ -40,8 +36,9 @@ var currentRegisteringLastName: String?
 var currentRegisteringJobTitle: String?
 
 // For sending and retriving JSON data to/from database
-var token: String?
-var orgID: String?
+var token = ""
+var orgID = ""
+var companyName = ""
 
 // For animation
 var isLoadedLoginPage = false

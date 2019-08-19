@@ -23,13 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Sample Staff Loaded")
         }
         
-        let userLoginStatus = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
-        if userLoginStatus {
-            let mainStoryboard = UIStoryboard(name: "Main" , bundle: nil)
-            let protectedPage = mainStoryboard.instantiateViewController(withIdentifier: "B_SignInViewController") as! B_SignInViewController
-            window!.rootViewController = protectedPage
-            window!.makeKeyAndVisible()
-        }
+//        let userLoginStatus = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
+//        if userLoginStatus {
+//            let mainStoryboard = UIStoryboard(name: "Main" , bundle: nil)
+//            let protectedPage = mainStoryboard.instantiateViewController(withIdentifier: "B_SignInViewController") as! B_SignInViewController
+//            window!.rootViewController = protectedPage
+//            window!.makeKeyAndVisible()
+//        }
         return true
     }
 

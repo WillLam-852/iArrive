@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class C1_VideoRegisterViewController: UIViewController {
+class C1_VideoRegisterViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
 
     // MARK: Properties
     @IBOutlet weak var timeLabel: UILabel!
@@ -18,6 +19,14 @@ class C1_VideoRegisterViewController: UIViewController {
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
+    
+    
+    // MARK: Local Variables
+    var captureSession: AVCaptureSession!
+    var frontCamera: AVCaptureDevice?
+    var movieOutput: AVCaptureMovieFileOutput!
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+    var outputURL: URL?
     
     
     override func viewDidLoad() {
@@ -31,6 +40,21 @@ class C1_VideoRegisterViewController: UIViewController {
         startButton.addTarget(self, action: #selector(buttonDraggedInside), for: .touchDragInside)
         startButton.addTarget(self, action: #selector(buttonDraggedOutside), for: .touchDragOutside)
     }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Set up the camera
+        setupSession()
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Stop running the camera
+        stopSession()
+    }
+    
     
     
     // MARK: Action Methods for Buttons
@@ -51,6 +75,54 @@ class C1_VideoRegisterViewController: UIViewController {
     
     @objc func buttonDraggedOutside(_ sender: AnyObject?) {
         startButtonUnpressing()
+    }
+    
+    
+    // MARK: AVCaptureFileOutputRecordingDelegate
+    
+    // For uploading video to the server
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        self.view.makeToastActivity(.center)
+        API().uploadVideoAPI(videoFileURL: self.outputURL!) { (responseObject, error) in
+            if error == nil {
+                let videoURL = responseObject?["video_filename"].stringValue
+                self.uploadToAddFace(video_url: videoURL!)
+            } else {
+                self.view.hideToastActivity()
+                self.uploadFinished()
+                let alert = UIAlertController(title: "Error", message: "Fail to upload your video, please try again later.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+    
+    // For uploading to add face
+    private func uploadToAddFace (video_url: String) {
+        let faceName = publicFunctions().ret32bitString()
+        print("faceName: \(faceName ?? "No FaceName")")
+        let contactInfo: Dictionary = [
+            "face_name" : faceName!,
+            "video_url" : video_url,
+            "train" : "true"
+        ]
+        API().createFaceAPI(parameters: contactInfo) { (responseObject, error) in
+            if error == nil {
+                self.view.hideToastActivity()
+                self.uploadFinished()
+                let alert = UIAlertController(title: "Add Success", message: "New staff has been added successfully! Take effect after 5 minutes.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    self.pictureClick()
+                }))
+                self.present(alert, animated: true)
+            } else {
+                self.view.hideToastActivity()
+                self.uploadFinished()
+                let alert = UIAlertController(title: "Error", message: "Fail to create employee information", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
     }
     
     
@@ -82,6 +154,100 @@ class C1_VideoRegisterViewController: UIViewController {
         backButton.setImage(UIImage(named: "Back_3"), for: .normal)
     }
     
+    
+    // MARK: Set up Camera
+    
+    // Set up the camera
+    private func setupSession() {
+        captureSession = AVCaptureSession()
+        if captureSession.canSetSessionPreset(.hd1280x720) {
+            captureSession.sessionPreset = .hd1280x720
+        }
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+        let devices = deviceDiscoverySession.devices
+        for device in devices {
+            if device.position == AVCaptureDevice.Position.front {
+                frontCamera = device
+            }
+        }
+        do {
+            // Set up the input and output source for camera
+            let deviceInput = try AVCaptureDeviceInput(device: frontCamera!)
+            if captureSession.canAddInput(deviceInput) {
+                captureSession.addInput(deviceInput)
+            }
+            if captureSession.canAddOutput(movieOutput) {
+                captureSession.addOutput(movieOutput)
+            }
+            setupLivePreview()
+        }
+        catch let error  {
+            print("Error Unable to initialize front camera:  \(error.localizedDescription)")
+        }
+    }
+    
+    // Set up Preview View Layer
+    private func setupLivePreview() {
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoPreviewLayer.videoGravity = .resizeAspectFill
+        if videoPreviewLayer.connection!.isVideoOrientationSupported {
+            videoPreviewLayer.connection?.videoOrientation = .portrait
+        }
+        if videoPreviewLayer.connection!.isVideoStabilizationSupported {
+            videoPreviewLayer.connection?.preferredVideoStabilizationMode = .auto
+        }
+        self.videoPreviewLayer.frame = self.previewView.bounds
+        self.previewView.layer.insertSublayer(self.videoPreviewLayer, at: 0)
+        startSession()
+    }
+    
+    // Start Running the Camera
+    private func startSession() {
+        if !self.captureSession.isRunning {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.captureSession.startRunning()
+            }
+        }
+    }
+    
+    // Stop Running the Camera
+    private func stopSession() {
+        if self.captureSession.isRunning {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.captureSession.stopRunning()
+            }
+        }
+    }
+    
+    // For generating a temporary URL for saved photos
+    private func tempURL() -> URL? {
+        let temp = NSTemporaryDirectory()
+        if temp != "" {
+            let filename = String(format: "%@.mp4", UUID().uuidString)
+            let path = URL(fileURLWithPath: temp).appendingPathComponent(filename)
+            return path
+        }
+        return nil
+    }
+    
+    // For clicking the picture
+    private func pictureClick() {
+        if let viewControllers = navigationController?.viewControllers[1] {
+            navigationController?.popToViewController(viewControllers, animated: true)
+        }
+    }
+    
+    // For loading the view after finish uploading (successfully / unsuccessfully)
+    private func uploadFinished() {
+        timeLabel.isHidden = true
+        timeLabel.text = "00:03"
+        recordLabel.text = "Record a video"
+        positionLabel.isHidden = false
+        startButton.isEnabled = true
+        startButtonUnpressing()
+        backButtonUnpressing()
+    }
+
     // Set up Elements
     private func setUpElements() {
         // Set up Background Color
@@ -101,7 +267,6 @@ class C1_VideoRegisterViewController: UIViewController {
         previewView.layer.borderColor = UIColor.white.cgColor
         previewView.layer.cornerRadius = previewView.frame.height / 2
         previewView.clipsToBounds = true
-        previewView.backgroundColor = .blue
         
         // Set up Image Inside Preview View
         imageInsidePreviewView.frame = CGRect(x: 0, y: 0, width: previewView.bounds.width, height: previewView.bounds.height)
@@ -141,35 +306,32 @@ class C1_VideoRegisterViewController: UIViewController {
     }
     
     @IBAction func pressedStartButton(_ sender: UIButton) {
-        timeLabel.isHidden = false
-        recordLabel.text = "Recording..."
-        positionLabel.isHidden = true
-        backButton.isEnabled = false
-        startButton.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            self.timeLabel.text = "00:02"
-        })
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-            self.timeLabel.text = "00:01"
-        })
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-            self.timeLabel.text = "00:00"
-            self.startButtonUnpressing()
-            self.backButtonUnpressing()
-            let alert = UIAlertController(title: "Add Success", message: "New staff has been added successfully! Take effect after\n5 minutes.", preferredStyle: .alert)
-            
-//            let alert = UIAlertController(title: "Error", message: "Fail to upload your video, please try again later.", preferredStyle: .alert)
-//            let alert = UIAlertController(title: "Error", message: "Fail to create employee information.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                staffNameList.append(staffMember(firstName: currentRegisteringFirstName!, lastName: currentRegisteringLastName!, jobTitle: currentRegisteringJobTitle!, isCheckedIn: false))
-                currentRegisteringFirstName = nil
-                currentRegisteringLastName = nil
-                currentRegisteringJobTitle = nil
-                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true)
-        })
+        if !movieOutput.isRecording {
+            let connection = movieOutput.connection(with: .video)
+            if connection!.isVideoOrientationSupported {
+                connection?.videoOrientation = .portrait
+            }
+            if connection!.isVideoStabilizationSupported {
+                connection?.preferredVideoStabilizationMode = .auto
+            }
+            outputURL = self.tempURL()
+            movieOutput.startRecording(to: outputURL! as URL, recordingDelegate: self)
+            timeLabel.text = "00:03"
+            timeLabel.isHidden = false
+            recordLabel.text = "Recording..."
+            positionLabel.isHidden = true
+            startButton.isEnabled = false
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { timer in
+                self.timeLabel.text = "00:02"
+            })
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { timer in
+                self.timeLabel.text = "00:01"
+            })
+            Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { timer in
+                self.timeLabel.text = "00:00"
+                self.movieOutput.stopRecording()
+            })
+        }
     }
     
     
